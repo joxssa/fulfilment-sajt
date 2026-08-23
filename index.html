@@ -100,8 +100,9 @@ h3{font-size:1.15rem;font-weight:700}
 .mockup-title{margin-left:.4rem;font-size:.8rem;font-weight:700;color:var(--body)}
 .mockup-body{padding:1.1rem}
 .tiles{display:grid;grid-template-columns:repeat(3,1fr);gap:.7rem;margin-bottom:1rem}
-.tile{background:var(--mint);border:1px solid var(--mint-2);border-radius:12px;padding:.75rem .85rem}
+.tile{background:var(--mint);border:1px solid var(--mint-2);border-radius:12px;padding:.75rem .85rem;min-width:0}
 .tile span{font-size:.68rem;font-weight:700;color:var(--body);text-transform:uppercase;letter-spacing:.06em;display:block;white-space:nowrap}
+@media(max-width:640px){.tile{padding:.6rem .65rem}.tile span{white-space:normal;font-size:.6rem}.tile b{font-size:1rem}}
 .tile b{font-size:1.15rem;font-weight:800}
 .tile b em{font-style:normal;font-size:.72rem;color:var(--green-dark);font-weight:700}
 .chart{display:flex;align-items:flex-end;gap:6px;height:88px;padding:0 .2rem;margin-bottom:1rem}
