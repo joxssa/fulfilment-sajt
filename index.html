@@ -3,24 +3,26 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Fulfilment.rs — eCommerce fulfilment u Srbiji | Skladištenje, pakovanje i isporuka za 24h</title>
-<meta name="description" content="Fulfilment partner koji razume eCommerce. Skladištenje, pakovanje, isporuka za 24h preko Pošte Srbije, sopstveni softver, call centar i fiskalizacija. Preko 400.000 isporučenih paketa.">
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%2300b878'/%3E%3Cpath d='M9 16.5l5 5 9-10' stroke='%23fff' stroke-width='3.2' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E">
+<title>Fulfilment.rs · PAKUM — eCommerce fulfilment u Srbiji | Skladištenje, pakovanje i isporuka</title>
+<meta name="description" content="PAKUM (fulfilment.rs) — fulfilment partner koji je i sam e-commerce prodavac sa ~1.000 paketa dnevno. Skladištenje, pakovanje, isporuka, pouzeće i fiskalizacija, roba na veliko i uslužni uvoz. Preko 400.000 isporučenih paketa.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%23ff7a1a'/%3E%3Ctext x='16' y='23' font-family='Arial,sans-serif' font-size='19' font-weight='800' fill='%23fff' text-anchor='middle'%3EP%3C/text%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <style>
 :root{
-  --ink:#062e23;
-  --body:#426156;
-  --green:#00b878;
-  --green-dark:#009463;
-  --mint:#edf8f2;
-  --mint-2:#dff3e9;
-  --line:#dcede4;
+  --navy:#0d2440;
+  --navy-2:#123158;
+  --ink:#0d2440;
+  --body:#44566c;
+  --orange:#ff7a1a;
+  --orange-dark:#e96a0f;
+  --paper:#f7f9fc;
+  --paper-2:#eef3f9;
+  --line:#e3e9f1;
   --white:#ffffff;
   --radius:20px;
-  --shadow:0 10px 40px rgba(6,46,35,.08);
+  --shadow:0 10px 40px rgba(13,36,64,.10);
 }
 *{margin:0;padding:0;box-sizing:border-box}
 html{scroll-behavior:smooth;overflow-x:clip}
@@ -31,207 +33,185 @@ body{
   line-height:1.6;
   overflow-x:clip;
 }
-img,svg{display:block;max-width:100%}
-a{color:inherit;text-decoration:none}
-.container{width:100%;max-width:1120px;margin:0 auto;padding:0 20px}
-section{padding:84px 0}
-@media(max-width:640px){section{padding:56px 0}}
-
-h1,h2,h3{line-height:1.15;font-weight:800;letter-spacing:-.02em}
-h1{font-size:clamp(2rem,5vw,3.4rem)}
-h2{font-size:clamp(1.6rem,3.6vw,2.4rem)}
-h3{font-size:1.15rem;font-weight:700}
+img{max-width:100%;display:block}
+.container{max-width:1160px;margin:0 auto;padding:0 1.25rem}
+section{padding:4.5rem 0}
+@media(max-width:640px){section{padding:3rem 0}}
+h1{font-size:clamp(2.1rem,5.2vw,3.4rem);line-height:1.12;font-weight:800;letter-spacing:-.02em}
+h2{font-size:clamp(1.6rem,3.6vw,2.3rem);line-height:1.2;font-weight:800;letter-spacing:-.015em}
+h3{font-size:1.13rem;font-weight:700}
+p{color:var(--body)}
+.center{text-align:center;max-width:780px;margin:0 auto}
 .kicker{
-  display:inline-block;font-size:.8rem;font-weight:700;text-transform:uppercase;
-  letter-spacing:.12em;color:var(--green-dark);background:var(--mint);
-  border:1px solid var(--mint-2);padding:.35rem .9rem;border-radius:999px;margin-bottom:1.1rem;
+  display:inline-block;font-size:.8rem;font-weight:800;text-transform:uppercase;
+  letter-spacing:.12em;color:var(--orange);background:rgba(255,122,26,.1);
+  padding:.35rem 1rem;border-radius:999px;margin-bottom:1rem;
 }
-.lead{color:var(--body);font-size:1.08rem;max-width:640px}
-.center{text-align:center}
-.center .lead{margin:0 auto}
+.lead{font-size:1.08rem;max-width:640px}
+.bg-paper{background:var(--paper)}
+.bg-navy{background:var(--navy);color:#fff}
+.bg-navy h2{color:#fff}
+.bg-navy p{color:#c7d3e2}
 
+/* ---------- dugmad ---------- */
 .btn{
   display:inline-flex;align-items:center;justify-content:center;gap:.5rem;
-  font-family:inherit;font-weight:700;font-size:1rem;cursor:pointer;
-  border-radius:999px;padding:.95rem 1.9rem;border:2px solid transparent;
-  transition:all .18s ease;min-height:48px;white-space:nowrap;
+  border-radius:12px;font-weight:700;font-size:.95rem;min-height:44px;padding:.65rem 1.4rem;
+  border:1.5px solid transparent;cursor:pointer;text-decoration:none;transition:all .15s ease;
+  white-space:nowrap;
 }
-@media(max-width:420px){.nav .btn{padding:.6rem 1rem;font-size:.88rem}.nav-inner{gap:.6rem}}
-@media(max-width:480px){.nav .btn{display:none}}
-.btn-primary{background:var(--green);color:#fff}
-.btn-primary:hover{background:var(--green-dark);transform:translateY(-1px)}
-.btn-ghost{background:#fff;color:var(--ink);border-color:var(--line)}
-.btn-ghost:hover{border-color:var(--green);color:var(--green-dark)}
-.btn-lg{padding:1.1rem 2.3rem;font-size:1.05rem}
+.btn-primary{background:var(--orange);color:#fff}
+.btn-primary:hover{background:var(--orange-dark);transform:translateY(-1px)}
+.btn-ghost{border-color:var(--line);color:var(--ink);background:#fff}
+.btn-ghost:hover{border-color:var(--orange);color:var(--orange)}
+.btn-lg{min-height:50px;padding:.8rem 1.8rem;font-size:1rem}
+.bg-navy .btn-ghost{background:transparent;border-color:rgba(255,255,255,.35);color:#fff}
+.bg-navy .btn-ghost:hover{border-color:var(--orange);color:var(--orange)}
 
-/* NAV */
-.nav{
-  position:sticky;top:0;z-index:50;background:rgba(255,255,255,.92);
-  backdrop-filter:blur(12px);border-bottom:1px solid var(--line);
-}
-.nav-inner{display:flex;align-items:center;justify-content:space-between;height:72px;gap:1rem}
-.logo{display:flex;align-items:center;gap:.6rem;font-weight:800;font-size:1.25rem;letter-spacing:-.02em}
-.logo-mark{width:34px;height:34px;border-radius:9px;background:var(--green);display:flex;align-items:center;justify-content:center;flex-shrink:0}
-.nav-links{display:flex;gap:1.8rem;font-weight:600;font-size:.95rem;color:var(--body)}
-.nav-links a:hover{color:var(--green-dark)}
-.nav .btn{padding:.7rem 1.4rem;min-height:44px}
-.burger{display:none;background:none;border:0;cursor:pointer;padding:10px 6px;flex-direction:column;gap:5px;flex-shrink:0}
-.burger span{width:24px;height:2.6px;background:var(--ink);border-radius:2px;display:block}
-@media(max-width:900px){
-  .burger{display:flex}
-  .nav-links{display:none;position:fixed;top:72px;left:0;right:0;background:#fff;border-bottom:1px solid var(--line);flex-direction:column;padding:1.1rem 20px 1.3rem;gap:1.05rem;font-size:1.05rem;box-shadow:var(--shadow);z-index:49}
+/* ---------- nav ---------- */
+nav{position:sticky;top:0;z-index:50;background:rgba(255,255,255,.92);backdrop-filter:blur(14px);border-bottom:1px solid var(--line)}
+.nav-inner{display:flex;align-items:center;gap:1.5rem;height:68px}
+.logo{display:flex;align-items:center;gap:.6rem;font-weight:800;font-size:1.25rem;color:var(--ink);text-decoration:none;letter-spacing:.01em}
+.logo-mark{display:flex;align-items:center;justify-content:center;width:34px;height:34px;border-radius:9px;background:var(--orange);color:#fff;font-size:1.05rem;font-weight:800}
+.logo small{font-size:.68rem;font-weight:600;color:var(--body);letter-spacing:.04em;display:block;line-height:1;margin-top:2px}
+.nav-links{display:flex;gap:1.4rem;margin-left:auto}
+.nav-links a{color:var(--body);text-decoration:none;font-weight:600;font-size:.92rem}
+.nav-links a:hover{color:var(--orange)}
+nav .btn{margin-left:.25rem}
+.burger{display:none;margin-left:auto;background:none;border:1.5px solid var(--line);border-radius:10px;width:44px;height:44px;cursor:pointer;flex-direction:column;align-items:center;justify-content:center;gap:5px}
+.burger span{display:block;width:20px;height:2.5px;background:var(--ink);border-radius:2px}
+@media(max-width:880px){
+  .nav-links{
+    display:none;position:absolute;top:68px;left:0;right:0;background:#fff;
+    border-bottom:1px solid var(--line);flex-direction:column;gap:0;padding:.5rem 0;box-shadow:var(--shadow);
+  }
   .nav-links.open{display:flex}
+  .nav-links a{padding:.85rem 1.4rem;min-height:44px;display:flex;align-items:center}
+  .burger{display:flex}
 }
+@media(max-width:480px){nav .btn{display:none}}
 
-/* HERO */
-.hero{padding:72px 0 84px;background:
-  radial-gradient(60% 90% at 85% 0%,var(--mint) 0%,rgba(237,248,242,0) 60%),
-  radial-gradient(40% 60% at 0% 100%,var(--mint) 0%,rgba(237,248,242,0) 55%);}
-.hero-grid{display:grid;grid-template-columns:1.05fr .95fr;gap:56px;align-items:center}
-@media(max-width:960px){.hero-grid{grid-template-columns:1fr;gap:44px}}
-.hero h1 .accent{color:var(--green)}
-.hero .lead{margin:1.3rem 0 2rem}
-.hero-ctas{display:flex;flex-wrap:wrap;gap:.9rem;margin-bottom:2.6rem}
-.hero-stats{display:grid;grid-template-columns:repeat(3,auto);gap:2.4rem;justify-content:start}
-@media(max-width:640px){.hero-stats{grid-template-columns:1fr 1fr;gap:1.2rem 1.6rem}}
-.stat b{display:block;font-size:1.65rem;font-weight:800;letter-spacing:-.02em}
-.stat span{color:var(--body);font-size:.88rem;font-weight:600}
+/* ---------- hero ---------- */
+.hero{position:relative;color:#fff;padding:0}
+.hero-bg{position:absolute;inset:0;overflow:hidden}
+.hero-bg img{width:100%;height:100%;object-fit:cover}
+.hero-bg::after{content:'';position:absolute;inset:0;background:linear-gradient(100deg,rgba(13,36,64,.94) 30%,rgba(13,36,64,.72) 65%,rgba(13,36,64,.55))}
+.hero-inner{position:relative;padding:6.5rem 0;max-width:720px}
+@media(max-width:640px){.hero-inner{padding:4rem 0}}
+.hero .kicker{background:rgba(255,122,26,.18);color:#ffb07a}
+.hero p.lead{color:#d5deea;margin-top:1.2rem}
+.hero-ctas{display:flex;flex-wrap:wrap;gap:.8rem;margin-top:2rem}
+.chips{display:flex;flex-wrap:wrap;gap:.6rem;margin-top:2.2rem}
+.chip{display:inline-flex;align-items:center;gap:.45rem;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.2);border-radius:999px;padding:.42rem 1rem;font-size:.85rem;font-weight:600;color:#e8eef6}
+.chip svg{flex-shrink:0}
 
-/* MOCKUP */
-.mockup{
-  background:#fff;border:1px solid var(--line);border-radius:var(--radius);
-  box-shadow:var(--shadow);overflow:hidden;width:100%;
-}
-.mockup-bar{display:flex;align-items:center;gap:.45rem;padding:.8rem 1.1rem;border-bottom:1px solid var(--line);background:#fbfdfc}
-.dot{width:10px;height:10px;border-radius:50%;background:var(--line)}
-.dot.g{background:var(--green)}
-.mockup-title{margin-left:.4rem;font-size:.8rem;font-weight:700;color:var(--body)}
-.mockup-body{padding:1.1rem}
-.tiles{display:grid;grid-template-columns:repeat(3,1fr);gap:.7rem;margin-bottom:1rem}
-.tile{background:var(--mint);border:1px solid var(--mint-2);border-radius:12px;padding:.75rem .85rem;min-width:0}
-.tile span{font-size:.68rem;font-weight:700;color:var(--body);text-transform:uppercase;letter-spacing:.06em;display:block;white-space:nowrap}
-@media(max-width:640px){.tile{padding:.6rem .65rem}.tile span{white-space:normal;font-size:.6rem}.tile b{font-size:1rem}}
-.tile b{font-size:1.15rem;font-weight:800}
-.tile b em{font-style:normal;font-size:.72rem;color:var(--green-dark);font-weight:700}
-.chart{display:flex;align-items:flex-end;gap:6px;height:88px;padding:0 .2rem;margin-bottom:1rem}
-.chart i{flex:1;background:linear-gradient(180deg,var(--green) 0%,#5fd9ae 100%);border-radius:5px 5px 0 0;opacity:.9}
-.mocktable{width:100%;border-collapse:collapse;font-size:.78rem}
-.mocktable th{text-align:left;color:var(--body);font-weight:700;padding:.4rem .5rem;border-bottom:1px solid var(--line);text-transform:uppercase;font-size:.64rem;letter-spacing:.06em}
-.mocktable td{padding:.5rem;border-bottom:1px solid #f0f7f3;font-weight:600;white-space:nowrap}
-.pill{display:inline-block;padding:.15rem .6rem;border-radius:999px;font-size:.68rem;font-weight:700}
-.pill.ok{background:var(--mint-2);color:var(--green-dark)}
-.pill.ship{background:#eef3ff;color:#3b5bcc}
+/* ---------- stats ---------- */
+.stats{background:var(--navy);color:#fff;padding:2.2rem 0}
+.stats-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1.5rem;text-align:center}
+@media(max-width:880px){.stats-grid{grid-template-columns:repeat(2,1fr)}}
+.stat b{display:block;font-size:1.9rem;font-weight:800;color:var(--orange);letter-spacing:-.02em}
+.stat span{font-size:.85rem;color:#b9c6d6;font-weight:600}
 
-/* TRUST BAR */
-.trustbar{border-top:1px solid var(--line);border-bottom:1px solid var(--line);background:#fbfdfc;padding:1.1rem 0}
-.trust-inner{display:flex;flex-wrap:wrap;justify-content:center;gap:1rem 2.6rem;font-weight:700;font-size:.92rem;color:var(--body)}
-.trust-inner span{display:inline-flex;align-items:center;gap:.5rem}
-.trust-inner svg{flex-shrink:0}
-
-/* STEPS */
-.steps{display:grid;grid-template-columns:repeat(4,1fr);gap:1.2rem;margin-top:3rem}
-@media(max-width:900px){.steps{grid-template-columns:1fr 1fr}}
-@media(max-width:560px){.steps{grid-template-columns:1fr}}
-.step{background:#fff;border:1px solid var(--line);border-radius:var(--radius);padding:1.6rem;position:relative}
-.step-num{width:38px;height:38px;border-radius:11px;background:var(--green);color:#fff;font-weight:800;display:flex;align-items:center;justify-content:center;margin-bottom:1rem;font-size:1.05rem}
-.step p{color:var(--body);font-size:.93rem;margin-top:.4rem}
-
-/* SERVICES */
-.bg-mint{background:var(--mint)}
-.cards{display:grid;grid-template-columns:repeat(3,1fr);gap:1.2rem;margin-top:3rem}
-@media(max-width:900px){.cards{grid-template-columns:1fr 1fr}}
-@media(max-width:600px){.cards{grid-template-columns:1fr}}
+/* ---------- kartice ---------- */
+.grid-3{display:grid;grid-template-columns:repeat(3,1fr);gap:1.4rem;margin-top:3rem}
+.grid-2{display:grid;grid-template-columns:1fr 1fr;gap:1.4rem;margin-top:3rem}
+@media(max-width:880px){.grid-3{grid-template-columns:1fr 1fr}}
+@media(max-width:640px){.grid-3,.grid-2{grid-template-columns:1fr}}
 .card{background:#fff;border:1px solid var(--line);border-radius:var(--radius);padding:1.7rem;transition:transform .18s ease,box-shadow .18s ease}
 .card:hover{transform:translateY(-3px);box-shadow:var(--shadow)}
-.card-icon{width:46px;height:46px;border-radius:13px;background:var(--mint);border:1px solid var(--mint-2);display:flex;align-items:center;justify-content:center;margin-bottom:1.1rem}
-.card p{color:var(--body);font-size:.93rem;margin-top:.45rem}
+.card .ico{display:flex;align-items:center;justify-content:center;width:46px;height:46px;border-radius:12px;background:rgba(255,122,26,.12);margin-bottom:1.1rem}
+.card h3{margin-bottom:.5rem}
+.card p{font-size:.93rem}
 
-/* GALLERY */
-.gallery{display:grid;grid-template-columns:1.5fr 1fr;grid-auto-rows:225px;gap:1.2rem;margin-top:3rem}
-.gallery .big{grid-row:span 2}
-.gallery img{width:100%;height:100%;object-fit:cover;border-radius:var(--radius);border:1px solid var(--line)}
-@media(max-width:820px){.gallery{grid-template-columns:1fr;grid-auto-rows:230px}.gallery .big{grid-row:auto}}
-.contact-photo{display:block;width:100%;max-width:760px;margin:2.4rem auto 0;border-radius:var(--radius);aspect-ratio:16/7;object-fit:cover;object-position:50% 28%;border:1px solid var(--line)}
+/* ---------- foto traka ---------- */
+.photo-strip{display:grid;grid-template-columns:repeat(3,1fr);gap:1.2rem;margin-top:3rem}
+@media(max-width:640px){.photo-strip{grid-template-columns:1fr}}
+.photo-strip img{border-radius:var(--radius);box-shadow:var(--shadow);aspect-ratio:3/2;object-fit:cover;width:100%}
 
-/* SOFTWARE */
-.split{display:grid;grid-template-columns:1fr 1fr;gap:56px;align-items:center;margin-top:3rem}
-@media(max-width:960px){.split{grid-template-columns:1fr;gap:40px}}
-.featlist{list-style:none;display:grid;gap:1.05rem;margin-top:1.6rem}
-.featlist li{display:flex;gap:.85rem;align-items:flex-start}
-.featlist .check{width:24px;height:24px;border-radius:8px;background:var(--green);flex-shrink:0;display:flex;align-items:center;justify-content:center;margin-top:.15rem}
-.featlist b{display:block}
-.featlist span{color:var(--body);font-size:.92rem}
+/* ---------- koraci ---------- */
+.steps{display:grid;grid-template-columns:repeat(3,1fr);gap:1.4rem;margin-top:3rem;counter-reset:korak}
+@media(max-width:880px){.steps{grid-template-columns:1fr}}
+.step{background:#fff;border:1px solid var(--line);border-radius:var(--radius);padding:1.8rem;position:relative}
+.step::before{
+  counter-increment:korak;content:counter(korak);
+  display:flex;align-items:center;justify-content:center;width:42px;height:42px;border-radius:50%;
+  background:var(--navy);color:#fff;font-weight:800;font-size:1.1rem;margin-bottom:1.1rem;
+}
+.step h3{margin-bottom:.5rem}
+.step p{font-size:.93rem}
 
-/* COMPARE */
-.compare{display:grid;grid-template-columns:1fr 1fr;gap:1.2rem;margin-top:3rem}
-@media(max-width:820px){.compare{grid-template-columns:1fr}}
-.comp{border-radius:var(--radius);padding:2rem;border:1px solid var(--line);background:#fff}
-.comp.bad h3{color:#a33}
-.comp.good{background:var(--ink);color:#fff;border-color:var(--ink)}
-.comp.good h3{color:#7ee9c0}
-.comp ul{list-style:none;margin-top:1.2rem;display:grid;gap:.75rem}
-.comp li{display:flex;gap:.7rem;align-items:flex-start;font-size:.95rem}
-.comp.bad li{color:var(--body)}
-.comp.good li{color:#d6efe4}
-.comp li svg{flex-shrink:0;margin-top:.22rem}
-.comp .foot{margin-top:1.4rem;font-weight:700;font-size:.95rem}
+/* ---------- split sekcije ---------- */
+.split{display:grid;grid-template-columns:1fr 1fr;gap:3rem;align-items:center;margin-top:3rem}
+@media(max-width:880px){.split{grid-template-columns:1fr;gap:2rem}}
+.split img{border-radius:var(--radius);box-shadow:var(--shadow);width:100%}
+.split ul{list-style:none;margin-top:1.2rem;display:flex;flex-direction:column;gap:.7rem}
+.split li{display:flex;gap:.6rem;align-items:flex-start;color:var(--body);font-size:.95rem}
+.split li svg{flex-shrink:0;margin-top:3px}
 
-/* PRICING */
-.plans{display:grid;grid-template-columns:repeat(3,1fr);gap:1.2rem;margin-top:3rem;align-items:stretch}
-@media(max-width:900px){.plans{grid-template-columns:1fr;max-width:460px;margin-left:auto;margin-right:auto}}
-.plan{background:#fff;border:1px solid var(--line);border-radius:var(--radius);padding:2rem;display:flex;flex-direction:column;position:relative}
-.plan.featured{border:2px solid var(--green);box-shadow:var(--shadow)}
-.badge{position:absolute;top:-14px;left:50%;transform:translateX(-50%);background:var(--green);color:#fff;font-size:.72rem;font-weight:800;letter-spacing:.08em;text-transform:uppercase;padding:.3rem 1rem;border-radius:999px;white-space:nowrap}
-.plan .who{color:var(--body);font-size:.9rem;margin:.3rem 0 1.2rem}
-.price{font-size:2rem;font-weight:800;letter-spacing:-.02em}
-.price small{font-size:.85rem;color:var(--body);font-weight:600}
-.plan ul{list-style:none;margin:1.3rem 0 1.6rem;display:grid;gap:.65rem;flex:1}
-.plan li{display:flex;gap:.6rem;align-items:flex-start;font-size:.92rem;color:var(--body)}
-.plan li svg{flex-shrink:0;margin-top:.2rem}
-.plan .note{font-size:.82rem;color:var(--body);font-style:italic;margin-bottom:1.2rem}
-.plan .btn{width:100%}
+/* ---------- veleprodaja ---------- */
+.vp-card{background:#fff;border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;display:flex;flex-direction:column;transition:transform .18s ease,box-shadow .18s ease}
+.vp-card:hover{transform:translateY(-3px);box-shadow:var(--shadow)}
+.vp-card img{aspect-ratio:16/9;object-fit:cover;width:100%}
+.vp-body{padding:1.7rem;display:flex;flex-direction:column;gap:.7rem;flex:1}
+.vp-body .tag{align-self:flex-start;font-size:.72rem;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--orange);background:rgba(255,122,26,.1);padding:.25rem .7rem;border-radius:999px}
+.vp-body p{font-size:.94rem}
+.vp-body .btn{align-self:flex-start;margin-top:auto}
 
-/* FORM */
+/* ---------- ko smo mi ---------- */
+.about-quote{border-left:4px solid var(--orange);padding:.4rem 0 .4rem 1.2rem;margin:1.4rem 0;font-size:1.12rem;font-weight:700;color:var(--ink);line-height:1.45}
+.bg-navy .about-quote{color:#fff}
+.pillars{display:grid;grid-template-columns:repeat(4,1fr);gap:1.2rem;margin-top:3rem}
+@media(max-width:880px){.pillars{grid-template-columns:1fr 1fr}}
+@media(max-width:480px){.pillars{grid-template-columns:1fr}}
+.pillar{background:var(--navy-2);border:1px solid rgba(255,255,255,.08);border-radius:var(--radius);padding:1.5rem}
+.pillar h3{color:#fff;font-size:1rem;margin-bottom:.4rem}
+.pillar p{font-size:.86rem;color:#b9c6d6}
+
+/* ---------- kontakt ---------- */
+.contact-photo{border-radius:var(--radius);box-shadow:var(--shadow);margin:3rem auto 0;max-width:760px;width:100%;aspect-ratio:21/9;object-fit:cover}
 .formwrap{background:#fff;border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow);padding:2.4rem;max-width:760px;margin:3rem auto 0}
 @media(max-width:640px){.formwrap{padding:1.5rem}}
 .formgrid{display:grid;grid-template-columns:1fr 1fr;gap:1rem}
 @media(max-width:640px){.formgrid{grid-template-columns:1fr}}
 .field{display:flex;flex-direction:column;gap:.35rem}
 .field.full{grid-column:1/-1}
-.field label{font-size:.83rem;font-weight:700}
+.field label{font-size:.85rem;font-weight:700}
 .field input,.field select,.field textarea{
-  font-family:inherit;font-size:16px;padding:.8rem .95rem;border:1.5px solid var(--line);
-  border-radius:12px;background:#fbfdfc;color:var(--ink);width:100%;
+  border:1.5px solid var(--line);border-radius:10px;padding:.7rem .9rem;font:inherit;font-size:16px;
+  background:var(--paper);min-height:44px;
 }
 .field textarea{min-height:96px;resize:vertical}
-.field input:focus,.field select:focus,.field textarea:focus{outline:none;border-color:var(--green)}
+.field input:focus,.field select:focus,.field textarea:focus{outline:2px solid var(--orange);outline-offset:0;border-color:var(--orange)}
 .form-foot{margin-top:1.4rem;display:flex;flex-direction:column;gap:.8rem;align-items:center}
 .form-foot .hint{font-size:.83rem;color:var(--body);text-align:center}
 
-/* FOOTER */
-footer{background:var(--ink);color:#cfe8dc;padding:56px 0 32px;margin-top:0}
-.foot-grid{display:grid;grid-template-columns:2fr 1fr 1fr;gap:2.5rem}
-@media(max-width:760px){.foot-grid{grid-template-columns:1fr}}
+/* ---------- footer ---------- */
+footer{background:var(--navy);color:#b9c6d6;padding:3.5rem 0 2rem}
 footer .logo{color:#fff}
+.foot-grid{display:grid;grid-template-columns:2fr 1fr 1fr;gap:2.5rem}
+@media(max-width:880px){.foot-grid{grid-template-columns:1fr;gap:2rem}}
 footer h4{color:#fff;font-size:.85rem;text-transform:uppercase;letter-spacing:.1em;margin-bottom:1rem}
-footer ul{list-style:none;display:grid;gap:.55rem;font-size:.92rem}
-footer a:hover{color:#7ee9c0}
-.foot-tag{margin-top:1rem;font-size:.95rem;max-width:320px}
-.copy{border-top:1px solid rgba(255,255,255,.12);margin-top:2.6rem;padding-top:1.6rem;font-size:.82rem;color:#9cc4b2;display:flex;flex-wrap:wrap;gap:.5rem 2rem;justify-content:space-between}
+footer ul{list-style:none;display:flex;flex-direction:column;gap:.5rem;font-size:.92rem}
+footer a{color:#b9c6d6;text-decoration:none}
+footer a:hover{color:var(--orange)}
+.foot-tag{margin-top:1rem;font-size:.92rem;max-width:340px;color:#b9c6d6}
+.copy{border-top:1px solid rgba(255,255,255,.1);margin-top:2.5rem;padding-top:1.5rem;display:flex;flex-wrap:wrap;gap:.8rem;justify-content:space-between;font-size:.83rem}
 </style>
 </head>
-<body>
+<body id="top">
 
 <!-- NAV -->
-<nav class="nav">
+<nav>
   <div class="container nav-inner">
     <a class="logo" href="#top">
-      <span class="logo-mark"><svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M5 12.5l4.5 4.5L19 7.5" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
-      Fulfilment.rs
+      <span class="logo-mark">P</span>
+      <span>PAKUM<small>fulfilment.rs</small></span>
     </a>
     <div class="nav-links">
       <a href="#usluge">Usluge</a>
+      <a href="#veleprodaja">Roba na veliko</a>
       <a href="#softver">Softver</a>
+      <a href="#ko-smo-mi">Ko smo mi</a>
       <a href="#kontakt">Kontakt</a>
     </div>
     <a class="btn btn-primary" href="#kontakt">Zatraži ponudu</a>
@@ -240,238 +220,227 @@ footer a:hover{color:#7ee9c0}
 </nav>
 
 <!-- HERO -->
-<header class="hero" id="top">
-  <div class="container hero-grid">
-    <div>
-      <span class="kicker">eCommerce fulfilment u Srbiji</span>
-      <h1>Vi prodajete.<br>Mi radimo <span class="accent">sve ostalo</span>.</h1>
-      <p class="lead">Godinama gradimo fulfilment sistem za sopstvene brendove — od softvera do skladišta. Danas šaljemo desetine hiljada paketa mesečno i radimo sa ograničenim brojem brendova kojima garantujemo vrhunski servis.</p>
+<header class="hero">
+  <div class="hero-bg"><img src="images/hero-magacin.jpg" alt="Pakum fulfilment magacin" fetchpriority="high"></div>
+  <div class="container">
+    <div class="hero-inner">
+      <span class="kicker">Fulfilment centar · Srbija</span>
+      <h1>Pakujemo kao za sebe.</h1>
+      <p class="lead">
+        Pakum je fulfilment partner koji je i sam e-commerce prodavac — kroz naš magacin svakog dana
+        prođe oko <b>1.000 naših sopstvenih paketa</b>. Isti ljudi, isti softver i ista traka rade i za
+        vaš brend: skladištenje, pakovanje, slanje, pouzeće i fiskalizacija — dok se vi bavite prodajom.
+      </p>
       <div class="hero-ctas">
-        <a class="btn btn-primary btn-lg" href="#kontakt">Zakaži konsultaciju</a>
+        <a class="btn btn-primary btn-lg" href="#kontakt">Zatraži ponudu</a>
         <a class="btn btn-ghost btn-lg" href="#usluge">Pogledaj usluge</a>
       </div>
-      <div class="hero-stats">
-        <div class="stat"><b>400.000+</b><span>isporučenih paketa</span></div>
-        <div class="stat"><b>2.000 m²</b><span>sopstveni magacin</span></div>
-        <div class="stat"><b>24h</b><span>obrada i slanje</span></div>
-      </div>
-    </div>
-    <div class="mockup" aria-hidden="true">
-      <div class="mockup-bar">
-        <span class="dot g"></span><span class="dot"></span><span class="dot"></span>
-        <span class="mockup-title">Fulfilment softver — kontrolna tabla</span>
-      </div>
-      <div class="mockup-body">
-        <div class="tiles">
-          <div class="tile"><span>Porudžbine danas</span><b>1.248</b></div>
-          <div class="tile"><span>Poslato za 24h</span><b>99,2% <em>na vreme</em></b></div>
-          <div class="tile"><span>Na lageru</span><b>12.480</b></div>
-        </div>
-        <div class="chart">
-          <i style="height:38%"></i><i style="height:52%"></i><i style="height:46%"></i><i style="height:64%"></i><i style="height:58%"></i><i style="height:74%"></i><i style="height:68%"></i><i style="height:86%"></i><i style="height:79%"></i><i style="height:95%"></i>
-        </div>
-        <table class="mocktable">
-          <tr><th>Porudžbina</th><th>Kupac</th><th>Status</th></tr>
-          <tr><td>#48213</td><td>Milica J.</td><td><span class="pill ok">Spakovano</span></td></tr>
-          <tr><td>#48212</td><td>Nikola P.</td><td><span class="pill ship">U transportu</span></td></tr>
-          <tr><td>#48211</td><td>Jovana S.</td><td><span class="pill ok">Isporučeno</span></td></tr>
-        </table>
+      <div class="chips">
+        <span class="chip"><svg width="15" height="15" viewBox="0 0 24 24" fill="none"><path d="M20 6L9 17l-5-5" stroke="#ff7a1a" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>Poslato isti dan</span>
+        <span class="chip"><svg width="15" height="15" viewBox="0 0 24 24" fill="none"><path d="M20 6L9 17l-5-5" stroke="#ff7a1a" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>Nula skrivenih troškova</span>
+        <span class="chip"><svg width="15" height="15" viewBox="0 0 24 24" fill="none"><path d="M20 6L9 17l-5-5" stroke="#ff7a1a" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>Onboarding za 48h</span>
       </div>
     </div>
   </div>
 </header>
 
-<!-- TRUST BAR -->
-<div class="trustbar">
-  <div class="container trust-inner">
-    <span><svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M20 6L9 17l-5-5" stroke="#00b878" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>5+ godina iskustva</span>
-    <span><svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M20 6L9 17l-5-5" stroke="#00b878" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>Pošta Srbije partner</span>
-    <span><svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M20 6L9 17l-5-5" stroke="#00b878" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>Shopify i WooCommerce</span>
-    <span><svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M20 6L9 17l-5-5" stroke="#00b878" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>Fiskalizacija uključena</span>
+<!-- STATS -->
+<div class="stats">
+  <div class="container stats-grid">
+    <div class="stat"><b>1.000+</b><span>paketa dnevno kroz naš magacin</span></div>
+    <div class="stat"><b>400.000+</b><span>isporučenih paketa</span></div>
+    <div class="stat"><b>2.000 m²</b><span>magacinskog prostora</span></div>
+    <div class="stat"><b>48h</b><span>od dogovora do prvog paketa</span></div>
   </div>
 </div>
 
-<!-- STEPS -->
-<section>
-  <div class="container">
-    <div class="center">
-      <span class="kicker">Kako funkcioniše</span>
-      <h2>Od prijave do prvog paketa — za par dana</h2>
-      <p class="lead" style="margin-top:1rem">Ne primamo svakog — radimo sa ograničenim brojem brendova da bismo svakom garantovali servis.</p>
-    </div>
-    <div class="steps">
-      <div class="step"><div class="step-num">1</div><h3>Popunite formu</h3><p>Pošaljite osnovne informacije o brendu, količini paketa i poslovanju.</p></div>
-      <div class="step"><div class="step-num">2</div><h3>Prolazimo selekciju</h3><p>Analiziramo vaše potrebe i naše kapacitete — da saradnja ima smisla za obe strane.</p></div>
-      <div class="step"><div class="step-num">3</div><h3>Razgovor i dogovor</h3><p>Organizujemo poziv, prolazimo kroz detalje i definišemo uslove.</p></div>
-      <div class="step"><div class="step-num">4</div><h3>Početak saradnje</h3><p>Ugovor, pristup softveru i prijem robe u roku od 48h.</p></div>
-    </div>
-  </div>
-</section>
-
-<!-- SERVICES -->
-<section class="bg-mint" id="usluge">
+<!-- USLUGE -->
+<section id="usluge">
   <div class="container">
     <div class="center">
       <span class="kicker">Usluge</span>
-      <h2>Kompletna logistika na jednom mestu</h2>
+      <h2>Sve između porudžbine i kupca — naša briga</h2>
+      <p class="lead" style="margin:1rem auto 0">
+        Kompletna logistika za e-commerce brendove od 100 do 3.000+ paketa mesečno.
+        Vi prodajete — mi radimo sve ostalo.
+      </p>
     </div>
-    <div class="cards">
+    <div class="grid-3">
       <div class="card">
-        <div class="card-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#00b878" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 8l-9-5-9 5v8l9 5 9-5V8z"/><path d="M3 8l9 5 9-5"/><path d="M12 13v9"/></svg></div>
+        <div class="ico"><svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M21 8l-9-5-9 5v8l9 5 9-5V8z" stroke="#ff7a1a" stroke-width="1.8" stroke-linejoin="round"/><path d="M3 8l9 5 9-5M12 13v8" stroke="#ff7a1a" stroke-width="1.8" stroke-linejoin="round"/></svg></div>
         <h3>Prijem i skladištenje</h3>
-        <p>Sigurno čuvanje u magacinu od 2.000 m² sa preciznim vođenjem zaliha i digitalnim praćenjem stanja.</p>
+        <p>Strogi prijem uz verifikaciju i barkodiranje svake stavke — zato je stanje zaliha uvek tačno.
+        Roba stoji u organizovanom, obezbeđenom magacinu od 2.000 m², spremna za slanje istog dana.</p>
       </div>
       <div class="card">
-        <div class="card-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#00b878" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="7" width="18" height="13" rx="2"/><path d="M8 7V5a2 2 0 012-2h4a2 2 0 012 2v2"/></svg></div>
-        <h3>Pakovanje i priprema</h3>
-        <p>Profesionalno pakovanje sa mogućnošću brendirane ambalaže i ubacivanja promotivnog materijala.</p>
+        <div class="ico"><svg width="22" height="22" viewBox="0 0 24 24" fill="none"><rect x="3" y="7" width="18" height="13" rx="2" stroke="#ff7a1a" stroke-width="1.8"/><path d="M3 11h18M12 7V4" stroke="#ff7a1a" stroke-width="1.8" stroke-linecap="round"/></svg></div>
+        <h3>Pakovanje</h3>
+        <p>Svaki paket pakujemo kao da je naš — zaštita proizvoda, uredna kutija, po dogovoru i brendirano
+        pakovanje sa vašim materijalima. Pogrešno spakovan paket je izgubljen kupac, i to znamo iz prve ruke.</p>
       </div>
       <div class="card">
-        <div class="card-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#00b878" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 17H3V6h13v11"/><path d="M16 8h4l1 4v5h-2"/><circle cx="7.5" cy="17.5" r="2"/><circle cx="17.5" cy="17.5" r="2"/></svg></div>
-        <h3>Isporuka za 24h</h3>
-        <p>Pošiljke se šalju u roku od 24h — saradnja sa Poštom Srbije, praćenje i dostava širom zemlje.</p>
+        <div class="ico"><svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M3 12h13M13 5l7 7-7 7" stroke="#ff7a1a" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <h3>Slanje i kuriri</h3>
+        <p>Porudžbina predata do preseka ide <b>istog dana</b> na isporuku preko kurirskih službi sa kojima
+        šaljemo i sopstvenih hiljadu paketa dnevno. Praćenje statusa za svaki paket, automatski.</p>
       </div>
       <div class="card">
-        <div class="card-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#00b878" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92V21a1 1 0 01-1.09 1A19 19 0 012 4.09 1 1 0 013 3h4.09a1 1 0 011 .75l1 3.5a1 1 0 01-.29 1L7 10a16 16 0 007 7l1.75-1.8a1 1 0 011-.29l3.5 1a1 1 0 01.75 1z"/></svg></div>
-        <h3>Call centar</h3>
-        <p>Potvrda porudžbina, upsell i podrška — naš tim po vašim skriptama, ili alati za vaš tim uz AI sažetke poziva.</p>
+        <div class="ico"><svg width="22" height="22" viewBox="0 0 24 24" fill="none"><rect x="4" y="4" width="16" height="16" rx="3" stroke="#ff7a1a" stroke-width="1.8"/><path d="M8 10h8M8 14h5" stroke="#ff7a1a" stroke-width="1.8" stroke-linecap="round"/></svg></div>
+        <h3>Pouzeće i fiskalizacija</h3>
+        <p>Naplaćujemo pouzeće i izdajemo fiskalne račune u vaše ime — vama ne treba ni kasa ni
+        knjigovodstveni haos oko pouzeća. Novac se prosleđuje uredno, sa jasnim izveštajem.</p>
       </div>
       <div class="card">
-        <div class="card-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#00b878" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><path d="M14 2v6h6"/><path d="M9 15l2 2 4-4"/></svg></div>
-        <h3>Fiskalizacija</h3>
-        <p>Fiskalni račun uz svaku pošiljku — u paketu ili preko SMS-a/Vibera. Minimax ili sopstvena e-kasa, bez dodatne opreme.</p>
+        <div class="ico"><svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M9 14l-4-4 4-4M5 10h11a4 4 0 010 8h-2" stroke="#ff7a1a" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <h3>Povrati i reklamacije</h3>
+        <p>Primamo povrate, pregledamo robu i vraćamo je na stanje — bez vašeg angažovanja.
+        Jasna evidencija svakog povrata, da tačno znate šta se vratilo i zašto.</p>
       </div>
       <div class="card">
-        <div class="card-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#00b878" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 109-9"/><path d="M3 3v6h6"/></svg></div>
-        <h3>Povrati i podrška</h3>
-        <p>Obrada povrata i reklamacija po dogovorenoj proceduri, podrška kupcima putem mejla i telefona.</p>
+        <div class="ico"><svg width="22" height="22" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="8" r="4" stroke="#ff7a1a" stroke-width="1.8"/><path d="M4 21c0-4 3.6-6 8-6s8 2 8 6" stroke="#ff7a1a" stroke-width="1.8" stroke-linecap="round"/></svg></div>
+        <h3>Imenovani operater</h3>
+        <p>Vaš brend vodi jedan konkretan čovek — sa imenom i brojem telefona, ne info-mejl i tiket sistem.
+        Kad nešto zatreba, znate koga zovete i on zna vaš asortiman.</p>
+      </div>
+    </div>
+    <div class="photo-strip">
+      <img src="images/pakovanje.jpg" alt="Pakovanje paketa u magacinu" loading="lazy">
+      <img src="images/pakovanje-detalj.jpg" alt="Pažljivo pakovanje proizvoda" loading="lazy">
+      <img src="images/paketi.jpg" alt="Paketi spremni za slanje" loading="lazy">
+    </div>
+  </div>
+</section>
+
+<!-- KAKO RADI -->
+<section class="bg-paper" id="kako-radi">
+  <div class="container">
+    <div class="center">
+      <span class="kicker">Kako radi</span>
+      <h2>Od dogovora do prvog poslatog paketa — 48 sati</h2>
+    </div>
+    <div class="steps">
+      <div class="step">
+        <h3>Pošaljete nam robu</h3>
+        <p>Najavite isporuku, mi primamo robu uz verifikaciju i barkodiranje svake stavke.
+        Od tog trenutka stanje zaliha vidite uživo — komad po komad.</p>
+      </div>
+      <div class="step">
+        <h3>Povežemo vašu prodaju</h3>
+        <p>Shopify, WooCommerce, sales funnel ili ručni unos — porudžbine same ulaze u naš softver.
+        Ako već koristite TopOMS, integracije nema — sve već radi.</p>
+      </div>
+      <div class="step">
+        <h3>Mi šaljemo, vi pratite</h3>
+        <p>Pakovanje, kurir, pouzeće, fiskalni račun, povrati — sve ide bez vas.
+        Vi u svakom trenutku vidite status svake pošiljke i svaki dinar pouzeća.</p>
       </div>
     </div>
   </div>
 </section>
 
-<!-- MAGACIN -->
-<section id="magacin">
+<!-- SOFTVER -->
+<section id="softver">
   <div class="container">
-    <div class="center">
-      <span class="kicker">Naš magacin</span>
-      <h2>2.000 m² potpuno posvećenih eCommerce-u</h2>
-      <p class="lead" style="margin-top:1rem">Jug Srbije, više od pet godina rada i preko 400.000 isporučenih paketa. Svaka porudžbina se obradi u roku od 24h — bez čekanja.</p>
-    </div>
-    <div class="gallery">
-      <img class="big" src="images/magacin.jpg" alt="Magacin od 2.000 kvadrata — police sa paketima" loading="lazy">
-      <img src="images/pakovanje.jpg" alt="Profesionalno pakovanje pošiljke" loading="lazy">
-      <img src="images/paketi.jpg" alt="Paketi spremni za slanje Poštom Srbije" loading="lazy">
-    </div>
-  </div>
-</section>
-
-<!-- SOFTWARE -->
-<section id="softver" class="bg-mint">
-  <div class="container">
-    <div class="center">
-      <span class="kicker">Sopstveni softver</span>
-      <h2>Softver koji su drugi platili milione — vi ga dobijate uz pakete</h2>
-    </div>
     <div class="split">
       <div>
-        <ul class="featlist">
-          <li>
-            <span class="check"><svg width="13" height="13" viewBox="0 0 24 24" fill="none"><path d="M20 6L9 17l-5-5" stroke="#fff" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
-            <div><b>Automatski uvoz porudžbina</b><span>Sa sajta, iz poruka i poziva — lager se ažurira u realnom vremenu.</span></div>
-          </li>
-          <li>
-            <span class="check"><svg width="13" height="13" viewBox="0 0 24 24" fill="none"><path d="M20 6L9 17l-5-5" stroke="#fff" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
-            <div><b>AI koji radi umesto vas</b><span>Ispravlja loše unesene adrese i poštanske brojeve, konvertuje poruke u porudžbine.</span></div>
-          </li>
-          <li>
-            <span class="check"><svg width="13" height="13" viewBox="0 0 24 24" fill="none"><path d="M20 6L9 17l-5-5" stroke="#fff" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
-            <div><b>Uvid u zaradu — bez nagađanja</b><span>ROAS, neto profit i učinak po kampanji, oglasu, proizvodu i tržištu (Meta, TikTok).</span></div>
-          </li>
-          <li>
-            <span class="check"><svg width="13" height="13" viewBox="0 0 24 24" fill="none"><path d="M20 6L9 17l-5-5" stroke="#fff" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
-            <div><b>Dosije svakog kupca</b><span>Broj porudžbina, istorija, vrednost, reklamacije — plus sopstveni tagovi.</span></div>
-          </li>
-          <li>
-            <span class="check"><svg width="13" height="13" viewBox="0 0 24 24" fill="none"><path d="M20 6L9 17l-5-5" stroke="#fff" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
-            <div><b>Filtriranje problematičnih kupaca</b><span>Automatska detekcija onih koji ne preuzimaju pakete — upozorenje pre slanja i blokada.</span></div>
-          </li>
-          <li>
-            <span class="check"><svg width="13" height="13" viewBox="0 0 24 24" fill="none"><path d="M20 6L9 17l-5-5" stroke="#fff" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
-            <div><b>Shopify i WooCommerce integracije</b><span>Povezivanje prodavnice za par minuta, bez programera.</span></div>
-          </li>
+        <span class="kicker">Softver</span>
+        <h2>TopOMS — softver koji pokreće celu operaciju</h2>
+        <p style="margin-top:1rem">
+          Isti softver koji vodi našu sopstvenu prodaju od hiljadu paketa dnevno vodi i vaš nalog.
+          Nema "javite se da proverimo" — sve vidite sami, u realnom vremenu.
+        </p>
+        <ul>
+          <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M20 6L9 17l-5-5" stroke="#ff7a1a" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"/></svg>Živo stanje zaliha — po proizvodu i varijanti</li>
+          <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M20 6L9 17l-5-5" stroke="#ff7a1a" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"/></svg>Status svake pošiljke od porudžbine do uručenja</li>
+          <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M20 6L9 17l-5-5" stroke="#ff7a1a" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"/></svg>Fiskalizacija i evidencija pouzeća — automatski</li>
+          <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M20 6L9 17l-5-5" stroke="#ff7a1a" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"/></svg>Integracije: Shopify, WooCommerce, sales funnel platforme</li>
+          <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M20 6L9 17l-5-5" stroke="#ff7a1a" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"/></svg>Izveštaji o prodaji, povratima i troškovima slanja</li>
         </ul>
       </div>
-      <div class="mockup" aria-hidden="true">
-        <div class="mockup-bar">
-          <span class="dot g"></span><span class="dot"></span><span class="dot"></span>
-          <span class="mockup-title">Analitika prodaje</span>
-        </div>
-        <div class="mockup-body">
-          <div class="tiles">
-            <div class="tile"><span>ROAS danas</span><b>3,4</b></div>
-            <div class="tile"><span>Neto profit</span><b>+18% <em>ove nedelje</em></b></div>
-            <div class="tile"><span>Rizični kupci</span><b>14 <em>blokirano</em></b></div>
-          </div>
-          <div class="chart">
-            <i style="height:30%"></i><i style="height:45%"></i><i style="height:41%"></i><i style="height:60%"></i><i style="height:52%"></i><i style="height:71%"></i><i style="height:66%"></i><i style="height:80%"></i><i style="height:92%"></i><i style="height:85%"></i>
-          </div>
-          <table class="mocktable">
-            <tr><th>Kampanja</th><th>ROAS</th><th>Profit</th></tr>
-            <tr><td>Meta — katalog</td><td>4,1</td><td><span class="pill ok">+124.000 RSD</span></td></tr>
-            <tr><td>TikTok — video</td><td>2,8</td><td><span class="pill ok">+61.500 RSD</span></td></tr>
-            <tr><td>Meta — retarget</td><td>5,6</td><td><span class="pill ok">+98.200 RSD</span></td></tr>
-          </table>
-        </div>
-      </div>
+      <img src="images/tim.jpg" alt="Tim prati operaciju kroz TopOMS softver" loading="lazy">
     </div>
   </div>
 </section>
 
-<!-- COMPARE -->
-<section>
+<!-- ROBA NA VELIKO -->
+<section class="bg-paper" id="veleprodaja">
   <div class="container">
     <div class="center">
-      <span class="kicker">Računica</span>
-      <h2>Koliko vas stvarno košta da pakujete sami?</h2>
+      <span class="kicker">Roba na veliko</span>
+      <h2>Ne samo logistika — i roba</h2>
+      <p class="lead" style="margin:1rem auto 0">
+        Iza Pakuma stoji sopstvena e-commerce prodaja i direktan uvozni kanal iz Kine.
+        To znači da kod nas možete nabaviti i robu — proverenu na tržištu, već na lageru u Srbiji.
+      </p>
     </div>
-    <div class="compare">
-      <div class="comp bad">
-        <h3>Vlastito pakovanje</h3>
-        <ul>
-          <li><svg width="17" height="17" viewBox="0 0 24 24" fill="none"><path d="M18 6L6 18M6 6l12 12" stroke="#c0524f" stroke-width="2.6" stroke-linecap="round"/></svg>Zaposleni: 800–900 € mesečno</li>
-          <li><svg width="17" height="17" viewBox="0 0 24 24" fill="none"><path d="M18 6L6 18M6 6l12 12" stroke="#c0524f" stroke-width="2.6" stroke-linecap="round"/></svg>Prostor: 500 € mesečno</li>
-          <li><svg width="17" height="17" viewBox="0 0 24 24" fill="none"><path d="M18 6L6 18M6 6l12 12" stroke="#c0524f" stroke-width="2.6" stroke-linecap="round"/></svg>Fiskalna kasa i pretplate: dodatno</li>
-          <li><svg width="17" height="17" viewBox="0 0 24 24" fill="none"><path d="M18 6L6 18M6 6l12 12" stroke="#c0524f" stroke-width="2.6" stroke-linecap="round"/></svg>Softver: pretplata ili 5.000+ € razvoj</li>
-          <li><svg width="17" height="17" viewBox="0 0 24 24" fill="none"><path d="M18 6L6 18M6 6l12 12" stroke="#c0524f" stroke-width="2.6" stroke-linecap="round"/></svg>Poštarina: 350+ RSD po paketu</li>
-          <li><svg width="17" height="17" viewBox="0 0 24 24" fill="none"><path d="M18 6L6 18M6 6l12 12" stroke="#c0524f" stroke-width="2.6" stroke-linecap="round"/></svg>Greške, reklamacije i izgubljeno vreme</li>
-        </ul>
-        <div class="foot">Fiksni troškovi — i kad ne prodajete.</div>
+    <div class="grid-2">
+      <div class="vp-card">
+        <img src="images/veleprodaja.jpg" alt="Veleprodaja — palete robe na lageru" loading="lazy">
+        <div class="vp-body">
+          <span class="tag">Veleprodaja sa lagera</span>
+          <h3>Kupite robu koja već dokazano prodaje</h3>
+          <p>Proizvodi sa našeg lagera nisu katalog sa slikama — to je roba koju mi sami prodajemo
+          svaki dan i za koju znamo brojke. Kupujete na veliko, roba je odmah dostupna iz magacina
+          u Srbiji, bez čekanja i bez rizika uvoza.</p>
+          <a class="btn btn-ghost" href="#kontakt">Zatraži veleprodajnu listu</a>
+        </div>
       </div>
-      <div class="comp good">
-        <h3>Sa Fulfilment.rs</h3>
-        <ul>
-          <li><svg width="17" height="17" viewBox="0 0 24 24" fill="none"><path d="M20 6L9 17l-5-5" stroke="#7ee9c0" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"/></svg>Plaćate samo ono što koristite</li>
-          <li><svg width="17" height="17" viewBox="0 0 24 24" fill="none"><path d="M20 6L9 17l-5-5" stroke="#7ee9c0" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"/></svg>Bez zaposlenih, prostora i opreme</li>
-          <li><svg width="17" height="17" viewBox="0 0 24 24" fill="none"><path d="M20 6L9 17l-5-5" stroke="#7ee9c0" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"/></svg>Softver i fiskalizacija uključeni u pakete</li>
-          <li><svg width="17" height="17" viewBox="0 0 24 24" fill="none"><path d="M20 6L9 17l-5-5" stroke="#7ee9c0" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"/></svg>Slanje u roku od 24h, praćenje svake pošiljke</li>
-          <li><svg width="17" height="17" viewBox="0 0 24 24" fill="none"><path d="M20 6L9 17l-5-5" stroke="#7ee9c0" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"/></svg>Tim koji je isporučio 400.000+ paketa</li>
-        </ul>
-        <div class="foot">Rastete — mi nosimo logistiku.</div>
+      <div class="vp-card">
+        <img src="images/uvoz.jpg" alt="Uslužni uvoz — kontejneri i roba iz Kine" loading="lazy">
+        <div class="vp-body">
+          <span class="tag">Uslužni uvoz iz Kine</span>
+          <h3>Uvezemo za vas — od fabrike do police</h3>
+          <p>Imamo sopstvene dobavljače, uvozni kanal i carinsku proceduru kojom uvozimo robu za
+          sopstvene brendove. Istu mašineriju stavljamo vama na raspolaganje: nađemo ili uvezemo
+          vaš proizvod, uskladištimo ga i šaljemo kupcima — ceo lanac na jednom mestu.</p>
+          <a class="btn btn-ghost" href="#kontakt">Pitaj za uslužni uvoz</a>
+        </div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- CONTACT -->
-<section class="bg-mint" id="kontakt">
+<!-- KO SMO MI -->
+<section class="bg-navy" id="ko-smo-mi">
+  <div class="container">
+    <div class="split">
+      <img src="images/magacin.jpg" alt="Pakum magacin iznutra" loading="lazy">
+      <div>
+        <span class="kicker">Ko smo mi</span>
+        <h2>Prodavac koji je izgradio magacin</h2>
+        <div class="about-quote">
+          Nismo skladištar koji je naučio e-commerce.<br>Mi smo e-commerce prodavac koji je izgradio magacin.
+        </div>
+        <p>
+          Pakum je izrastao iz sopstvene e-commerce operacije: oko <b style="color:#fff">1.000 naših porudžbina dnevno</b>
+          prolazi kroz isti magacin, iste ljude i isti softver koji rade i za vaš brend. Znamo šta znači izgubljen
+          paket, spor povrat i pogrešna adresa — jer nas svaki takav slučaj košta isto kao i vas.
+          Zato smo sistem prvo napravili za sebe, pa ga tek onda otvorili za klijente.
+        </p>
+        <p style="margin-top:1rem">
+          Ime dolazi iz narodnog izraza <b style="color:#fff">"čakum-pakum"</b> — sve uredno, sve na svom mestu.
+          To je tačno ono što prodajemo.
+        </p>
+      </div>
+    </div>
+    <div class="pillars">
+      <div class="pillar"><h3>Jasno obećanje</h3><p>Predato do preseka — poslato istog dana. Bez zvezdica i sitnih slova.</p></div>
+      <div class="pillar"><h3>Softver u srcu</h3><p>TopOMS vodi i našu i vašu operaciju — sve se vidi, ništa se ne "proverava sutra".</p></div>
+      <div class="pillar"><h3>Transparentne cene</h3><p>Cena po paketu, unapred poznata. Nula skrivenih troškova — to je pravilo, ne slogan.</p></div>
+      <div class="pillar"><h3>Čovek iza naloga</h3><p>Imenovani operater sa telefonom — vaš brend nikad ne razgovara sa tiket sistemom.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- KONTAKT -->
+<section id="kontakt">
   <div class="container">
     <div class="center">
       <span class="kicker">Kontakt</span>
       <h2>Zakaži besplatnu konsultaciju</h2>
       <p class="lead" style="margin-top:1rem">Popuni formu — javljamo se u roku od 48h sa predlogom saradnje.</p>
     </div>
-    <img class="contact-photo" src="images/podrska.jpg" alt="Korisnička podrška Fulfilment.rs" loading="lazy">
+    <img class="contact-photo" src="images/podrska.jpg" alt="Korisnička podrška Pakum" loading="lazy">
     <form class="formwrap" id="prijava">
       <div class="formgrid">
         <div class="field"><label for="brend">Naziv brenda</label><input id="brend" name="Brend" required placeholder="npr. Moj Brend"></div>
@@ -483,10 +452,18 @@ footer a:hover{color:#7ee9c0}
             <option>Preko 1.000</option>
           </select>
         </div>
+        <div class="field"><label for="interes">Šta vas zanima?</label>
+          <select id="interes" name="Interes">
+            <option>Fulfilment (slanje paketa)</option>
+            <option>Roba na veliko</option>
+            <option>Uslužni uvoz iz Kine</option>
+            <option>Kombinacija</option>
+          </select>
+        </div>
         <div class="field"><label for="firma">Naziv firme (i PIB ako postoji)</label><input id="firma" name="Firma"></div>
         <div class="field"><label for="ime">Ime i prezime</label><input id="ime" name="Ime" required></div>
         <div class="field"><label for="telefon">Broj telefona</label><input id="telefon" name="Telefon" type="tel" required placeholder="06x xxx xxxx"></div>
-        <div class="field full"><label for="email">Email adresa</label><input id="email" name="Email" type="email" required placeholder="ti@brend.rs"></div>
+        <div class="field"><label for="email">Email adresa</label><input id="email" name="Email" type="email" required placeholder="ti@brend.rs"></div>
         <div class="field full"><label for="poruka">Kako trenutno šaljete i pakujete? (opciono)</label><textarea id="poruka" name="Poruka"></textarea></div>
       </div>
       <div class="form-foot">
@@ -503,23 +480,26 @@ footer a:hover{color:#7ee9c0}
     <div class="foot-grid">
       <div>
         <a class="logo" href="#top">
-          <span class="logo-mark"><svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M5 12.5l4.5 4.5L19 7.5" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
-          Fulfilment.rs
+          <span class="logo-mark">P</span>
+          <span>PAKUM<small>fulfilment.rs</small></span>
         </a>
-        <p class="foot-tag">Vi prodajete — mi radimo sve ostalo. Fulfilment partner koji razume eCommerce.</p>
+        <p class="foot-tag">Pakujemo kao za sebe. Fulfilment partner koji je i sam e-commerce prodavac.</p>
       </div>
       <div>
         <h4>Sajt</h4>
         <ul>
           <li><a href="#usluge">Usluge</a></li>
+          <li><a href="#veleprodaja">Roba na veliko</a></li>
           <li><a href="#softver">Softver</a></li>
+          <li><a href="#ko-smo-mi">Ko smo mi</a></li>
           <li><a href="#kontakt">Kontakt</a></li>
         </ul>
       </div>
       <div>
         <h4>Podaci</h4>
         <ul>
-          <li>PR Bizonline</li>
+          <li>Pakum — powered by Bizonline</li>
+          <li>LAZAR JOKSIMOVIĆ PR BIZONLINE</li>
           <li>Matični broj: 66619206</li>
           <li>PIB: 113156519</li>
           <li><a href="mailto:info@bizonline.rs">info@bizonline.rs</a></li>
@@ -527,7 +507,7 @@ footer a:hover{color:#7ee9c0}
       </div>
     </div>
     <div class="copy">
-      <span>Copyright © 2026 Fulfilment.rs. Sva prava zadržana.</span>
+      <span>Copyright © 2026 Pakum · fulfilment.rs. Sva prava zadržana.</span>
       <span>Magacin 2.000 m² — jug Srbije</span>
     </div>
   </div>
@@ -544,12 +524,13 @@ document.getElementById('prijava').addEventListener('submit',function(e){
     +'Brend: '+encodeURIComponent(g('brend'))+'%0D%0A'
     +'Proizvod: '+encodeURIComponent(g('proizvod'))+'%0D%0A'
     +'Paketa mesecno: '+encodeURIComponent(g('paketi'))+'%0D%0A'
+    +'Interes: '+encodeURIComponent(g('interes'))+'%0D%0A'
     +'Firma/PIB: '+encodeURIComponent(g('firma'))+'%0D%0A'
     +'Ime: '+encodeURIComponent(g('ime'))+'%0D%0A'
     +'Telefon: '+encodeURIComponent(g('telefon'))+'%0D%0A'
     +'Email: '+encodeURIComponent(g('email'))+'%0D%0A'
     +'Napomena: '+encodeURIComponent(g('poruka'));
-  window.location.href='mailto:info@bizonline.rs?subject='+encodeURIComponent('Prijava za fulfilment — '+g('brend'))+'&body='+body;
+  window.location.href='mailto:info@bizonline.rs?subject='+encodeURIComponent('Prijava — '+g('brend'))+'&body='+body;
 });
 </script>
 </body>
