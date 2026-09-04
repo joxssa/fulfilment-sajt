@@ -1021,6 +1021,16 @@
                 />
               </div>
               <div class="field">
+                <label for="sajt">Link sajta ili Instagram profila</label
+                ><input
+                  id="sajt"
+                  name="Sajt"
+                  type="url"
+                  maxlength="300"
+                  placeholder="https://…"
+                />
+              </div>
+              <div class="field">
                 <label for="proizvod">Šta prodajete? *</label
                 ><input
                   id="proizvod"
@@ -1050,12 +1060,22 @@
                 </select>
               </div>
               <div class="field">
-                <label for="firma">Naziv firme / PIB (opciono)</label
+                <label for="firma">Naziv firme</label
                 ><input
                   id="firma"
                   name="Firma"
                   autocomplete="organization"
                   maxlength="250"
+                />
+              </div>
+              <div class="field">
+                <label for="pib">PIB (opciono)</label
+                ><input
+                  id="pib"
+                  name="PIB"
+                  inputmode="numeric"
+                  maxlength="20"
+                  placeholder="9 cifara"
                 />
               </div>
               <div class="field">

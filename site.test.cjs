@@ -144,10 +144,12 @@ function harness(fetchHandler) {
   const fields = {};
   const data = {
     brend: "  Čarobni brend  ",
+    sajt: " https://carobni.rs ",
     proizvod: "Kozmetika",
     paketi: "501 – 1.000",
     interes: "Fulfilment (slanje paketa)",
     firma: "Primer d.o.o.",
+    pib: "123456789",
     ime: "Željko Test",
     telefon: "0600000000",
     email: "qa@example.test",
@@ -230,10 +232,12 @@ test("successful lead uses the existing endpoint and field contract, then confir
   assert.equal(h.calls[0].options.headers["Content-Type"], "application/json");
   assert.deepEqual(JSON.parse(h.calls[0].options.body), {
     brend: "Čarobni brend",
+    sajt: "https://carobni.rs",
     proizvod: "Kozmetika",
     paketi: "501 – 1.000",
     interes: "Fulfilment (slanje paketa)",
     firma: "Primer d.o.o.",
+    pib: "123456789",
     ime: "Željko Test",
     telefon: "0600000000",
     email: "qa@example.test",
