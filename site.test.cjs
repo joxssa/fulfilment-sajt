@@ -23,7 +23,7 @@ test("all existing public pages retain valid scripts, metadata and local destina
       if (script[1].includes("application/ld+json")) JSON.parse(script[2]);
       else new vm.Script(script[2], { filename: file });
     }
-    const base = html.includes('<base href="/">')
+    const base = /<base\b[^>]*href="\/"/.test(html)
       ? "https://fulfilment.rs/"
       : `https://fulfilment.rs/${file}`;
     for (const match of html.matchAll(/(?:href|src)="([^"]+)"/g)) {
@@ -318,15 +318,7 @@ test("mobile menu announces state and Escape returns keyboard focus to its trigg
   assert.equal(h.links.classList.contains("open"), false);
 });
 
-test("brand motion can be paused without removing or changing the supplied logos", () => {
-  const h = harness(() => {
-    throw new Error("Unexpected network call");
-  });
-  h.motionButton.listeners.click();
-  assert.equal(h.marquee.classList.contains("paused"), true);
-  assert.equal(h.motionButton.attrs["aria-pressed"], "true");
-  h.motionButton.listeners.click();
-  assert.equal(h.marquee.classList.contains("paused"), false);
+test("the static brand grid preserves every supplied logo and the mobile action opens the enquiry form", () => {
   const home = read("index.html");
   for (const brand of [
     "maleni",
@@ -338,7 +330,28 @@ test("brand motion can be paused without removing or changing the supplied logos
     "regenpro",
     "solea",
     "kupina",
-  ])
-    assert.match(home, new RegExp(`images/brend-${brand}\\.png`));
+  ]) {
+    assert.equal(
+      [...home.matchAll(new RegExp(`images/brend-${brand}\\.png`, "g"))].length,
+      1,
+      brand,
+    );
+  }
+  assert.match(home, /<span>TVTop<\/span>/);
+  assert.doesNotMatch(home, /class="marquee|pakum-parcel\.svg/);
+  for (const file of pages) {
+    const html = read(file);
+    assert.doesNotMatch(html, /[Čč]akum/);
+    if (!html.includes("<nav")) continue;
+    const bars = [
+      ...html.matchAll(
+        /<aside class="mobile-contact-bar"[^>]*>([\s\S]*?)<\/aside>/g,
+      ),
+    ];
+    assert.equal(bars.length, 1, file);
+    assert.equal([...bars[0][1].matchAll(/<a\b/g)].length, 1, file);
+    assert.match(bars[0][1], /href="index.html#prijava"/);
+    assert.doesNotMatch(bars[0][1], /mailto:|tel:/);
+  }
   assert.match(read("premium.css"), /prefers-reduced-motion:\s*reduce/);
 });

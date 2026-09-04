@@ -28,18 +28,6 @@
     });
   }
 
-  const motionButton = document.getElementById("marquee-toggle");
-  const marquee = document.querySelector(".marquee-track");
-  if (motionButton && marquee) {
-    motionButton.addEventListener("click", () => {
-      const paused = marquee.classList.toggle("paused");
-      motionButton.setAttribute("aria-pressed", String(paused));
-      motionButton.textContent = paused
-        ? "Pokreni kretanje"
-        : "Pauziraj kretanje";
-    });
-  }
-
   const form = document.getElementById("prijava");
   const submit = form?.querySelector('button[type="submit"]');
   const status = document.getElementById("form-status");
