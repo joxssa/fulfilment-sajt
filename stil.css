@@ -258,3 +258,17 @@ footer a:hover{color:var(--orange)}
 @keyframes marquee-levo{from{transform:translateX(0)}to{transform:translateX(-50%)}}
 @media(prefers-reduced-motion:reduce){.marquee-track{animation:none;width:auto;flex-wrap:wrap;justify-content:center}.marquee{mask-image:none;-webkit-mask-image:none}}
 @media(max-width:640px){.marquee-group img{height:34px}.marquee-group{gap:1.8rem;padding-right:1.8rem}}
+
+/* ---------- zasto bas mi (tamna sekcija) ---------- */
+.tamna-sekcija{background:var(--navy);color:#e8eaee;padding:4.5rem 0}
+.tamna-sekcija h2{color:#fff}
+.tamna-sekcija .lead{color:#b7bbc2}
+.zasto-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.2rem;margin-top:2.5rem}
+@media(max-width:880px){.zasto-grid{grid-template-columns:1fr 1fr}}
+@media(max-width:640px){.zasto-grid{grid-template-columns:1fr}}
+.zasto-card{background:#1a1c1f;border:1px solid rgba(255,255,255,.07);border-radius:var(--radius);padding:1.5rem}
+.zasto-card h3{color:#fff;font-size:1.02rem;margin-bottom:.55rem}
+.zasto-card p{color:#aeb3bb;font-size:.92rem;line-height:1.65}
+.zasto-izjava{margin:2.6rem auto 0;max-width:760px;text-align:center;font-size:1.22rem;font-weight:700;color:#fff;line-height:1.55}
+.zasto-izjava .navodnik{color:var(--orange)}
+@media(max-width:640px){.tamna-sekcija{padding:3rem 0}.zasto-izjava{font-size:1.05rem}}
