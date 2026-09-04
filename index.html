@@ -50,7 +50,7 @@
 
 <nav>
   <div class="container nav-inner">
-    <a class="logo" href="index.html"><img src="images/pakum-logo-wordmark.png?v=2" alt="PAKUM — fulfilment centar Srbija" width="1536" height="439"></a>
+    <a class="logo" href="index.html"><img src="images/pakum-logo-wordmark.png?v=3" alt="PAKUM — fulfilment centar Srbija" width="1230" height="411"></a>
     <div class="nav-links">
       <a class="glavni aktivna" href="index.html">Fulfilment</a>
       <a class="glavni" href="roba-na-veliko.html">Roba na veliko</a>
@@ -496,6 +496,7 @@
     </div>
     <img class="contact-photo" src="images/podrska.jpg" alt="Korisnička podrška Pakum" width="1400" height="933" loading="lazy">
     <form class="formwrap" id="prijava">
+      <input type="text" id="web" name="web" tabindex="-1" autocomplete="off" style="position:absolute;left:-9999px" aria-hidden="true">
       <div class="formgrid">
         <div class="field"><label for="brend">Naziv brenda</label><input id="brend" name="Brend" required placeholder="npr. Moj Brend"></div>
         <div class="field"><label for="proizvod">Vrsta proizvoda</label><input id="proizvod" name="Proizvod" required placeholder="npr. kozmetika, gedžeti..."></div>
@@ -534,7 +535,7 @@
   <div class="container">
     <div class="foot-grid">
       <div>
-        <a class="logo" href="index.html"><img class="foot-logo" src="images/pakum-logo-footer.png" alt="PAKUM fulfillment solutions — skladištenje, pakovanje, isporuka" width="1536" height="608"></a>
+        <a class="logo" href="index.html"><img class="foot-logo" src="images/pakum-logo-footer.png?v=2" alt="PAKUM — vaš partner za fulfilment" width="1230" height="470"></a>
         <p class="foot-tag">Pakujemo kao za sebe. Fulfilment partner koji je i sam e-commerce prodavac.</p>
       </div>
       <div>
@@ -582,30 +583,36 @@ links.querySelectorAll('a').forEach(function(a){a.addEventListener('click',funct
 </script>
 
 <script>
-var SLACK_WEBHOOK=''; /* Slack Incoming Webhook URL — kad se upiše, prijave stižu direktno na Slack kanal */
 document.getElementById('prijava').addEventListener('submit',function(e){
   e.preventDefault();
-  var f=e.target,g=function(id){return (f.querySelector('#'+id).value||'-').trim()};
-  var tekst='Nova prijava sa fulfilment.rs
-'
-    +'Brend: '+g('brend')+'
-Proizvod: '+g('proizvod')+'
-Paketa mesecno: '+g('paketi')
-    +'
-Interes: '+g('interes')+'
-Firma/PIB: '+g('firma')+'
-Ime: '+g('ime')
-    +'
-Telefon: '+g('telefon')+'
-Email: '+g('email')+'
-Napomena: '+g('poruka');
-  if(SLACK_WEBHOOK){
-    fetch(SLACK_WEBHOOK,{method:'POST',mode:'no-cors',headers:{'Content-Type':'text/plain'},body:JSON.stringify({text:tekst})})
-      .catch(function(){}).finally(function(){window.location.href='hvala.html'});
-  }else{
-    var body=encodeURIComponent(tekst).replace(/%0A/g,'%0D%0A');
-    window.location.href='mailto:info@bizonline.rs?subject='+encodeURIComponent('Prijava — '+g('brend'))+'&body='+body;
-  }
+  var f=e.target,g=function(id){var el=f.querySelector('#'+id);return el?(el.value||'').trim():''};
+  var podaci={brend:g('brend'),proizvod:g('proizvod'),paketi:g('paketi'),interes:g('interes'),firma:g('firma'),ime:g('ime'),telefon:g('telefon'),email:g('email'),poruka:g('poruka'),web:g('web')};
+  var dugme=f.querySelector('button[type="submit"]');
+  if(dugme){dugme.disabled=true;dugme.textContent='Šaljem...';}
+  fetch('https://sus.rs/api/pakum/prijava',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(podaci)})
+    .then(function(r){
+      if(r.ok){window.location.href='hvala.html';return;}
+      throw new Error('relay');
+    })
+    .catch(function(){
+      if(dugme){dugme.disabled=false;dugme.textContent='Pošalji prijavu';}
+      var tekst='Nova prijava sa fulfilment.rs
+
+Brend: '+(podaci.brend||'-')
+        +'
+Proizvod: '+(podaci.proizvod||'-')+'
+Paketa mesecno: '+(podaci.paketi||'-')
+        +'
+Interes: '+(podaci.interes||'-')+'
+Firma/PIB: '+(podaci.firma||'-')
+        +'
+Ime: '+(podaci.ime||'-')+'
+Telefon: '+(podaci.telefon||'-')
+        +'
+Email: '+(podaci.email||'-')+'
+Napomena: '+(podaci.poruka||'-');
+      window.location.href='mailto:info@bizonline.rs?subject='+encodeURIComponent('Prijava — '+(podaci.brend||'fulfilment.rs'))+'&body='+encodeURIComponent(tekst);
+    });
 });
 </script>
 </body>
