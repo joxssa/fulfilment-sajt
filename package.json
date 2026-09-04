@@ -1,0 +1,12 @@
+{
+  "name": "pakum-fulfilment-site",
+  "private": true,
+  "version": "1.0.0",
+  "scripts": {
+    "test": "node --test site.test.cjs",
+    "typecheck": "tsc --allowJs --checkJs --noEmit --target es2020 --lib es2020,dom site.js"
+  },
+  "devDependencies": {
+    "typescript": "5.9.3"
+  }
+}

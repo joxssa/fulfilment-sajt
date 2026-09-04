@@ -4,10 +4,10 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Softver za porudžbine i slanje paketa — TopOMS | PAKUM</title>
-<meta name="description" content="TopOMS: živo stanje zaliha, QR praćenje svakog proizvoda, statusi pošiljki, fiskalizacija i integracije sa Shopify i WooCommerce. Zakažite demo za 48h start.">
+<meta name="description" content="TopOMS: živo stanje zaliha, QR praćenje svakog proizvoda, statusi pošiljki, fiskalizacija i integracije sa Shopify i WooCommerce. Zakažite prezentaciju softvera.">
 <link rel="canonical" href="https://fulfilment.rs/softver.html">
 <meta property="og:title" content="Softver za porudžbine i slanje paketa — TopOMS | PAKUM">
-<meta property="og:description" content="TopOMS: živo stanje zaliha, QR praćenje svakog proizvoda, statusi pošiljki, fiskalizacija i integracije sa Shopify i WooCommerce. Zakažite demo za 48h start.">
+<meta property="og:description" content="TopOMS: živo stanje zaliha, QR praćenje svakog proizvoda, statusi pošiljki, fiskalizacija i integracije sa Shopify i WooCommerce. Zakažite prezentaciju softvera.">
 <meta property="og:url" content="https://fulfilment.rs/softver.html">
 <meta property="og:type" content="website">
 <meta property="og:locale" content="sr_RS">
@@ -23,6 +23,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="stil.css">
+<link rel="stylesheet" href="premium.css">
 <script type="application/ld+json">
 {"@context":"https://schema.org","@type":"Organization","name":"PAKUM","alternateName":"Pakum — powered by Bizonline","legalName":"LAZAR JOKSIMOVIĆ PR BIZONLINE","url":"https://fulfilment.rs/","logo":"https://fulfilment.rs/images/pakum-logo.png","email":"info@bizonline.rs","vatID":"RS113156519","taxID":"113156519"}
 </script>
@@ -35,30 +36,19 @@
 </head>
 <body id="top">
 
-<nav>
-  <div class="container nav-inner">
-    <a class="logo" href="index.html"><img src="images/pakum-logo-wordmark.png?v=3" alt="PAKUM — fulfilment centar Srbija" width="1230" height="411"></a>
-    <div class="nav-links">
-      <a class="glavni" href="index.html">Fulfilment</a>
-      <a class="glavni" href="roba-na-veliko.html">Roba na veliko</a>
-      <a class="aktivna" href="softver.html">Softver</a>
-      <a href="skaliranje.html">Skaliranje</a>
-      <a href="o-nama.html">O nama</a>
-    </div>
-    <a class="btn btn-primary" href="index.html#kontakt">Zatraži ponudu</a>
-    <button class="burger" id="burger" aria-label="Otvori meni"><span></span><span></span><span></span></button>
-  </div>
-</nav>
+<a class="skip-link" href="#sadrzaj">Pređi na sadržaj</a>
+<nav aria-label="Glavna navigacija"><div class="container nav-inner">
+<a class="logo" href="index.html" aria-label="PAKUM — početna"><img src="images/pakum-logo-wordmark.png?v=3" alt="PAKUM" width="1230" height="411"></a>
+<div class="nav-links" id="nav-links"><a href="index.html#usluge">Usluge</a><a href="index.html#zasto-pakum">Zašto PAKUM</a><a href="softver.html" class="aktivna" aria-current="page">Softver</a><a href="cena-fulfilmenta.html">Cena</a><a href="o-nama.html">O nama</a><a class="nav-mobile-cta" href="index.html#kontakt">Zatraži ponudu ↗</a></div>
+<a class="btn btn-primary" href="index.html#kontakt">Zatraži ponudu <span class="arrow" aria-hidden="true">↗</span></a>
+<button class="burger" id="burger" type="button" aria-label="Otvori meni" aria-expanded="false" aria-controls="nav-links"><span></span><span></span><span></span></button>
+</div></nav>
 
-<header class="page-hero">
+<main id="sadrzaj"><header class="page-hero">
   <div class="container">
     <span class="kicker">Softver</span>
     <h1>TopOMS — softver za porudžbine, zalihe i slanje paketa</h1>
-    <p class="lead">
-      Isti softver koji vodi našu sopstvenu prodaju od hiljadu paketa dnevno vodi i vaš nalog.
-      Nema "javite se da proverimo" — sve vidite sami, u realnom vremenu. TopOMS je softver za
-      slanje paketa, vođenje porudžbina i praćenje zaliha, a za klijente Pakuma dolazi kao deo usluge.
-    </p>
+    <p class="lead">Isti softver koji koristimo za sopstvenu online prodaju povezuje i vaš nalog sa magacinskom operativom. Na jednom mestu pratite evidentiranu robu, porudžbine i statuse.</p>
   </div>
 </header>
 
@@ -99,8 +89,7 @@
           Zato kod nas nema "nestalo sa stanja" — stanje u softveru je stanje na polici.
         </p>
         <p style="margin-top:1rem">
-          Kada operater pakuje porudžbinu, skenira QR kod proizvoda — pogrešan artikal fizički ne
-          može da prođe kroz pakovanje. Ista logika štiti i prijem i povrat: svaki komad koji uđe
+          Kada operater pakuje porudžbinu, skenira QR kod proizvoda — skeniranjem proverava da li artikal odgovara porudžbini kroz pakovanje. Ista logika štiti i prijem i povrat: svaki komad koji uđe
           ili izađe iz magacina ostavlja trag u softveru, pa istorija svakog proizvoda postoji od
           prvog dana saradnje.
         </p>
@@ -121,8 +110,8 @@
         varijanti — boja, veličina, pakovanje — i koliko je rezervisano u porudžbinama koje čekaju
         slanje. Kada se artikal približi kraju, vidite to na vreme i naručujete dopunu pre nego što
         reklame potroše budžet na proizvod kojeg nema. A pošto isti softver vodi i magacin,
-        <a href="skladistenje-robe.html">tačno stanje zaliha na lageru</a> uvek je jednako stanju
-        na vašem ekranu.
+        <a href="skladistenje-robe.html">evidencija robe na lageru</a> povezana je sa
+        pregledom koji vidite na svom ekranu.
       </p>
     </div>
   </div>
@@ -192,14 +181,7 @@
     <div style="max-width:820px;margin:0 auto">
       <span class="kicker">Izveštaji</span>
       <h2>Izveštaji o prodaji, povratima i troškovima slanja</h2>
-      <p style="margin-top:1rem">
-        Brojke koje odlučuju posao ne smeju da se sklapaju ručno na kraju meseca. TopOMS izveštaji
-        pokazuju prodaju po proizvodu i periodu, procenat uručenja i povrata, troškove slanja po
-        pošiljci i strukturu naplaćenog pouzeća. Vidite koji proizvodi nose profit, gde curi novac
-        na povratima i kako se kreće trošak logistike dok rastete. To su isti izveštaji kojima mi
-        vodimo sopstvenu prodaju od hiljadu paketa dnevno — nisu pravljeni da lepo izgledaju na
-        sastanku, nego da svako jutro odgovore na pitanje šta radi, a šta ne radi.
-      </p>
+      <p style="margin-top:1rem">Izveštaji vam pomažu da sagledate evidentirane porudžbine, zalihe i povrate. Dostupne funkcije i potrebne podatke prolazimo zajedno pri povezivanju.</p>
     </div>
   </div>
 </section>
@@ -228,18 +210,9 @@
       <img src="images/podrska.jpg" alt="Podrška tokom onboardinga u TopOMS softver" width="1400" height="933" loading="lazy">
       <div>
         <span class="kicker">Start</span>
-        <h2>Onboarding za 48 sati</h2>
-        <p style="margin-top:1rem">
-          Od dogovora do prvog poslatog paketa prolaze dva radna dana. Vi šaljete listu proizvoda
-          i robu, mi je primamo, verifikujemo i barkodiramo, a naš tim povezuje vaš sajt sa
-          softverom — Shopify i WooCommerce integracije su rutina koju smo prošli mnogo puta. Ako
-          već koristite TopOMS, integracije praktično nema: vaš nalog samo dobija magacin.
-        </p>
-        <p style="margin-top:1rem">
-          Softver za klijente Pakuma nije posebna stavka niti proizvod koji morate da kupite —
-          dolazi kao deo fulfilment usluge, sa podešavanjem, obukom i podrškom. Zakažite demo i
-          pokazaćemo vam kako izgleda vaš nalog u TopOMS-u.
-        </p>
+        <h2>Početak saradnje, korak po korak</h2>
+        <p style="margin-top:1rem">Najpre prolazimo kroz vaš asortiman i prodavnicu. Dogovaramo prijem robe, potrebne funkcije i povezivanje. Zatim proveravamo tok prve porudžbine i potvrđujemo datum početka.</p>
+        <p style="margin-top:1rem">Pristup softveru, povezivanje, obuku i dodatne funkcije navodimo u ponudi. Zakažite prezentaciju da prođemo kroz ono što vam je potrebno.</p>
       </div>
     </div>
   </div>
@@ -257,56 +230,14 @@
   </div>
 </section>
 
-<footer>
-  <div class="container">
-    <div class="foot-grid">
-      <div>
-        <a class="logo" href="index.html"><img class="foot-logo" src="images/pakum-logo-footer.png?v=2" alt="PAKUM — vaš partner za fulfilment" width="1230" height="470"></a>
-        <p class="foot-tag">Pakujemo kao za sebe. Fulfilment partner koji je i sam e-commerce prodavac.</p>
-      </div>
-      <div>
-        <h4>Sajt</h4>
-        <ul>
-          <li><a href="index.html">Fulfilment</a></li>
-          <li><a href="roba-na-veliko.html">Roba na veliko</a></li>
-          <li><a href="softver.html">Softver</a></li>
-          <li><a href="skaliranje.html">Skaliranje</a></li>
-          <li><a href="o-nama.html">O nama</a></li>
-        </ul>
-      </div>
-      <div>
-        <h4>Usluge</h4>
-        <ul>
-          <li><a href="sta-je-fulfilment.html">Šta je fulfilment</a></li>
-          <li><a href="cena-fulfilmenta.html">Cena fulfilmenta</a></li>
-          <li><a href="pakovanje-paketa.html">Pakovanje i slanje paketa</a></li>
-          <li><a href="skladistenje-robe.html">Skladištenje robe</a></li>
-          <li><a href="slanje-pouzecem.html">Slanje pouzećem i fiskalizacija</a></li>
-          <li><a href="softver.html">Softver TopOMS</a></li>
-        </ul>
-      </div>
-      <div>
-        <h4>Podaci</h4>
-        <ul>
-          <li>Pakum — powered by Bizonline</li>
-          <li>LAZAR JOKSIMOVIĆ PR BIZONLINE</li>
-          <li>Matični broj: 66619206</li>
-          <li>PIB: 113156519</li>
-          <li><a href="mailto:info@bizonline.rs">info@bizonline.rs</a></li>
-        </ul>
-      </div>
-    </div>
-    <div class="copy">
-      <span>Copyright © 2026 Pakum · fulfilment.rs. Sva prava zadržana.</span>
-      <span>Magacin 2.000 m² — jug Srbije</span>
-    </div>
-  </div>
-</footer>
-<script>
-var burger=document.getElementById('burger'),links=document.querySelector('.nav-links');
-burger.addEventListener('click',function(){links.classList.toggle('open')});
-links.querySelectorAll('a').forEach(function(a){a.addEventListener('click',function(){links.classList.remove('open')})});
-</script>
+</main>
+<footer><div class="container"><div class="foot-grid">
+<div><a class="logo" href="index.html"><img src="images/pakum-logo-footer.png?v=2" alt="PAKUM" width="1230" height="470" loading="lazy"></a><p class="foot-tag">Pakujemo kao za sebe.<br>Fulfilment iz iskustva sopstvene e-commerce prodaje.</p></div>
+<div><h4>PAKUM</h4><ul><li><a href="o-nama.html">Naša priča</a></li><li><a href="softver.html">Softver</a></li><li><a href="roba-na-veliko.html">Roba na veliko</a></li><li><a href="skaliranje.html">Rast vaše prodaje</a></li><li><a href="index.html#kontakt">Zatraži ponudu</a></li></ul></div>
+<div><h4>Fulfilment usluge</h4><ul><li><a href="sta-je-fulfilment.html">Šta je fulfilment?</a></li><li><a href="skladistenje-robe.html">Skladištenje robe</a></li><li><a href="pakovanje-paketa.html">Pakovanje i slanje</a></li><li><a href="slanje-pouzecem.html">Pouzeće i fiskalizacija</a></li><li><a href="cena-fulfilmenta.html">Cena fulfilmenta</a></li></ul></div>
+<div><h4>Kontakt i podaci</h4><ul><li><a href="mailto:info@bizonline.rs">info@bizonline.rs</a></li><li>Pakum — powered by Bizonline</li><li>LAZAR JOKSIMOVIĆ PR BIZONLINE</li><li>Matični broj: 66619206</li><li>PIB: 113156519</li></ul></div>
+</div><div class="copy"><span>© 2026 PAKUM · fulfilment.rs</span><span>Vi prodajete. Mi pakujemo i šaljemo.</span></div></div></footer>
+<script src="site.js" defer></script>
 
 </body>
 </html>

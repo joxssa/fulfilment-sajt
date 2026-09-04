@@ -1,675 +1,1213 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="sr">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Fulfilment centar Srbija — skladištenje i slanje | PAKUM</title>
-<meta name="description" content="Fulfilment partner koji i sam šalje 1.000 paketa dnevno. Skladištenje, pakovanje, pouzeće i fiskalizacija na jednom mestu. Zatražite ponudu za 48h.">
-<link rel="canonical" href="https://fulfilment.rs/">
-<meta property="og:title" content="Fulfilment centar Srbija — skladištenje i slanje | PAKUM">
-<meta property="og:description" content="Fulfilment partner koji i sam šalje 1.000 paketa dnevno. Skladištenje, pakovanje, pouzeće i fiskalizacija na jednom mestu. Zatražite ponudu za 48h.">
-<meta property="og:url" content="https://fulfilment.rs/">
-<meta property="og:type" content="website">
-<meta property="og:locale" content="sr_RS">
-<meta property="og:site_name" content="PAKUM">
-<meta property="og:image" content="https://fulfilment.rs/images/og-pakum.jpg">
-<meta property="og:image:width" content="1200">
-<meta property="og:image:height" content="630">
-<meta name="twitter:card" content="summary_large_image">
-<link rel="icon" href="favicon.ico" sizes="32x32">
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%23fd6904'/%3E%3Ctext x='16' y='23' font-family='Arial,sans-serif' font-size='19' font-weight='800' fill='%23fff' text-anchor='middle'%3EP%3C/text%3E%3C/svg%3E" type="image/svg+xml">
-<link rel="apple-touch-icon" href="apple-touch-icon.png">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="stil.css">
-<script type="application/ld+json">
-{"@context":"https://schema.org","@type":"Organization","name":"PAKUM","alternateName":"Pakum — powered by Bizonline","legalName":"LAZAR JOKSIMOVIĆ PR BIZONLINE","url":"https://fulfilment.rs/","logo":"https://fulfilment.rs/images/pakum-logo.png","email":"info@bizonline.rs","vatID":"RS113156519","taxID":"113156519"}
-</script>
-<script type="application/ld+json">
-{"@context":"https://schema.org","@type":"WebSite","name":"PAKUM — fulfilment.rs","url":"https://fulfilment.rs/"}
-</script>
-<script type="application/ld+json">
-{"@context":"https://schema.org","@type":"Service","serviceType":"Fulfilment za e-commerce","name":"Fulfilment usluge PAKUM","provider":{"@type":"Organization","name":"PAKUM","url":"https://fulfilment.rs/"},"areaServed":"RS","description":"Fulfilment centar u Srbiji za online prodavnice: skladištenje robe, pakovanje i slanje paketa, naplata pouzeća, fiskalizacija, obrada povrata i reklamacija i softver za praćenje zaliha i pošiljki."}
-</script>
-<script type="application/ld+json">
-{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[
-{"@type":"Question","name":"Šta je fulfilment?","acceptedAnswer":{"@type":"Answer","text":"Fulfilment (engl. fulfillment) je usluga koja preuzima celu logistiku online prodavnice: skladištenje robe, pakovanje porudžbina, slanje kupcima, naplatu pouzeća i obradu povrata i reklamacija. Vi prodajete — fulfilment centar radi sve ostalo. Detaljno smo objasnili šta je fulfilment i kako radi fulfilment centar."}},
-{"@type":"Question","name":"Koliko brzo možemo da počnemo?","acceptedAnswer":{"@type":"Answer","text":"Onboarding traje 48 sati od dogovora: vi šaljete listu proizvoda i robu, mi je primamo, kodiramo i povezujemo vaš sajt. Prvi paket ide na slanje čim stigne prva porudžbina posle toga."}},
-{"@type":"Question","name":"Kako znam koliko robe imam kod vas?","acceptedAnswer":{"@type":"Answer","text":"U svakom trenutku — u softveru. Svaki proizvod ima QR kod i mesto na polici, pa je stanje u softveru uvek stanje na polici. Nema \"javite se da proverimo\"."}},
-{"@type":"Question","name":"Kako ide naplata pouzeća i fiskalni računi?","acceptedAnswer":{"@type":"Answer","text":"Kupac plaća kuriru, fiskalni račun se izdaje u vaše ime, a naplaćeni novac se evidentira po pošiljci i prosleđuje vam sa jasnim izveštajem. Vama ne treba ni kasa ni sopstvena fiskalizacija. Ceo tok — od naplate otkupnine do fiskalnog računa — opisali smo na strani slanje pouzećem i fiskalizacija."}},
-{"@type":"Question","name":"Šta se dešava sa povratima i neuručenim paketima?","acceptedAnswer":{"@type":"Answer","text":"Vraćaju se u naš magacin, pregledamo ih i vraćamo na stanje (ili izdvajamo ako su oštećeni), uz evidenciju razloga. Vi vidite šta se vratilo i zašto — i možete da reagujete."}},
-{"@type":"Question","name":"Mogu li da koristim svoje brendirano pakovanje?","acceptedAnswer":{"@type":"Answer","text":"Da. Pošaljete nam kutije, kese, flajere ili zahvalnice — ugrađujemo ih u pakovanje po vašem uputstvu, pa kupac dobija paket koji izgleda kao da ste ga vi spakovali."}},
-{"@type":"Question","name":"Koliko košta fulfilment?","acceptedAnswer":{"@type":"Answer","text":"Cena je po paketu i unapred poznata — nula skrivenih troškova je pravilo, ne slogan. Tačnu ponudu dobijate posle kratkog razgovora o vašem asortimanu i mesečnom broju paketa. Pre razgovora pogledajte šta ulazi u cenu fulfilmenta, pa zatražite ponudu dole."}},
-{"@type":"Question","name":"Sa kojim platformama se povezujete?","acceptedAnswer":{"@type":"Answer","text":"Shopify, WooCommerce i sales funnel stranice povezujemo direktno, a za ostale sajtove postoji API. Porudžbine ulaze u softver TopOMS same, bez prekucavanja, a statusi pošiljki se vraćaju u vaš shop."}},
-{"@type":"Question","name":"Da li primate robu iz uvoza direktno na lager?","acceptedAnswer":{"@type":"Answer","text":"Da. Roba iz Kine ulazi pravo u naš magacin — carinjena, primljena i barkodirana — i odmah je spremna za slanje kupcima. Ako vam treba i nabavka, pogledajte robu na veliko i uslužni uvoz iz Kine."}}
-]}
-</script>
-</head>
-<body id="top">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Fulfilment centar Srbija — skladištenje i slanje | PAKUM</title>
+    <meta
+      name="description"
+      content="PAKUM fulfilment centar u Srbiji. Prijem robe, skladištenje, pakovanje, slanje i povrati iz iskustva sopstvene e-commerce prodaje. Zatražite ponudu."
+    />
+    <link rel="canonical" href="https://fulfilment.rs/" />
+    <meta
+      property="og:title"
+      content="Fulfilment centar Srbija — skladištenje i slanje | PAKUM"
+    />
+    <meta
+      property="og:description"
+      content="PAKUM fulfilment centar u Srbiji. Prijem robe, skladištenje, pakovanje, slanje i povrati iz iskustva sopstvene e-commerce prodaje. Zatražite ponudu."
+    />
+    <meta property="og:url" content="https://fulfilment.rs/" />
+    <meta property="og:type" content="website" />
+    <meta property="og:locale" content="sr_RS" />
+    <meta property="og:site_name" content="PAKUM" />
+    <meta
+      property="og:image"
+      content="https://fulfilment.rs/images/og-pakum.jpg"
+    />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <link rel="icon" href="favicon.ico" sizes="32x32" />
+    <link
+      rel="icon"
+      href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%23fd6904'/%3E%3Ctext x='16' y='23' font-family='Arial,sans-serif' font-size='19' font-weight='800' fill='%23fff' text-anchor='middle'%3EP%3C/text%3E%3C/svg%3E"
+      type="image/svg+xml"
+    />
+    <link rel="apple-touch-icon" href="apple-touch-icon.png" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="stil.css" />
+    <link rel="stylesheet" href="premium.css" />
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "Organization",
+        "name": "PAKUM",
+        "alternateName": "Pakum — powered by Bizonline",
+        "legalName": "LAZAR JOKSIMOVIĆ PR BIZONLINE",
+        "url": "https://fulfilment.rs/",
+        "logo": "https://fulfilment.rs/images/pakum-logo.png",
+        "email": "info@bizonline.rs",
+        "vatID": "RS113156519",
+        "taxID": "113156519"
+      }
+    </script>
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "WebSite",
+        "name": "PAKUM — fulfilment.rs",
+        "url": "https://fulfilment.rs/"
+      }
+    </script>
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "Service",
+        "serviceType": "Fulfilment za e-commerce",
+        "name": "Fulfilment usluge PAKUM",
+        "provider": {
+          "@type": "Organization",
+          "name": "PAKUM",
+          "url": "https://fulfilment.rs/"
+        },
+        "areaServed": "RS",
+        "description": "Fulfilment centar u Srbiji za online prodavnice: skladištenje robe, pakovanje i slanje paketa, naplata pouzeća, fiskalizacija, obrada povrata i reklamacija i softver za praćenje zaliha i pošiljki."
+      }
+    </script>
 
-<nav>
-  <div class="container nav-inner">
-    <a class="logo" href="index.html"><img src="images/pakum-logo-wordmark.png?v=3" alt="PAKUM — fulfilment centar Srbija" width="1230" height="411"></a>
-    <div class="nav-links">
-      <a class="glavni aktivna" href="index.html">Fulfilment</a>
-      <a class="glavni" href="roba-na-veliko.html">Roba na veliko</a>
-      <a href="softver.html">Softver</a>
-      <a href="skaliranje.html">Skaliranje</a>
-      <a href="o-nama.html">O nama</a>
-    </div>
-    <a class="btn btn-primary" href="#kontakt">Zatraži ponudu</a>
-    <button class="burger" id="burger" aria-label="Otvori meni"><span></span><span></span><span></span></button>
-  </div>
-</nav>
-
-<header class="hero">
-  <div class="hero-bg"><img src="images/hero-magacin.jpg" alt="Pakum fulfilment centar — magacin od 2.000 m² na jugu Srbije" width="1400" height="933" fetchpriority="high"></div>
-  <div class="container">
-    <div class="hero-inner">
-      <span class="kicker">Pakujemo kao za sebe.</span>
-      <h1>Fulfilment centar koji i sam šalje 1.000 paketa dnevno</h1>
-      <p class="lead">
-        Pakum je fulfilment (engl. fulfillment) centar za e-commerce prodavce u Srbiji — i sami smo
-        prodavci, pa kroz naš magacin svakog dana prođe oko <b>1.000 naših sopstvenih paketa</b>.
-        Isti ljudi, isti softver i ista traka rade i za vaš brend: skladištenje, pakovanje, slanje,
-        pouzeće i fiskalizacija — dok se vi bavite prodajom.
-      </p>
-      <div class="hero-ctas">
-        <a class="btn btn-primary btn-lg" href="#kontakt">Zatraži ponudu</a>
-        <a class="btn btn-ghost btn-lg" href="#usluge">Pogledaj usluge</a>
-      </div>
-      <div class="chips">
-        <span class="chip"><svg width="15" height="15" viewBox="0 0 24 24" fill="none"><path d="M20 6L9 17l-5-5" stroke="#fd6904" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"/></svg>Poslato isti dan</span>
-        <span class="chip"><svg width="15" height="15" viewBox="0 0 24 24" fill="none"><path d="M20 6L9 17l-5-5" stroke="#fd6904" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"/></svg>Nula skrivenih troškova</span>
-        <span class="chip"><svg width="15" height="15" viewBox="0 0 24 24" fill="none"><path d="M20 6L9 17l-5-5" stroke="#fd6904" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"/></svg>Onboarding za 48h</span>
-      </div>
-    </div>
-  </div>
-</header>
-
-<div class="stats">
-  <div class="container stats-grid">
-    <div class="stat"><b>1.000+</b><span>paketa dnevno kroz naš magacin</span></div>
-    <div class="stat"><b>400.000+</b><span>isporučenih paketa</span></div>
-    <div class="stat"><b>2.000 m²</b><span>magacinskog prostora</span></div>
-    <div class="stat"><b>48h</b><span>od dogovora do prvog paketa</span></div>
-  </div>
-</div>
-
-<section id="usluge">
-  <div class="container">
-    <div class="center">
-      <span class="kicker">Fulfilment usluge</span>
-      <h2>Sve između porudžbine i kupca — naša briga</h2>
-      <p class="lead" style="margin:1rem auto 0">
-        Kompletna logistika za e-commerce brendove od 100 do 3.000+ paketa mesečno.
-        Vi prodajete — mi radimo sve ostalo.
-      </p>
-    </div>
-    <div class="grid-3">
-      <div class="card">
-        <div class="ico"><svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M21 8l-9-5-9 5v8l9 5 9-5V8z" stroke="#fd6904" stroke-width="1.8" stroke-linejoin="round"/><path d="M3 8l9 5 9-5M12 13v8" stroke="#fd6904" stroke-width="1.8" stroke-linejoin="round"/></svg></div>
-        <h3>Prijem i skladištenje</h3>
-        <p>Strogi prijem uz verifikaciju — <b>svaki proizvod dobija svoj QR kod</b>, pa u svakom trenutku
-        znamo gde se koji komad nalazi. Precizno vođenje zaliha znači da je lager u softveru uvek jednak
-        stanju na polici, a roba stoji u organizovanom, obezbeđenom magacinu od 2.000 m², spremna za
-        slanje istog dana. Detaljnije: <a href="skladistenje-robe.html" style="color:var(--orange);font-weight:600">skladištenje robe za online prodavnice</a>.</p>
-      </div>
-      <div class="card">
-        <div class="ico"><svg width="22" height="22" viewBox="0 0 24 24" fill="none"><rect x="3" y="7" width="18" height="13" rx="2" stroke="#fd6904" stroke-width="1.8"/><path d="M3 11h18M12 7V4" stroke="#fd6904" stroke-width="1.8" stroke-linecap="round"/></svg></div>
-        <h3>Pakovanje</h3>
-        <p>Svaki paket pakujemo kao da je naš — zaštita proizvoda, uredna kutija, po dogovoru i brendirana
-        ambalaža sa vašim materijalima. Pogrešno spakovana porudžbina je izgubljen kupac, i to znamo iz
-        prve ruke. Pogledajte kako radi <a href="pakovanje-paketa.html" style="color:var(--orange);font-weight:600">pakovanje i slanje paketa za online prodavnice</a>.</p>
-      </div>
-      <div class="card">
-        <div class="ico"><svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M3 12h13M13 5l7 7-7 7" stroke="#fd6904" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
-        <h3>Slanje i kuriri</h3>
-        <p>Porudžbina predata do preseka ide <b>istog dana</b> na isporuku preko kurirskih službi sa kojima
-        šaljemo i sopstvenih hiljadu paketa dnevno. Status svake pošiljke prati se automatski — vi u
-        svakom trenutku znate šta je poslato, šta je uručeno i gde je koji paket.</p>
-      </div>
-      <div class="card">
-        <div class="ico"><svg width="22" height="22" viewBox="0 0 24 24" fill="none"><rect x="4" y="4" width="16" height="16" rx="3" stroke="#fd6904" stroke-width="1.8"/><path d="M8 10h8M8 14h5" stroke="#fd6904" stroke-width="1.8" stroke-linecap="round"/></svg></div>
-        <h3>Pouzeće i fiskalizacija</h3>
-        <p>Naplaćujemo pouzeće i izdajemo fiskalne račune u vaše ime — vama ne treba ni kasa ni
-        knjigovodstveni haos oko pouzeća. Novac se prosleđuje uredno, sa jasnim izveštajem po pošiljci.
-        Sve o tome: <a href="slanje-pouzecem.html" style="color:var(--orange);font-weight:600">slanje pouzećem i fiskalizacija</a>.</p>
-      </div>
-      <div class="card">
-        <div class="ico"><svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M9 14l-4-4 4-4M5 10h11a4 4 0 010 8h-2" stroke="#fd6904" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
-        <h3>Povrati i reklamacije</h3>
-        <p>Obrada povrata i reklamacija ide bez vašeg angažovanja: primamo povrate, pregledamo robu i
-        vraćamo je na stanje. Jasna evidencija svakog povrata, da tačno znate šta se vratilo i zašto —
-        i koji se kupci ponavljaju kao problematični.</p>
-      </div>
-      <div class="card">
-        <div class="ico"><svg width="22" height="22" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="8" r="4" stroke="#fd6904" stroke-width="1.8"/><path d="M4 21c0-4 3.6-6 8-6s8 2 8 6" stroke="#fd6904" stroke-width="1.8" stroke-linecap="round"/></svg></div>
-        <h3>Imenovani operater</h3>
-        <p>Vaš brend vodi jedan konkretan čovek — sa imenom i brojem telefona, ne info-mejl i tiket sistem.
-        Kad nešto zatreba, znate koga zovete i on zna vaš asortiman.</p>
-      </div>
-    </div>
-    <div class="photo-strip">
-      <img src="images/pakovanje.jpg" alt="Pakovanje paketa u Pakum magacinu" width="1400" height="933" loading="lazy">
-      <img src="images/pakovanje-detalj.jpg" alt="Pažljivo pakovanje proizvoda" width="1400" height="933" loading="lazy">
-      <img src="images/paketi.jpg" alt="Paketi spremni za slanje" width="1400" height="934" loading="lazy">
-    </div>
-  </div>
-</section>
-
-<section class="brendovi-sekcija" id="brendovi">
-  <div class="container">
-    <div class="center">
-      <span class="kicker">Poverenje</span>
-      <h2>Brendovi koji se pakuju u našem magacinu</h2>
-    </div>
-    <div class="marquee" aria-label="Brendovi koje pakujemo i šaljemo">
-      <div class="marquee-track">
-        <div class="marquee-group">
-        <img src="images/brend-maleni.png?v=4" alt="maleni" width="500" height="114" loading="lazy">
-        <img src="images/brend-shopex.png?v=4" alt="Shopex" width="636" height="150" loading="lazy">
-        <img src="images/brend-naklik.png?v=4" alt="Naklik" width="347" height="150" loading="lazy">
-        <img src="images/brend-hir.png?v=4" alt="Hir Shop" width="500" height="88" loading="lazy">
-        <img src="images/brend-plantigo.png?v=4" alt="Plantigo" width="586" height="150" loading="lazy">
-        <img src="images/brend-rabito.png?v=4" alt="Rabito" width="252" height="150" loading="lazy">
-        <img src="images/brend-regenpro.png?v=4" alt="ReGen pro" width="450" height="150" loading="lazy">
-        <img src="images/brend-solea.png?v=4" alt="Solea" width="230" height="80" loading="lazy">
-        <img src="images/brend-kupina.png?v=4" alt="Kupina Shop" width="482" height="106" loading="lazy">
-        <span class="brand-chip">TVTop</span>
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "Šta je fulfilment i šta preuzima PAKUM?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Fulfilment (engl. fulfillment) je logistika online prodaje: prijem robe, skladištenje, priprema porudžbina i predaja kuriru. PAKUM može da preuzme i povrate, podršku za pouzeće i fiskalizaciju, prema dogovorenim uslugama. Pogledajte kako fulfilment radi."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Koliko košta i šta ulazi u ponudu?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Cena zavisi od broja paketa, asortimana, prostora i usluga koje koristite. U ponudi su odvojeno prikazani pakovanje, skladištenje, dostava i dodatne usluge, sa jedinicom obračuna i PDV tretmanom. Više o ceni fulfilmenta."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Kako prelazimo iz svog magacina kod vas?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Prvo prolazimo kroz vaš asortiman, način pakovanja i tok porudžbina. Zatim dogovaramo uslove, prijem robe i povezivanje prodavnice. Datum početka i rokove otpreme potvrđujemo pre prve pošiljke."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Da li možemo da koristimo svoju ambalažu?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Da. Možemo da koristimo vaše kutije, kese, flajere ili zahvalnice. Način pakovanja i eventualne dodatne korake definišemo u ponudi, prema konkretnom proizvodu."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Kako pratim zalihe, pošiljke i povrate?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Kroz softver pratite evidentirano stanje robe i statuse porudžbina. Povrate primamo, pregledamo i evidentiramo. Robu vraćamo na stanje ili je izdvajamo prema stanju i dogovorenoj proceduri."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Radite li sa Shopify i WooCommerce prodavnicama?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Povezivanje Shopify i WooCommerce prodavnica organizujemo kroz TopOMS. Za vašu platformu proveravamo koje podatke i statuse razmenjujemo, a zatim dogovaramo povezivanje i test prve porudžbine."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Kako funkcionišu pouzeće i fiskalni računi?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Tok naplate pouzeća, evidenciju i dinamiku prenosa sredstava definišemo pre saradnje. Podršku za fiskalizaciju organizujemo prema vašem poslovnom modelu i potrebnim ovlašćenjima. Detaljnije o pouzeću i fiskalizaciji."
+            }
+          }
+        ]
+      }
+    </script>
+  </head>
+  <body id="top">
+    <a class="skip-link" href="#sadrzaj">Pređi na sadržaj</a>
+    <nav aria-label="Glavna navigacija">
+      <div class="container nav-inner">
+        <a class="logo" href="index.html" aria-label="PAKUM — početna"
+          ><img
+            src="images/pakum-logo-wordmark.png?v=3"
+            alt="PAKUM"
+            width="1230"
+            height="411"
+        /></a>
+        <div class="nav-links" id="nav-links">
+          <a href="index.html#usluge">Usluge</a
+          ><a href="index.html#zasto-pakum">Zašto PAKUM</a
+          ><a href="softver.html">Softver</a
+          ><a href="cena-fulfilmenta.html">Cena</a
+          ><a href="o-nama.html">O nama</a
+          ><a class="nav-mobile-cta" href="index.html#kontakt"
+            >Zatraži ponudu ↗</a
+          >
         </div>
-        <div class="marquee-group" aria-hidden="true">
-        <img src="images/brend-maleni.png?v=4" alt="maleni" width="500" height="114" loading="lazy">
-        <img src="images/brend-shopex.png?v=4" alt="Shopex" width="636" height="150" loading="lazy">
-        <img src="images/brend-naklik.png?v=4" alt="Naklik" width="347" height="150" loading="lazy">
-        <img src="images/brend-hir.png?v=4" alt="Hir Shop" width="500" height="88" loading="lazy">
-        <img src="images/brend-plantigo.png?v=4" alt="Plantigo" width="586" height="150" loading="lazy">
-        <img src="images/brend-rabito.png?v=4" alt="Rabito" width="252" height="150" loading="lazy">
-        <img src="images/brend-regenpro.png?v=4" alt="ReGen pro" width="450" height="150" loading="lazy">
-        <img src="images/brend-solea.png?v=4" alt="Solea" width="230" height="80" loading="lazy">
-        <img src="images/brend-kupina.png?v=4" alt="Kupina Shop" width="482" height="106" loading="lazy">
-        <span class="brand-chip">TVTop</span>
+        <a class="btn btn-primary" href="index.html#kontakt"
+          >Zatraži ponudu <span class="arrow" aria-hidden="true">↗</span></a
+        >
+        <button
+          class="burger"
+          id="burger"
+          type="button"
+          aria-label="Otvori meni"
+          aria-expanded="false"
+          aria-controls="nav-links"
+        >
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </nav>
+    <main id="sadrzaj">
+      <header class="hero hero-premium">
+        <div class="container hero-grid">
+          <div class="hero-copy">
+            <span class="kicker">Fulfilment za e-commerce · Srbija</span>
+            <h1>
+              Vi gradite brend.<br />Mi brinemo<br />o <em>svakom paketu.</em>
+            </h1>
+            <p class="lead">
+              Od prvog prijema robe do poslednjeg povrata. Skladištenje,
+              pakovanje i slanje kroz sistem koji smo izgradili za sopstvenu
+              online prodaju.
+            </p>
+            <div class="hero-ctas">
+              <a class="btn btn-primary btn-lg" href="#kontakt"
+                >Zatraži ponudu
+                <span class="arrow" aria-hidden="true">↗</span></a
+              ><a class="btn btn-ghost btn-lg" href="#kako-radi"
+                >Kako radimo <span class="arrow" aria-hidden="true">↓</span></a
+              >
+            </div>
+            <p class="hero-note">
+              Vaša roba. Vaš brend. Naša svakodnevna briga.
+            </p>
+          </div>
+          <div class="hero-visual">
+            <img
+              src="images/hero-magacin.jpg"
+              alt="Priprema i pakovanje porudžbina u magacinu"
+              width="1400"
+              height="933"
+              fetchpriority="high"
+            />
+            <div class="image-label">
+              <div>
+                <small>PAKUM · Čakum-pakum.</small
+                ><strong>Pakujemo kao za sebe.</strong>
+              </div>
+              <span class="corner-icon" aria-hidden="true">↗</span>
+            </div>
+          </div>
+        </div>
+      </header>
+      <div class="operation-band">
+        <div class="container operation-grid">
+          <div class="operation-item">
+            <svg
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="1.5"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              aria-hidden="true"
+            >
+              <path d="m12 3 9 5v8l-9 5-9-5V8l9-5Z" />
+              <path d="m3 8 9 5 9-5M12 13v8M7.5 5.5l9 5" />
+            </svg>
+            <div>
+              <strong>Iz iskustva prodavca</strong
+              ><span>I sami vodimo e-commerce</span>
+            </div>
+          </div>
+          <div class="operation-item">
+            <svg
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="1.5"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              aria-hidden="true"
+            >
+              <path
+                d="M8 3H3v5m13-5h5v5M3 16v5h5m8 0h5v-5M7 8v8m3-8v8m4-8v8m3-8v8"
+              />
+            </svg>
+            <div>
+              <strong>Jasan tok svake robe</strong
+              ><span>Od prijema do povrata</span>
+            </div>
+          </div>
+          <div class="operation-item">
+            <svg
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="1.5"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              aria-hidden="true"
+            >
+              <rect x="3" y="4" width="18" height="13" rx="1" />
+              <path d="M8 21h8m-4-4v4M7 12l3-3 3 2 4-4" />
+            </svg>
+            <div>
+              <strong>Operativa + softver</strong
+              ><span>Povezan pregled poslovanja</span>
+            </div>
+          </div>
+          <div class="operation-item">
+            <svg
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="1.5"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              aria-hidden="true"
+            >
+              <path d="M5 3h14v18l-3-2-4 2-4-2-3 2V3Zm4 5h6m-6 4h6m-6 4h3" />
+            </svg>
+            <div>
+              <strong>Ponuda po stavkama</strong
+              ><span>Prema vašem obimu i uslugama</span>
+            </div>
+          </div>
         </div>
       </div>
-    </div>
-  </div>
-</section>
-
-<section class="bg-paper" id="kako-radi">
-  <div class="container">
-    <div class="center">
-      <span class="kicker">Kako fulfilment radi</span>
-      <h2>Šta se tačno dešava sa vašom robom — korak po korak</h2>
-      <p class="lead" style="margin:1rem auto 0">
-        Isti proces kroz koji svakog dana prođe oko 1.000 naših sopstvenih paketa.
-        Ništa se ne dogovara usput — svaki korak ima pravilo i čoveka odgovornog za njega.
-      </p>
-    </div>
-    <div class="proces">
-      <div class="step">
-        <h3>Najava i prijem robe</h3>
-        <p>Najavite isporuku (količine i proizvode), robu dostavite ili je mi preuzmemo. Na prijemu se
-        svaka stavka prebroji i proveri prema najavi — višak, manjak ili oštećenje se evidentira odmah,
-        pre nego što išta uđe na policu.</p>
-      </div>
-      <div class="step">
-        <h3>QR kod i mesto na polici</h3>
-        <p>Svaki proizvod dobija svoj QR kod i tačnu lokaciju u magacinu. Od tog trenutka znamo gde je
-        svaki komad, a vi u softveru vidite stanje zaliha po proizvodu i varijanti — uživo.</p>
-      </div>
-      <div class="step">
-        <h3>Porudžbina stiže sama</h3>
-        <p>Vaš sajt (Shopify, WooCommerce, sales funnel) je povezan sa našim softverom — porudžbina
-        se pojavi kod nas u trenutku kad kupac naruči. Bez prekucavanja, bez mejlova, bez tabela.</p>
-      </div>
-      <div class="step">
-        <h3>Pakovanje istog dana</h3>
-        <p>Operater skenira QR kod proizvoda (pogrešan artikal fizički ne može da prođe), pakuje uz
-        zaštitu i vaš brendirani materijal ako ga ima, štampa adresnicu — i paket ide na traku za
-        slanje istog dana ako je porudžbina stigla do dnevnog preseka.</p>
-      </div>
-      <div class="step">
-        <h3>Isporuka i pouzeće</h3>
-        <p>Kurir preuzima pakete iz našeg magacina svakog radnog dana. Kupac plaća pouzeće kuriru,
-        fiskalni račun se izdaje u vaše ime, a vi u softveru vidite status svake pošiljke i svaki dinar
-        naplaćenog pouzeća.</p>
-      </div>
-      <div class="step">
-        <h3>Povrati, reklamacije, izveštaj</h3>
-        <p>Neuručeni paketi i povrati se vraćaju kod nas, pregledaju i vraćaju na stanje (ili izdvajaju
-        ako su oštećeni) — sa evidencijom razloga. Vi dobijate jasan pregled: šta je poslato, šta
-        uručeno, šta se vratilo i zašto.</p>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- SVE NA JEDNOM MESTU -->
-<section id="sve-na-jednom-mestu">
-  <div class="container">
-    <div class="center">
-      <span class="kicker">Sve na jednom mestu</span>
-      <h2>Softver, skladištenje, fiskalizacija i dostava — sve na jednom mestu</h2>
-      <p class="lead" style="margin:1rem auto 0">
-        Vi prodajete — mi radimo sve ostalo. Umesto pet ugovora i pet sistema, dobijate jednog
-        fulfilment partnera: <a href="softver.html" style="color:var(--orange);font-weight:600">fulfilment softver TopOMS</a>,
-        magacin, kurire, pouzeće i fiskalizaciju, a kada zatreba i
-        <a href="roba-na-veliko.html" style="color:var(--orange);font-weight:600">robu na veliko i uvoz iz Kine</a>.
-      </p>
-    </div>
-    <div class="tizeri">
-      <a class="tizer" href="sta-je-fulfilment.html">
-        <h3>Šta je fulfilment</h3>
-        <p>Vodič bez žargona: šta fulfilment znači, kako radi fulfilment centar i kada se isplati za vaš shop.</p>
-        <span class="vise">Pročitaj vodič →</span>
-      </a>
-      <a class="tizer" href="cena-fulfilmenta.html">
-        <h3>Cena fulfilmenta</h3>
-        <p>Od čega se sastoji cena, šta ulazi u cenu po paketu i na koje skrivene stavke da pazite u ponudama.</p>
-        <span class="vise">Saznaj šta plaćate →</span>
-      </a>
-      <a class="tizer" href="pakovanje-paketa.html">
-        <h3>Pakovanje i slanje paketa</h3>
-        <p>Pick and pack proces, kontrola kvaliteta, brendirana ambalaža i predaja kuriru istog dana.</p>
-        <span class="vise">Kako pakujemo →</span>
-      </a>
-      <a class="tizer" href="skladistenje-robe.html">
-        <h3>Skladištenje robe</h3>
-        <p>Prijem, barkodiranje i tačno stanje zaliha — magacin koji pakuje i šalje umesto vas.</p>
-        <span class="vise">Kako skladištimo →</span>
-      </a>
-      <a class="tizer" href="slanje-pouzecem.html">
-        <h3>Slanje pouzećem i fiskalizacija</h3>
-        <p>Naplata otkupnine, fiskalni račun uz svaku pošiljku i uredna obrada povrata.</p>
-        <span class="vise">Kako radi pouzeće →</span>
-      </a>
-      <a class="tizer" href="softver.html">
-        <h3>Softver TopOMS</h3>
-        <p>Živo stanje zaliha, statusi pošiljki, fiskalizacija i integracije sa Shopify i WooCommerce.</p>
-        <span class="vise">Više o softveru →</span>
-      </a>
-    </div>
-  </div>
-</section>
-
-<!-- ŠTA JE UKLJUČENO -->
-<section class="bg-paper" id="ukljuceno">
-  <div class="container">
-    <div class="split" style="margin-top:0;align-items:start">
-      <div>
-        <span class="kicker">Šta je uključeno</span>
-        <h2>Jedna usluga, ceo lanac — bez sitnih slova</h2>
-        <p style="margin-top:1rem">
-          Sve što stoji između porudžbine i zadovoljnog kupca radimo mi. Ovo je lista onoga što
-          dobijate od prvog dana — ne dodatne opcije koje se naplaćuju posebno.
-        </p>
-        <ul class="ukljuceno">
-          <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M20 6L9 17l-5-5" stroke="#fd6904" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"/></svg><div>Prijem robe sa proverom<br><span>brojanje, kontrola, evidencija odstupanja</span></div></li>
-          <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M20 6L9 17l-5-5" stroke="#fd6904" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"/></svg><div>QR praćenje svakog komada<br><span>lokacija i stanje uživo u softveru</span></div></li>
-          <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M20 6L9 17l-5-5" stroke="#fd6904" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"/></svg><div>Skladištenje u obezbeđenom magacinu<br><span>2.000 m², organizovano po proizvodu</span></div></li>
-          <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M20 6L9 17l-5-5" stroke="#fd6904" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"/></svg><div>Pakovanje sa zaštitom<br><span>uredna kutija, opciono vaš brendirani materijal</span></div></li>
-          <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M20 6L9 17l-5-5" stroke="#fd6904" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"/></svg><div>Slanje istog dana<br><span>kurirsko preuzimanje svakog radnog dana</span></div></li>
-          <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M20 6L9 17l-5-5" stroke="#fd6904" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"/></svg><div>Naplata pouzeća<br><span>uredna evidencija i prosleđivanje novca</span></div></li>
-          <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M20 6L9 17l-5-5" stroke="#fd6904" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"/></svg><div>Fiskalni računi u vaše ime<br><span>bez kase i bez knjigovodstvenog haosa</span></div></li>
-          <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M20 6L9 17l-5-5" stroke="#fd6904" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"/></svg><div>Povrati i reklamacije<br><span>prijem, pregled, vraćanje na stanje</span></div></li>
-          <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M20 6L9 17l-5-5" stroke="#fd6904" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"/></svg><div>Integracija sa vašim sajtom<br><span>Shopify, WooCommerce, sales funnel, TopOMS</span></div></li>
-          <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M20 6L9 17l-5-5" stroke="#fd6904" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"/></svg><div>Imenovani operater<br><span>jedan čovek sa imenom i telefonom za vaš brend</span></div></li>
-        </ul>
-      </div>
-      <div>
-        <img src="images/pakovanje-detalj.jpg" alt="Pakovanje proizvoda sa zaštitom" width="1400" height="933" loading="lazy">
-        <img src="images/magacin.jpg" alt="QR praćenje u magacinu" width="1400" height="933" loading="lazy" style="margin-top:1.2rem">
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ZA KOGA -->
-<section id="za-koga">
-  <div class="container">
-    <div class="center">
-      <span class="kicker">Za koga je Pakum</span>
-      <h2>Za prodavce koji hoće da rastu, a ne da pakuju</h2>
-    </div>
-    <div class="grid-3">
-      <div class="card">
-        <h3>Brend koji tek kreće</h3>
-        <p>Imate proizvod i prve porudžbine, a pakujete iz stana ili kancelarije. Kod nas dobijate
-        magacin, kurira, pouzeće i fiskalizaciju od prvog dana — bez ulaganja u prostor i ljude.</p>
-      </div>
-      <div class="card">
-        <h3>Brend koji raste</h3>
-        <p>Pakovanje i pouzeće vam jedu dane, a svaka greška u slanju vam košta kupca. Mi preuzimamo
-        operativu, vi vraćate vreme u prodaju i reklame.</p>
-      </div>
-      <div class="card">
-        <h3>Brend koji skalira</h3>
-        <p>Više stotina paketa nedeljno, sezone, kampanje koje eksplodiraju preko noći. Naš magacin
-        već svaki dan podnosi hiljadu paketa — vaš vrhunac za nas je običan radni dan.</p>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- CALL CENTAR -->
-<section class="tamna-sekcija" id="zasto-mi">
-  <div class="container">
-    <div class="center">
-      <span class="kicker">Zašto baš mi</span>
-      <h2>Naša hiljada paketa dnevno pregovara za vas</h2>
-      <p class="lead">Kroz naš magacin svakog dana prođe oko 1.000 naših sopstvenih paketa — uz pakete naših klijenata. Za kurirske službe i dobavljače to znači jedno: mi smo partner koga niko ne želi da izgubi. Tu poziciju niko ne gradi preko noći — a vi je dobijate čim vaš paket stane na našu traku.</p>
-    </div>
-    <div class="zasto-grid">
-      <div class="zasto-card">
-        <h3>Vaš paket putuje pod našim volumenom</h3>
-        <p>Za kurira vi niste novi mali pošiljalac sa dvadeset paketa dnevno — vaše pošiljke ulaze u isti tok sa hiljadu naših. Tretman koji kurirske službe čuvaju za najveće naloge važi za sve što izađe sa naše rampe, pa i za vaš prvi paket.</p>
-      </div>
-      <div class="zasto-card">
-        <h3>Zbir koji raste sa svakim novim brendom</h3>
-        <p>Sopstvena prodaja je samo osnova: kurirskim službama svakog dana predajemo i pošiljke brendova koji se pakuju kod nas. Kurir sve to vidi kao jednog pošiljaoca — pa svaki brend koji uđe u magacin uvećava zbir iza koga stoji i vaša roba. Volumen koji biste sami skupljali godinama ovde već postoji i raste dalje, bez vašeg truda.</p>
-      </div>
-      <div class="zasto-card">
-        <h3>Uslove ne prihvatamo — pregovaramo ih</h3>
-        <p>Ko dnevno predaje ovoliki broj pošiljki, za sto seda kao partner, ne kao molilac. Sa kurirskim službama pregovaramo termine preuzimanja, način obračuna i tretman pošiljaka; sa dobavljačima ambalaže količine i kvalitet koje pojedinačan prodavac ne može da dobije. Svaki uslov koji tako izborimo ugrađen je u uslugu koju dobijate — bez ijednog pregovora sa vaše strane.</p>
-      </div>
-      <div class="zasto-card">
-        <h3>Zaglavljena pošiljka ne čeka red</h3>
-        <p>Paket koji stoji u depou ili pogrešno usmerena pošiljka malom pošiljaocu vise danima na info-liniji. Mi ne zovemo opšti kontakt centar: kod kurirskih službi imamo direktne ljude koji poznaju našu operaciju i dižu slušalicu kad ih pozovemo — niko ne ostavlja na čekanju pošiljaoca koji mu svakog dana puni vozila. Vaša reklamacija ide istim kanalom, pravo do čoveka koji može da je reši.</p>
-      </div>
-      <div class="zasto-card">
-        <h3>Svaku grešku prvo platimo mi</h3>
-        <p>Naša sopstvena prodaja živi od iste operacije koja radi za vas. Kada procedura negde pušta — pogrešan artikal, slaba zaštita, spor povrat — to prvo udari naš prihod i naše kupce, i ispravlja se odmah, iz sopstvenog interesa. Ulazite u sistem koji je svoje greške već napravio i platio sam, pa ne mora da ih vežba na vašim paketima.</p>
-      </div>
-      <div class="zasto-card">
-        <h3>Infrastruktura već radi punim pogonom</h3>
-        <p>Magacin od 2.000 m², softver, procedure za sezonske špiceve i zalihe ambalaže nismo pravili za ponudu — pravili smo ih zato što naša prodaja ne sme da stane, i uhodali kroz više od 400.000 isporučenih paketa. Kurirska vozila dolaze kod nas svakog radnog dana, i u sezoni, kada mali pošiljaoci čekaju preuzimanje. Vi ništa ne gradite i ne čekate: uključujete se u operaciju koja već radi, a predaja kuriru istog dana važi i u novembru.</p>
-      </div>
-    </div>
-    <p class="zasto-izjava"><span class="navodnik">„</span>Vaš paket kod kurira ne nastupa sam — nastupa kao deo hiljade naših, i zato od prvog dana dobija tretman koji biste sami gradili godinama.<span class="navodnik">”</span></p>
-  </div>
-</section>
-
-<section class="bg-paper" id="call-centar">
-  <div class="container">
-    <div class="center">
-      <span class="kicker">Call centar</span>
-      <h2>Porudžbine potvrđene pre nego što se spakuju</h2>
-      <p class="lead" style="margin:1rem auto 0">
-        Kod pouzeća je potvrda porudžbine pola posla: potvrđena porudžbina znači tačnu adresu,
-        manje odbijenih paketa i manje povrata. Za call centar postoje dva modela — birate onaj
-        koji vam odgovara.
-      </p>
-    </div>
-    <div class="grid-2">
-      <div class="card">
-        <h3>Vaš tim kroz naš softver</h3>
-        <p>Vaši ljudi rade u TopOMS-u: vide svaku porudžbinu, stanje zaliha i status pošiljke, zovu
-        kupce, potvrđuju porudžbine i ispravljaju adrese pre nego što paket uđe u pakovanje. Bez
-        tabela i prekucavanja — sve na jednom ekranu.</p>
-      </div>
-      <div class="card">
-        <h3>Naš tim za vas</h3>
-        <p>Nemate koga da posadite na telefon? Naš call centar preuzima: primamo pozive, potvrđujemo
-        porudžbine i proveravamo podatke za isporuku — istim procesom kojim svakog dana potvrđujemo
-        sopstvene porudžbine. Vi samo gledate statuse u softveru.</p>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ČESTA PITANJA -->
-<section id="pitanja">
-  <div class="container">
-    <div class="center">
-      <span class="kicker">Česta pitanja</span>
-      <h2>Ono što nas svi prvo pitaju</h2>
-    </div>
-    <div class="faq">
-      <details>
-        <summary>Šta je fulfilment?</summary>
-        <p>Fulfilment (engl. fulfillment) je usluga koja preuzima celu logistiku online prodavnice:
-        skladištenje robe, pakovanje porudžbina, slanje kupcima, naplatu pouzeća i obradu povrata i
-        reklamacija. Vi prodajete — fulfilment centar radi sve ostalo. Detaljno smo objasnili
-        <a href="sta-je-fulfilment.html" style="color:var(--orange);font-weight:600">šta je fulfilment i kako radi fulfilment centar</a>.</p>
-      </details>
-      <details>
-        <summary>Koliko brzo možemo da počnemo?</summary>
-        <p>Onboarding traje 48 sati od dogovora: vi šaljete listu proizvoda i robu, mi je primamo, kodiramo i
-        povezujemo vaš sajt. Prvi paket ide na slanje čim stigne prva porudžbina posle toga.</p>
-      </details>
-      <details>
-        <summary>Kako znam koliko robe imam kod vas?</summary>
-        <p>U svakom trenutku — u softveru. Svaki proizvod ima QR kod i mesto na polici, pa je stanje u softveru
-        uvek stanje na polici. Nema "javite se da proverimo".</p>
-      </details>
-      <details>
-        <summary>Kako ide naplata pouzeća i fiskalni računi?</summary>
-        <p>Kupac plaća kuriru, fiskalni račun se izdaje u vaše ime, a naplaćeni novac se evidentira po
-        pošiljci i prosleđuje vam sa jasnim izveštajem. Vama ne treba ni kasa ni sopstvena fiskalizacija.
-        Ceo tok — od naplate otkupnine do fiskalnog računa — opisali smo na strani
-        <a href="slanje-pouzecem.html" style="color:var(--orange);font-weight:600">slanje pouzećem i fiskalizacija</a>.</p>
-      </details>
-      <details>
-        <summary>Šta se dešava sa povratima i neuručenim paketima?</summary>
-        <p>Vraćaju se u naš magacin, pregledamo ih i vraćamo na stanje (ili izdvajamo ako su oštećeni),
-        uz evidenciju razloga. Vi vidite šta se vratilo i zašto — i možete da reagujete.</p>
-      </details>
-      <details>
-        <summary>Mogu li da koristim svoje brendirano pakovanje?</summary>
-        <p>Da. Pošaljete nam kutije, kese, flajere ili zahvalnice — ugrađujemo ih u pakovanje po vašem uputstvu,
-        pa kupac dobija paket koji izgleda kao da ste ga vi spakovali.</p>
-      </details>
-      <details>
-        <summary>Koliko košta fulfilment?</summary>
-        <p>Cena je po paketu i unapred poznata — nula skrivenih troškova je pravilo, ne slogan. Tačnu ponudu
-        dobijate posle kratkog razgovora o vašem asortimanu i mesečnom broju paketa. Pre razgovora pogledajte
-        <a href="cena-fulfilmenta.html" style="color:var(--orange);font-weight:600">šta ulazi u cenu fulfilmenta</a>,
-        pa zatražite ponudu dole.</p>
-      </details>
-      <details>
-        <summary>Sa kojim platformama se povezujete?</summary>
-        <p>Shopify, WooCommerce i sales funnel stranice povezujemo direktno, a za ostale sajtove postoji API.
-        Porudžbine ulaze u <a href="softver.html" style="color:var(--orange);font-weight:600">softver TopOMS</a> same,
-        bez prekucavanja, a statusi pošiljki se vraćaju u vaš shop.</p>
-      </details>
-      <details>
-        <summary>Da li primate robu iz uvoza direktno na lager?</summary>
-        <p>Da. Roba iz Kine ulazi pravo u naš magacin — carinjena, primljena i barkodirana — i odmah je
-        spremna za slanje kupcima. Ako vam treba i nabavka, pogledajte
-        <a href="roba-na-veliko.html" style="color:var(--orange);font-weight:600">robu na veliko i uslužni uvoz iz Kine</a>.</p>
-      </details>
-    </div>
-  </div>
-</section>
-
-<!-- SOFTVER NA NASLOVNOJ -->
-<section class="bg-paper" id="softver-info">
-  <div class="container">
-    <div class="split" style="margin-top:0">
-      <div>
-        <span class="kicker">Softver</span>
-        <h2>TopOMS — sve vidite sami, u realnom vremenu</h2>
-        <p style="margin-top:1rem">
-          Isti softver koji vodi našu sopstvenu prodaju od hiljadu paketa dnevno vodi i vaš nalog.
-          Nema "javite se da proverimo" — otvorite ekran i vidite sve.
-        </p>
-        <ul>
-          <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M20 6L9 17l-5-5" stroke="#fd6904" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"/></svg>Živo stanje zaliha — po proizvodu i varijanti</li>
-          <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M20 6L9 17l-5-5" stroke="#fd6904" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"/></svg>QR kod na svakom proizvodu — prati se svaki komad, od prijema do slanja</li>
-          <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M20 6L9 17l-5-5" stroke="#fd6904" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"/></svg>Status svake pošiljke + evidencija svakog dinara pouzeća</li>
-          <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M20 6L9 17l-5-5" stroke="#fd6904" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"/></svg>Fiskalizacija automatski · integracije Shopify/WooCommerce</li>
-        </ul>
-        <a class="btn btn-ghost" style="margin-top:1.4rem" href="softver.html">Više o softveru →</a>
-      </div>
-      <img src="images/tim.jpg" alt="Tim prati operaciju kroz TopOMS softver" width="1400" height="933" loading="lazy">
-    </div>
-  </div>
-</section>
-
-<!-- ROBA NA VELIKO — MINI -->
-<section id="roba-mini">
-  <div class="container">
-    <div class="split" style="margin-top:0">
-      <img src="images/veleprodaja.jpg" alt="Roba na veliko — palete na lageru" width="1400" height="933" loading="lazy">
-      <div>
-        <span class="kicker">Roba na veliko</span>
-        <h2>Kod nas možete nabaviti i robu</h2>
-        <p style="margin-top:1rem">
-          Iza Pakuma stoji sopstvena prodaja od 30.000+ paketa mesečno i direktan uvozni kanal iz Kine.
-          Nudimo <b>veleprodaju proizvoda koji dokazano prodaju</b> — već na lageru u Srbiji — i
-          <b>uslužni uvoz</b>: nađemo, uvezemo, uskladištimo i šaljemo. Ceo lanac, jedan partner.
-        </p>
-        <a class="btn btn-primary" style="margin-top:1.4rem" href="roba-na-veliko.html">Roba na veliko →</a>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- SKALIRANJE TIZER -->
-<section style="padding-bottom:0">
-  <div class="container">
-    <div class="cta-banner" style="margin-top:0">
-      <div style="max-width:640px">
-        <span class="uskoro">Konsultacije + reklame</span>
-        <h2 style="margin-top:.8rem">Pomažemo vam da skalirate</h2>
-        <p style="margin-top:.6rem">
-          Savet od prodavca sa 30.000+ paketa mesečno, pomoć oko Meta i TikTok kampanja — uz punu
-          diskreciju za vaše winnere. A uskoro klijentima obezbeđujemo i naš softver za reklame.
-        </p>
-      </div>
-      <a class="btn btn-primary btn-lg" href="skaliranje.html">Saznaj više →</a>
-    </div>
-  </div>
-</section>
-
-<section id="kontakt">
-  <div class="container">
-    <div class="center">
-      <span class="kicker">Kontakt</span>
-      <h2>Zakaži besplatnu konsultaciju</h2>
-      <p class="lead" style="margin-top:1rem">Popuni formu — javljamo se u roku od 48h sa predlogom saradnje.</p>
-    </div>
-    <img class="contact-photo" src="images/podrska.jpg" alt="Korisnička podrška Pakum" width="1400" height="933" loading="lazy">
-    <form class="formwrap" id="prijava">
-      <input type="text" id="web" name="web" tabindex="-1" autocomplete="off" style="position:absolute;left:-9999px" aria-hidden="true">
-      <div class="formgrid">
-        <div class="field"><label for="brend">Naziv brenda</label><input id="brend" name="Brend" required placeholder="npr. Moj Brend"></div>
-        <div class="field"><label for="proizvod">Vrsta proizvoda</label><input id="proizvod" name="Proizvod" required placeholder="npr. kozmetika, gedžeti..."></div>
-        <div class="field"><label for="paketi">Paketa mesečno</label>
-          <select id="paketi" name="Paketa mesecno">
-            <option>Do 500</option>
-            <option>501 – 1.000</option>
-            <option>Preko 1.000</option>
-          </select>
+      <section class="brendovi-sekcija" id="brendovi">
+        <div class="container">
+          <div class="brand-heading">
+            <p>Brendovi koji se pakuju u našem magacinu</p>
+            <button
+              id="marquee-toggle"
+              class="motion-control"
+              aria-pressed="false"
+              type="button"
+            >
+              Pauziraj kretanje
+            </button>
+          </div>
+          <div class="marquee" aria-label="Brendovi koje pakujemo i šaljemo">
+            <div class="marquee-track">
+              <div class="marquee-group">
+                <img
+                  src="images/brend-maleni.png?v=4"
+                  alt="maleni"
+                  width="500"
+                  height="114"
+                  loading="lazy"
+                />
+                <img
+                  src="images/brend-shopex.png?v=4"
+                  alt="Shopex"
+                  width="636"
+                  height="150"
+                  loading="lazy"
+                />
+                <img
+                  src="images/brend-naklik.png?v=4"
+                  alt="Naklik"
+                  width="347"
+                  height="150"
+                  loading="lazy"
+                />
+                <img
+                  src="images/brend-hir.png?v=4"
+                  alt="Hir Shop"
+                  width="500"
+                  height="88"
+                  loading="lazy"
+                />
+                <img
+                  src="images/brend-plantigo.png?v=4"
+                  alt="Plantigo"
+                  width="586"
+                  height="150"
+                  loading="lazy"
+                />
+                <img
+                  src="images/brend-rabito.png?v=4"
+                  alt="Rabito"
+                  width="252"
+                  height="150"
+                  loading="lazy"
+                />
+                <img
+                  src="images/brend-regenpro.png?v=4"
+                  alt="ReGen pro"
+                  width="450"
+                  height="150"
+                  loading="lazy"
+                />
+                <img
+                  src="images/brend-solea.png?v=4"
+                  alt="Solea"
+                  width="230"
+                  height="80"
+                  loading="lazy"
+                />
+                <img
+                  src="images/brend-kupina.png?v=4"
+                  alt="Kupina Shop"
+                  width="482"
+                  height="106"
+                  loading="lazy"
+                />
+                <span class="brand-chip">TVTop</span>
+              </div>
+              <div class="marquee-group" aria-hidden="true">
+                <img
+                  src="images/brend-maleni.png?v=4"
+                  alt="maleni"
+                  width="500"
+                  height="114"
+                  loading="lazy"
+                />
+                <img
+                  src="images/brend-shopex.png?v=4"
+                  alt="Shopex"
+                  width="636"
+                  height="150"
+                  loading="lazy"
+                />
+                <img
+                  src="images/brend-naklik.png?v=4"
+                  alt="Naklik"
+                  width="347"
+                  height="150"
+                  loading="lazy"
+                />
+                <img
+                  src="images/brend-hir.png?v=4"
+                  alt="Hir Shop"
+                  width="500"
+                  height="88"
+                  loading="lazy"
+                />
+                <img
+                  src="images/brend-plantigo.png?v=4"
+                  alt="Plantigo"
+                  width="586"
+                  height="150"
+                  loading="lazy"
+                />
+                <img
+                  src="images/brend-rabito.png?v=4"
+                  alt="Rabito"
+                  width="252"
+                  height="150"
+                  loading="lazy"
+                />
+                <img
+                  src="images/brend-regenpro.png?v=4"
+                  alt="ReGen pro"
+                  width="450"
+                  height="150"
+                  loading="lazy"
+                />
+                <img
+                  src="images/brend-solea.png?v=4"
+                  alt="Solea"
+                  width="230"
+                  height="80"
+                  loading="lazy"
+                />
+                <img
+                  src="images/brend-kupina.png?v=4"
+                  alt="Kupina Shop"
+                  width="482"
+                  height="106"
+                  loading="lazy"
+                />
+                <span class="brand-chip">TVTop</span>
+              </div>
+            </div>
+          </div>
         </div>
-        <div class="field"><label for="interes">Šta vas zanima?</label>
-          <select id="interes" name="Interes">
-            <option>Fulfilment (slanje paketa)</option>
-            <option>Roba na veliko</option>
-            <option>Uslužni uvoz iz Kine</option>
-            <option>Konsultacije</option>
-            <option>Pomoć oko reklama</option>
-            <option>Kombinacija</option>
-          </select>
+      </section>
+      <section id="usluge">
+        <div class="container">
+          <div class="section-head">
+            <div>
+              <span class="kicker">Vaša operativa, na jednom mestu</span>
+              <h2>Sve što se dešava<br />posle „Poruči”.</h2>
+            </div>
+            <p>
+              Kupac vidi vaš brend. Iza njega je usklađen proces: roba na svom
+              mestu, pažljivo spakovana porudžbina i jasan sledeći korak.
+            </p>
+          </div>
+          <div class="services-grid">
+            <article class="service-cell">
+              <div class="service-top">
+                <svg
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="1.5"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  aria-hidden="true"
+                >
+                  <path
+                    d="m3 9 9-6 9 6v12H3V9Zm4 12V11h10v10M7 15h10M7 18h10"
+                  /></svg
+                ><span>01</span>
+              </div>
+              <h3>Prijem i skladištenje</h3>
+              <p>
+                Robu prebrojavamo, evidentiramo i raspoređujemo. Znate šta je
+                primljeno i gde se nalazi vaš asortiman.
+              </p>
+              <a class="text-link" href="skladistenje-robe.html"
+                >Od robe do uređenog lagera<span
+                  class="arrow"
+                  aria-hidden="true"
+                  >↗</span
+                ></a
+              >
+            </article>
+            <article class="service-cell">
+              <div class="service-top">
+                <svg
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="1.5"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  aria-hidden="true"
+                >
+                  <path d="m12 3 9 5v8l-9 5-9-5V8l9-5Z" />
+                  <path d="m3 8 9 5 9-5M12 13v8M7.5 5.5l9 5" /></svg
+                ><span>02</span>
+              </div>
+              <h3>Pakovanje i slanje</h3>
+              <p>
+                Pripremamo porudžbinu, proveravamo artikle i pakujemo prema
+                dogovorenom standardu vašeg brenda.
+              </p>
+              <a class="text-link" href="pakovanje-paketa.html"
+                >Paket kakav želite da pošaljete<span
+                  class="arrow"
+                  aria-hidden="true"
+                  >↗</span
+                ></a
+              >
+            </article>
+            <article class="service-cell">
+              <div class="service-top">
+                <svg
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="1.5"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  aria-hidden="true"
+                >
+                  <path
+                    d="M5 3h14v18l-3-2-4 2-4-2-3 2V3Zm4 5h6m-6 4h6m-6 4h3"
+                  /></svg
+                ><span>03</span>
+              </div>
+              <h3>Pouzeće i fiskalizacija</h3>
+              <p>
+                Dogovoren tok naplate, evidencije i računa. Administracija prati
+                paket, a vi imate pregled pošiljki.
+              </p>
+              <a class="text-link" href="slanje-pouzecem.html"
+                >Uređena administracija<span class="arrow" aria-hidden="true"
+                  >↗</span
+                ></a
+              >
+            </article>
+            <article class="service-cell">
+              <div class="service-top">
+                <svg
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="1.5"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  aria-hidden="true"
+                >
+                  <path d="m8 3-5 5 5 5M3 8h11a7 7 0 0 1 0 14h-3" /></svg
+                ><span>04</span>
+              </div>
+              <h3>Povrati i reklamacije</h3>
+              <p>
+                Primamo vraćene pakete, proveravamo stanje robe i evidentiramo
+                ishod. Znate šta može ponovo u prodaju.
+              </p>
+              <a class="text-link" href="#kako-radi"
+                >Pogledajte ceo proces<span class="arrow" aria-hidden="true"
+                  >↗</span
+                ></a
+              >
+            </article>
+            <article class="service-cell">
+              <div class="service-top">
+                <svg
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="1.5"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  aria-hidden="true"
+                >
+                  <rect x="3" y="4" width="18" height="13" rx="1" />
+                  <path d="M8 21h8m-4-4v4M7 12l3-3 3 2 4-4" /></svg
+                ><span>05</span>
+              </div>
+              <h3>Softver i pregled zaliha</h3>
+              <p>
+                Porudžbine, roba i statusi povezani kroz TopOMS. Informacije za
+                svakodnevne odluke na jednom mestu.
+              </p>
+              <a class="text-link" href="softver.html"
+                >Pogledajte kako pratite posao<span
+                  class="arrow"
+                  aria-hidden="true"
+                  >↗</span
+                ></a
+              >
+            </article>
+            <article class="service-cell">
+              <div class="service-top">
+                <svg
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="1.5"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  aria-hidden="true"
+                >
+                  <circle cx="12" cy="7" r="4" />
+                  <path d="M4 21v-2a6 6 0 0 1 6-6h4a6 6 0 0 1 6 6v2" /></svg
+                ><span>06</span>
+              </div>
+              <h3>Podrška i call centar</h3>
+              <p>
+                Dogovaramo ko vodi vaš nalog i kako rešavamo izuzetke. Po
+                potrebi uključujemo i potvrdu porudžbina.
+              </p>
+              <a class="text-link" href="#kontakt"
+                >Dogovorimo šta vam treba<span class="arrow" aria-hidden="true"
+                  >↗</span
+                ></a
+              >
+            </article>
+          </div>
         </div>
-        <div class="field"><label for="firma">Naziv firme (i PIB ako postoji)</label><input id="firma" name="Firma"></div>
-        <div class="field"><label for="ime">Ime i prezime</label><input id="ime" name="Ime" required></div>
-        <div class="field"><label for="telefon">Broj telefona</label><input id="telefon" name="Telefon" type="tel" required placeholder="06x xxx xxxx"></div>
-        <div class="field"><label for="email">Email adresa</label><input id="email" name="Email" type="email" required placeholder="ti@brend.rs"></div>
-        <div class="field full"><label for="poruka">Kako trenutno šaljete i pakujete? (opciono)</label><textarea id="poruka" name="Poruka"></textarea></div>
+      </section>
+      <section class="why-section" id="zasto-pakum">
+        <div class="container why-grid">
+          <div class="why-photo">
+            <img
+              src="images/pakovanje-detalj.jpg"
+              alt="Zaštita proizvoda i pažljivo slaganje u kutiju"
+              width="1400"
+              height="933"
+              loading="lazy"
+            />
+            <div class="photo-note">
+              <span>Naš standard</span
+              ><strong>Paket nosi vaše ime. To shvatamo lično.</strong>
+            </div>
+          </div>
+          <div class="why-copy">
+            <span class="kicker">Zašto baš PAKUM</span>
+            <h2>I sami znamo<br />šta znači<br />izgubiti kupca.</h2>
+            <p>
+              Vodimo sopstvenu online prodaju. Znamo kako pogrešan artikal,
+              kašnjenje ili neobrađen povrat utiču na sledeću kupovinu. Zato smo
+              operativu prvo izgradili za sebe.
+            </p>
+            <div class="reasons">
+              <div class="reason">
+                <span>01</span>
+                <div>
+                  <h3>Iskustvo koje ulazi u svaki paket.</h3>
+                  <p>
+                    Koristimo isti tim, procese i softver za sopstvene i
+                    klijentske porudžbine.
+                  </p>
+                </div>
+              </div>
+              <div class="reason">
+                <span>02</span>
+                <div>
+                  <h3>Imate pregled. I osobu za razgovor.</h3>
+                  <p>
+                    Pratite evidentirano stanje robe i pošiljki, uz dogovoren
+                    kontakt za vaš nalog.
+                  </p>
+                </div>
+              </div>
+              <div class="reason">
+                <span>03</span>
+                <div>
+                  <h3>Uslovi poznati pre prve pošiljke.</h3>
+                  <p>
+                    Obim usluga, način obračuna i radne procedure prolazimo
+                    zajedno, pre početka.
+                  </p>
+                </div>
+              </div>
+            </div>
+            <a class="text-link" href="o-nama.html"
+              >Upoznajte tim iza paketa
+              <span class="arrow" aria-hidden="true">↗</span></a
+            >
+          </div>
+        </div>
+      </section>
+      <section class="process-section" id="kako-radi">
+        <div class="container">
+          <div class="section-head">
+            <div>
+              <span class="kicker">Od vaše robe do vašeg kupca</span>
+              <h2>Svaki korak<br />ima svoje mesto.</h2>
+            </div>
+            <p>
+              Preuzimamo dogovorenu operativu. Vi pratite tok robe i porudžbina,
+              uz procedure koje zajedno definišemo.
+            </p>
+          </div>
+          <div class="journey">
+            <article class="journey-step">
+              <h3>Dogovorimo i povežemo.</h3>
+              <p>
+                Prolazimo kroz asortiman, ambalažu i broj paketa. Potvrđujemo
+                ponudu, povezivanje i datum početka.
+              </p>
+            </article>
+            <article class="journey-step">
+              <h3>Primimo i evidentiramo.</h3>
+              <p>
+                Proveravamo pristiglu robu, beležimo razlike i raspoređujemo
+                proizvode na njihove lokacije.
+              </p>
+            </article>
+            <article class="journey-step">
+              <h3>Spakujemo i predamo.</h3>
+              <p>
+                Pripremamo artikle, proveravamo porudžbinu i predajemo paket
+                kuriru prema dogovorenom rasporedu.
+              </p>
+            </article>
+            <article class="journey-step">
+              <h3>Pratimo i zatvaramo krug.</h3>
+              <p>
+                Evidentiramo statuse i povrate. Pregledamo vraćenu robu i
+                postupamo po dogovorenoj proceduri.
+              </p>
+            </article>
+          </div>
+          <div class="process-foot">
+            <p>
+              Način pakovanja, rokove otpreme i postupanje sa povratima
+              definišemo unapred.
+            </p>
+            <a class="text-link" href="#kontakt"
+              >Razgovarajmo o vašem procesu
+              <span class="arrow" aria-hidden="true">↗</span></a
+            >
+          </div>
+        </div>
+      </section>
+      <section id="softver-info">
+        <div class="container software-grid">
+          <div class="software-copy">
+            <span class="kicker">Magacin povezan sa vašom prodajom</span>
+            <h2>Predajte operativu.<br />Zadržite pregled.</h2>
+            <p>
+              TopOMS povezuje porudžbine i svakodnevni rad u magacinu. Umesto
+              traženja informacija kroz poruke, imate pregled onoga što je
+              evidentirano u sistemu.
+            </p>
+            <ul class="software-list">
+              <li>Stanje zaliha po proizvodu i varijanti</li>
+              <li>Statusi porudžbina i pošiljki</li>
+              <li>Evidencija vraćene robe</li>
+              <li>Povezivanje sa vašom online prodavnicom</li>
+            </ul>
+            <a class="text-link" href="softver.html"
+              >Upoznajte softver
+              <span class="arrow" aria-hidden="true">↗</span></a
+            >
+          </div>
+          <div class="flow-card">
+            <div class="flow-caption">
+              <span>Kako se povezuje vaš posao</span><span>PAKUM</span>
+            </div>
+            <div class="flow-source">Vaša online prodavnica</div>
+            <div class="flow-line" aria-hidden="true"></div>
+            <div class="flow-hub">
+              <strong>TopOMS</strong
+              ><span>Porudžbine i magacinska operativa</span>
+            </div>
+            <div class="flow-line" aria-hidden="true"></div>
+            <div class="flow-outputs">
+              <div class="flow-output">
+                <svg
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="1.5"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  aria-hidden="true"
+                >
+                  <path
+                    d="m3 9 9-6 9 6v12H3V9Zm4 12V11h10v10M7 15h10M7 18h10"
+                  /></svg
+                ><strong>Zalihe</strong><span>Šta je na stanju</span>
+              </div>
+              <div class="flow-output">
+                <svg
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="1.5"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  aria-hidden="true"
+                >
+                  <path d="M3 5h11v12H3V5Zm11 4h4l3 4v4h-7" />
+                  <circle cx="6.5" cy="18" r="2" />
+                  <circle cx="17.5" cy="18" r="2" />
+                  <path d="M3 10h6" /></svg
+                ><strong>Pošiljke</strong><span>Šta je poslato</span>
+              </div>
+              <div class="flow-output">
+                <svg
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="1.5"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  aria-hidden="true"
+                >
+                  <path d="m8 3-5 5 5 5M3 8h11a7 7 0 0 1 0 14h-3" /></svg
+                ><strong>Povrati</strong><span>Šta se vratilo</span>
+              </div>
+            </div>
+            <p>
+              Povezivanje i dostupne funkcije dogovaramo prema vašoj prodavnici.
+            </p>
+          </div>
+        </div>
+      </section>
+      <section class="quote-section" id="cena">
+        <div class="container quote-grid">
+          <div class="quote-copy">
+            <span class="kicker">Cena koja prati vaš posao</span>
+            <h2>Vaš asortiman.<br />Vaš obim.<br />Vaša ponuda.</h2>
+            <p>
+              Nije isto pakovati jedan proizvod i porudžbinu sa više artikala.
+              Zato prvo upoznajemo vaš posao, pa sastavljamo ponudu sa cenama i
+              uslugama koje su vam potrebne.
+            </p>
+            <p>
+              Jasno vidite šta plaćate po paketu, šta mesečno, a šta po
+              korišćenju.
+            </p>
+            <a class="btn btn-primary btn-lg" href="#kontakt"
+              >Zatraži ponudu za svoju firmu
+              <span class="arrow" aria-hidden="true">↗</span></a
+            >
+          </div>
+          <div class="quote-sheet">
+            <div class="sheet-head">
+              <strong>PAKUM</strong><span>Struktura vaše ponude</span>
+            </div>
+            <h3>Usluge prema vašim potrebama.</h3>
+            <p>
+              Svaka dogovorena stavka ima svoju cenu, jedinicu i uslove
+              obračuna.
+            </p>
+            <div class="quote-line">
+              <span>Prijem i skladištenje</span
+              ><span>Prema količini i prostoru</span>
+            </div>
+            <div class="quote-line">
+              <span>Priprema i pakovanje</span><span>Po paketu / artiklu</span>
+            </div>
+            <div class="quote-line">
+              <span>Kurirska dostava</span><span>Prema težini i usluzi</span>
+            </div>
+            <div class="quote-line">
+              <span>Povrati i dodatne usluge</span
+              ><span>Po dogovorenom obimu</span>
+            </div>
+            <p class="sheet-note">
+              Ponuda navodi i PDV, rok važenja, način plaćanja i obim usluga.
+              <a class="text-link" href="cena-fulfilmenta.html"
+                >Šta ulazi u cenu
+                <span class="arrow" aria-hidden="true">↗</span></a
+              >
+            </p>
+          </div>
+        </div>
+      </section>
+      <section id="pitanja">
+        <div class="container faq-grid">
+          <div class="faq-intro">
+            <span class="kicker">Pre prvog paketa</span>
+            <h2>Dobra saradnja<br />počinje odgovorima.</h2>
+            <p>
+              Ovo su pitanja kroz koja najčešće prolazimo sa vlasnicima online
+              prodavnica.
+            </p>
+            <a class="text-link" href="#kontakt"
+              >Hajde da prođemo kroz vaš slučaj
+              <span class="arrow" aria-hidden="true">↗</span></a
+            >
+          </div>
+          <div class="faq">
+            <details>
+              <summary>Šta je fulfilment i šta preuzima PAKUM?</summary>
+              <p>
+                Fulfilment (engl. fulfillment) je logistika online prodaje:
+                prijem robe, skladištenje, priprema porudžbina i predaja kuriru.
+                PAKUM može da preuzme i povrate, podršku za pouzeće i
+                fiskalizaciju, prema dogovorenim uslugama.
+                <a href="sta-je-fulfilment.html"
+                  >Pogledajte kako fulfilment radi.</a
+                >
+              </p>
+            </details>
+            <details>
+              <summary>Koliko košta i šta ulazi u ponudu?</summary>
+              <p>
+                Cena zavisi od broja paketa, asortimana, prostora i usluga koje
+                koristite. U ponudi su odvojeno prikazani pakovanje,
+                skladištenje, dostava i dodatne usluge, sa jedinicom obračuna i
+                PDV tretmanom.
+                <a href="cena-fulfilmenta.html">Više o ceni fulfilmenta.</a>
+              </p>
+            </details>
+            <details>
+              <summary>Kako prelazimo iz svog magacina kod vas?</summary>
+              <p>
+                Prvo prolazimo kroz vaš asortiman, način pakovanja i tok
+                porudžbina. Zatim dogovaramo uslove, prijem robe i povezivanje
+                prodavnice. Datum početka i rokove otpreme potvrđujemo pre prve
+                pošiljke.
+              </p>
+            </details>
+            <details>
+              <summary>Da li možemo da koristimo svoju ambalažu?</summary>
+              <p>
+                Da. Možemo da koristimo vaše kutije, kese, flajere ili
+                zahvalnice. Način pakovanja i eventualne dodatne korake
+                definišemo u ponudi, prema konkretnom proizvodu.
+              </p>
+            </details>
+            <details>
+              <summary>Kako pratim zalihe, pošiljke i povrate?</summary>
+              <p>
+                Kroz softver pratite evidentirano stanje robe i statuse
+                porudžbina. Povrate primamo, pregledamo i evidentiramo. Robu
+                vraćamo na stanje ili je izdvajamo prema stanju i dogovorenoj
+                proceduri.
+              </p>
+            </details>
+            <details>
+              <summary>
+                Radite li sa Shopify i WooCommerce prodavnicama?
+              </summary>
+              <p>
+                Povezivanje Shopify i WooCommerce prodavnica organizujemo kroz
+                TopOMS. Za vašu platformu proveravamo koje podatke i statuse
+                razmenjujemo, a zatim dogovaramo povezivanje i test prve
+                porudžbine.
+              </p>
+            </details>
+            <details>
+              <summary>Kako funkcionišu pouzeće i fiskalni računi?</summary>
+              <p>
+                Tok naplate pouzeća, evidenciju i dinamiku prenosa sredstava
+                definišemo pre saradnje. Podršku za fiskalizaciju organizujemo
+                prema vašem poslovnom modelu i potrebnim ovlašćenjima.
+                <a href="slanje-pouzecem.html"
+                  >Detaljnije o pouzeću i fiskalizaciji.</a
+                >
+              </p>
+            </details>
+          </div>
+        </div>
+      </section>
+      <section class="contact-section" id="kontakt">
+        <div class="container contact-grid">
+          <div class="contact-copy">
+            <span class="kicker">Hajde da rasteretimo vaš dan</span>
+            <h2>Vaš sledeći korak?<br />Da se upoznamo.</h2>
+            <p>
+              Recite nam šta prodajete i koliko paketa šaljete. Pripremićemo
+              predlog saradnje prema vašem asortimanu i potrebnim uslugama.
+            </p>
+            <ol class="contact-next">
+              <li>Prolazimo kroz vaš način rada.</li>
+              <li>Definišemo usluge i obračun.</li>
+              <li>Dogovaramo početak saradnje.</li>
+            </ol>
+            <div class="contact-email">
+              <span>Više volite da pišete direktno?</span
+              ><a href="mailto:info@bizonline.rs">info@bizonline.rs</a>
+            </div>
+          </div>
+          <form
+            class="formwrap"
+            id="prijava"
+            aria-label="Zahtev za fulfilment ponudu"
+          >
+            <h3 class="form-title">Ponuda za vaš brend.</h3>
+            <p class="form-subtitle">
+              Bez obaveze. Polja označena sa * su obavezna.
+            </p>
+            <div class="honeypot" aria-hidden="true">
+              <label for="web">Ostavite prazno</label
+              ><input
+                type="text"
+                id="web"
+                name="web"
+                tabindex="-1"
+                autocomplete="off"
+              />
+            </div>
+            <div class="formgrid">
+              <div class="field">
+                <label for="brend">Naziv brenda *</label
+                ><input
+                  id="brend"
+                  name="Brend"
+                  required
+                  maxlength="200"
+                  placeholder="Vaš brend"
+                />
+              </div>
+              <div class="field">
+                <label for="proizvod">Šta prodajete? *</label
+                ><input
+                  id="proizvod"
+                  name="Proizvod"
+                  required
+                  maxlength="300"
+                  placeholder="Npr. kozmetika, odeća…"
+                />
+              </div>
+              <div class="field">
+                <label for="paketi">Paketa mesečno</label
+                ><select id="paketi" name="Paketa mesecno">
+                  <option>Do 500</option>
+                  <option>501 – 1.000</option>
+                  <option>Preko 1.000</option>
+                </select>
+              </div>
+              <div class="field">
+                <label for="interes">Koje usluge vam trebaju?</label
+                ><select id="interes" name="Interes">
+                  <option>Fulfilment (slanje paketa)</option>
+                  <option>Roba na veliko</option>
+                  <option>Uslužni uvoz iz Kine</option>
+                  <option>Konsultacije</option>
+                  <option>Pomoć oko reklama</option>
+                  <option>Kombinacija</option>
+                </select>
+              </div>
+              <div class="field">
+                <label for="firma">Naziv firme / PIB (opciono)</label
+                ><input
+                  id="firma"
+                  name="Firma"
+                  autocomplete="organization"
+                  maxlength="250"
+                />
+              </div>
+              <div class="field">
+                <label for="ime">Ime i prezime *</label
+                ><input
+                  id="ime"
+                  name="Ime"
+                  autocomplete="name"
+                  required
+                  maxlength="150"
+                />
+              </div>
+              <div class="field">
+                <label for="telefon">Broj telefona *</label
+                ><input
+                  id="telefon"
+                  name="Telefon"
+                  type="tel"
+                  autocomplete="tel"
+                  required
+                  maxlength="60"
+                  placeholder="06x xxx xxxx"
+                />
+              </div>
+              <div class="field">
+                <label for="email">Email adresa *</label
+                ><input
+                  id="email"
+                  name="Email"
+                  type="email"
+                  autocomplete="email"
+                  required
+                  maxlength="250"
+                  placeholder="vi@firma.rs"
+                />
+              </div>
+              <div class="field full">
+                <label for="poruka"
+                  >Kako trenutno pakujete i šaljete? (opciono)</label
+                ><textarea
+                  id="poruka"
+                  name="Poruka"
+                  maxlength="4000"
+                  placeholder="Asortiman, ambalaža, posebni zahtevi…"
+                ></textarea>
+              </div>
+            </div>
+            <div class="form-foot">
+              <button class="btn btn-primary btn-lg" type="submit">
+                Pošalji zahtev za ponudu
+                <span class="arrow" aria-hidden="true">↗</span>
+              </button>
+              <p class="hint">
+                Podatke iz forme koristimo za obradu vašeg upita i kontakt
+                povodom ponude.
+              </p>
+              <p
+                class="form-status"
+                id="form-status"
+                role="status"
+                aria-live="polite"
+              ></p>
+              <a
+                class="email-fallback"
+                id="email-fallback"
+                href="mailto:info@bizonline.rs"
+                hidden
+                >Otvori email sa ovim podacima ↗</a
+              ><noscript
+                ><p class="hint">
+                  Za slanje forme uključite JavaScript ili pišite na
+                  <a href="mailto:info@bizonline.rs">info@bizonline.rs</a>.
+                </p></noscript
+              >
+            </div>
+          </form>
+        </div>
+      </section>
+      <section class="explore-section">
+        <div class="container explore-row">
+          <p>
+            Tražite podršku i van magacina? Upoznajte ostale usluge iz našeg
+            e-commerce iskustva.
+          </p>
+          <div class="explore-links">
+            <a class="text-link" href="roba-na-veliko.html"
+              >Roba na veliko
+              <span class="arrow" aria-hidden="true">↗</span></a
+            ><a class="text-link" href="skaliranje.html"
+              >Konsultacije i rast
+              <span class="arrow" aria-hidden="true">↗</span></a
+            >
+          </div>
+        </div>
+      </section>
+    </main>
+    <footer>
+      <div class="container">
+        <div class="foot-grid">
+          <div>
+            <a class="logo" href="index.html"
+              ><img
+                src="images/pakum-logo-footer.png?v=2"
+                alt="PAKUM"
+                width="1230"
+                height="470"
+                loading="lazy"
+            /></a>
+            <p class="foot-tag">
+              Pakujemo kao za sebe.<br />Fulfilment iz iskustva sopstvene
+              e-commerce prodaje.
+            </p>
+          </div>
+          <div>
+            <h4>PAKUM</h4>
+            <ul>
+              <li><a href="o-nama.html">Naša priča</a></li>
+              <li><a href="softver.html">Softver</a></li>
+              <li><a href="roba-na-veliko.html">Roba na veliko</a></li>
+              <li><a href="skaliranje.html">Rast vaše prodaje</a></li>
+              <li><a href="index.html#kontakt">Zatraži ponudu</a></li>
+            </ul>
+          </div>
+          <div>
+            <h4>Fulfilment usluge</h4>
+            <ul>
+              <li><a href="sta-je-fulfilment.html">Šta je fulfilment?</a></li>
+              <li><a href="skladistenje-robe.html">Skladištenje robe</a></li>
+              <li><a href="pakovanje-paketa.html">Pakovanje i slanje</a></li>
+              <li>
+                <a href="slanje-pouzecem.html">Pouzeće i fiskalizacija</a>
+              </li>
+              <li><a href="cena-fulfilmenta.html">Cena fulfilmenta</a></li>
+            </ul>
+          </div>
+          <div>
+            <h4>Kontakt i podaci</h4>
+            <ul>
+              <li><a href="mailto:info@bizonline.rs">info@bizonline.rs</a></li>
+              <li>Pakum — powered by Bizonline</li>
+              <li>LAZAR JOKSIMOVIĆ PR BIZONLINE</li>
+              <li>Matični broj: 66619206</li>
+              <li>PIB: 113156519</li>
+            </ul>
+          </div>
+        </div>
+        <div class="copy">
+          <span>© 2026 PAKUM · fulfilment.rs</span
+          ><span>Vi prodajete. Mi pakujemo i šaljemo.</span>
+        </div>
       </div>
-      <div class="form-foot">
-        <button class="btn btn-primary btn-lg" type="submit">Pošalji prijavu</button>
-        <div class="hint">Slanjem se otvara vaš email sa popunjenom prijavom za <b>info@bizonline.rs</b> — samo pritisnite Send.</div>
-      </div>
-    </form>
-  </div>
-</section>
-
-<footer>
-  <div class="container">
-    <div class="foot-grid">
-      <div>
-        <a class="logo" href="index.html"><img class="foot-logo" src="images/pakum-logo-footer.png?v=2" alt="PAKUM — vaš partner za fulfilment" width="1230" height="470"></a>
-        <p class="foot-tag">Pakujemo kao za sebe. Fulfilment partner koji je i sam e-commerce prodavac.</p>
-      </div>
-      <div>
-        <h4>Sajt</h4>
-        <ul>
-          <li><a href="index.html">Fulfilment</a></li>
-          <li><a href="roba-na-veliko.html">Roba na veliko</a></li>
-          <li><a href="softver.html">Softver</a></li>
-          <li><a href="skaliranje.html">Skaliranje</a></li>
-          <li><a href="o-nama.html">O nama</a></li>
-        </ul>
-      </div>
-      <div>
-        <h4>Usluge</h4>
-        <ul>
-          <li><a href="sta-je-fulfilment.html">Šta je fulfilment</a></li>
-          <li><a href="cena-fulfilmenta.html">Cena fulfilmenta</a></li>
-          <li><a href="pakovanje-paketa.html">Pakovanje i slanje paketa</a></li>
-          <li><a href="skladistenje-robe.html">Skladištenje robe</a></li>
-          <li><a href="slanje-pouzecem.html">Slanje pouzećem i fiskalizacija</a></li>
-          <li><a href="softver.html">Softver TopOMS</a></li>
-        </ul>
-      </div>
-      <div>
-        <h4>Podaci</h4>
-        <ul>
-          <li>Pakum — powered by Bizonline</li>
-          <li>LAZAR JOKSIMOVIĆ PR BIZONLINE</li>
-          <li>Matični broj: 66619206</li>
-          <li>PIB: 113156519</li>
-          <li><a href="mailto:info@bizonline.rs">info@bizonline.rs</a></li>
-        </ul>
-      </div>
-    </div>
-    <div class="copy">
-      <span>Copyright © 2026 Pakum · fulfilment.rs. Sva prava zadržana.</span>
-      <span>Magacin 2.000 m² — jug Srbije</span>
-    </div>
-  </div>
-</footer>
-<script>
-var burger=document.getElementById('burger'),links=document.querySelector('.nav-links');
-burger.addEventListener('click',function(){links.classList.toggle('open')});
-links.querySelectorAll('a').forEach(function(a){a.addEventListener('click',function(){links.classList.remove('open')})});
-</script>
-
-<script>
-document.getElementById('prijava').addEventListener('submit',function(e){
-  e.preventDefault();
-  var f=e.target,g=function(id){var el=f.querySelector('#'+id);return el?(el.value||'').trim():''};
-  var podaci={brend:g('brend'),proizvod:g('proizvod'),paketi:g('paketi'),interes:g('interes'),firma:g('firma'),ime:g('ime'),telefon:g('telefon'),email:g('email'),poruka:g('poruka'),web:g('web')};
-  var dugme=f.querySelector('button[type="submit"]');
-  if(dugme){dugme.disabled=true;dugme.textContent='Šaljem...';}
-  fetch('https://sus.rs/api/pakum/prijava',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(podaci)})
-    .then(function(r){
-      if(r.ok){window.location.href='hvala.html';return;}
-      throw new Error('relay');
-    })
-    .catch(function(){
-      if(dugme){dugme.disabled=false;dugme.textContent='Pošalji prijavu';}
-      var tekst='Nova prijava sa fulfilment.rs
-
-Brend: '+(podaci.brend||'-')
-        +'
-Proizvod: '+(podaci.proizvod||'-')+'
-Paketa mesecno: '+(podaci.paketi||'-')
-        +'
-Interes: '+(podaci.interes||'-')+'
-Firma/PIB: '+(podaci.firma||'-')
-        +'
-Ime: '+(podaci.ime||'-')+'
-Telefon: '+(podaci.telefon||'-')
-        +'
-Email: '+(podaci.email||'-')+'
-Napomena: '+(podaci.poruka||'-');
-      window.location.href='mailto:info@bizonline.rs?subject='+encodeURIComponent('Prijava — '+(podaci.brend||'fulfilment.rs'))+'&body='+encodeURIComponent(tekst);
-    });
-});
-</script>
-</body>
+    </footer>
+    <script src="site.js" defer></script>
+  </body>
 </html>

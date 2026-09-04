@@ -13,30 +13,24 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="stil.css">
+<link rel="stylesheet" href="premium.css">
 </head>
 <body>
 
-<nav>
-  <div class="container nav-inner">
-    <a class="logo" href="index.html"><img src="images/pakum-logo-wordmark.png?v=3" alt="PAKUM — fulfilment centar Srbija" width="1230" height="411"></a>
-    <div class="nav-links">
-      <a class="glavni" href="index.html">Fulfilment</a>
-      <a class="glavni" href="roba-na-veliko.html">Roba na veliko</a>
-      <a href="softver.html">Softver</a>
-      <a href="skaliranje.html">Skaliranje</a>
-      <a href="o-nama.html">O nama</a>
-    </div>
-    <a class="btn btn-primary" href="index.html#kontakt">Zatraži ponudu</a>
-    <button class="burger" id="burger" aria-label="Otvori meni"><span></span><span></span><span></span></button>
-  </div>
-</nav>
+<a class="skip-link" href="#sadrzaj">Pređi na sadržaj</a>
+<nav aria-label="Glavna navigacija"><div class="container nav-inner">
+<a class="logo" href="index.html" aria-label="PAKUM — početna"><img src="images/pakum-logo-wordmark.png?v=3" alt="PAKUM" width="1230" height="411"></a>
+<div class="nav-links" id="nav-links"><a href="index.html#usluge">Usluge</a><a href="index.html#zasto-pakum">Zašto PAKUM</a><a href="softver.html">Softver</a><a href="cena-fulfilmenta.html">Cena</a><a href="o-nama.html">O nama</a><a class="nav-mobile-cta" href="index.html#kontakt">Zatraži ponudu ↗</a></div>
+<a class="btn btn-primary" href="index.html#kontakt">Zatraži ponudu <span class="arrow" aria-hidden="true">↗</span></a>
+<button class="burger" id="burger" type="button" aria-label="Otvori meni" aria-expanded="false" aria-controls="nav-links"><span></span><span></span><span></span></button>
+</div></nav>
 
-<header class="page-hero">
+<main id="sadrzaj"><header class="page-hero">
   <div class="container">
     <span class="kicker">Prijava poslata</span>
     <h1>Hvala na prijavi</h1>
     <p class="lead">
-      Prijava je stigla — javljamo se u roku od 48h sa predlogom saradnje.
+      Prijava je stigla. Javićemo vam se da prođemo kroz vaš upit i potrebne usluge.
       Ako je nešto hitno, pišite nam direktno na
       <a href="mailto:info@bizonline.rs" style="color:#ffb07a">info@bizonline.rs</a>.
     </p>
@@ -72,55 +66,13 @@
   </div>
 </section>
 
-<footer>
-  <div class="container">
-    <div class="foot-grid">
-      <div>
-        <a class="logo" href="index.html"><img class="foot-logo" src="images/pakum-logo-footer.png?v=2" alt="PAKUM — vaš partner za fulfilment" width="1230" height="470"></a>
-        <p class="foot-tag">Pakujemo kao za sebe. Fulfilment partner koji je i sam e-commerce prodavac.</p>
-      </div>
-      <div>
-        <h4>Sajt</h4>
-        <ul>
-          <li><a href="index.html">Fulfilment</a></li>
-          <li><a href="roba-na-veliko.html">Roba na veliko</a></li>
-          <li><a href="softver.html">Softver</a></li>
-          <li><a href="skaliranje.html">Skaliranje</a></li>
-          <li><a href="o-nama.html">O nama</a></li>
-        </ul>
-      </div>
-      <div>
-        <h4>Usluge</h4>
-        <ul>
-          <li><a href="sta-je-fulfilment.html">Šta je fulfilment</a></li>
-          <li><a href="cena-fulfilmenta.html">Cena fulfilmenta</a></li>
-          <li><a href="pakovanje-paketa.html">Pakovanje i slanje paketa</a></li>
-          <li><a href="skladistenje-robe.html">Skladištenje robe</a></li>
-          <li><a href="slanje-pouzecem.html">Slanje pouzećem i fiskalizacija</a></li>
-          <li><a href="softver.html">Softver TopOMS</a></li>
-        </ul>
-      </div>
-      <div>
-        <h4>Podaci</h4>
-        <ul>
-          <li>Pakum — powered by Bizonline</li>
-          <li>LAZAR JOKSIMOVIĆ PR BIZONLINE</li>
-          <li>Matični broj: 66619206</li>
-          <li>PIB: 113156519</li>
-          <li><a href="mailto:info@bizonline.rs">info@bizonline.rs</a></li>
-        </ul>
-      </div>
-    </div>
-    <div class="copy">
-      <span>Copyright © 2026 Pakum · fulfilment.rs. Sva prava zadržana.</span>
-      <span>Magacin 2.000 m² — jug Srbije</span>
-    </div>
-  </div>
-</footer>
-<script>
-var burger=document.getElementById('burger'),links=document.querySelector('.nav-links');
-burger.addEventListener('click',function(){links.classList.toggle('open')});
-links.querySelectorAll('a').forEach(function(a){a.addEventListener('click',function(){links.classList.remove('open')})});
-</script>
+</main>
+<footer><div class="container"><div class="foot-grid">
+<div><a class="logo" href="index.html"><img src="images/pakum-logo-footer.png?v=2" alt="PAKUM" width="1230" height="470" loading="lazy"></a><p class="foot-tag">Pakujemo kao za sebe.<br>Fulfilment iz iskustva sopstvene e-commerce prodaje.</p></div>
+<div><h4>PAKUM</h4><ul><li><a href="o-nama.html">Naša priča</a></li><li><a href="softver.html">Softver</a></li><li><a href="roba-na-veliko.html">Roba na veliko</a></li><li><a href="skaliranje.html">Rast vaše prodaje</a></li><li><a href="index.html#kontakt">Zatraži ponudu</a></li></ul></div>
+<div><h4>Fulfilment usluge</h4><ul><li><a href="sta-je-fulfilment.html">Šta je fulfilment?</a></li><li><a href="skladistenje-robe.html">Skladištenje robe</a></li><li><a href="pakovanje-paketa.html">Pakovanje i slanje</a></li><li><a href="slanje-pouzecem.html">Pouzeće i fiskalizacija</a></li><li><a href="cena-fulfilmenta.html">Cena fulfilmenta</a></li></ul></div>
+<div><h4>Kontakt i podaci</h4><ul><li><a href="mailto:info@bizonline.rs">info@bizonline.rs</a></li><li>Pakum — powered by Bizonline</li><li>LAZAR JOKSIMOVIĆ PR BIZONLINE</li><li>Matični broj: 66619206</li><li>PIB: 113156519</li></ul></div>
+</div><div class="copy"><span>© 2026 PAKUM · fulfilment.rs</span><span>Vi prodajete. Mi pakujemo i šaljemo.</span></div></div></footer>
+<script src="site.js" defer></script>
 </body>
 </html>
