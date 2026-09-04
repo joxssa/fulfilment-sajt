@@ -247,3 +247,14 @@ footer a:hover{color:var(--orange)}
 .tekst-foto img{width:100%;aspect-ratio:16/9;object-fit:cover;border-radius:var(--radius);box-shadow:var(--shadow)}
 .tekst-foto figcaption{font-size:.85rem;color:var(--body);margin-top:.6rem;text-align:center}
 @media(max-width:640px){.tekst-foto{margin-top:1.8rem}.tekst-foto img{aspect-ratio:4/3}}
+
+/* ---------- brendovi marquee (ide polako ulevo, kao vesti) ---------- */
+.marquee{overflow:hidden;margin-top:1.6rem;mask-image:linear-gradient(90deg,transparent,#000 7%,#000 93%,transparent);-webkit-mask-image:linear-gradient(90deg,transparent,#000 7%,#000 93%,transparent)}
+.marquee-track{display:flex;width:max-content;animation:marquee-levo 45s linear infinite}
+.marquee:hover .marquee-track{animation-play-state:paused}
+.marquee-group{display:flex;align-items:center;gap:3.2rem;padding-right:3.2rem}
+.marquee-group img{height:46px;width:auto;display:block;border-radius:9px}
+.marquee-group .brand-chip{filter:none;opacity:1;color:#6c7480}
+@keyframes marquee-levo{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+@media(prefers-reduced-motion:reduce){.marquee-track{animation:none;width:auto;flex-wrap:wrap;justify-content:center}.marquee{mask-image:none;-webkit-mask-image:none}}
+@media(max-width:640px){.marquee-group img{height:34px}.marquee-group{gap:1.8rem;padding-right:1.8rem}}
