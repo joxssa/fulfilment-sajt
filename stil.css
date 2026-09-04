@@ -21,7 +21,7 @@ body{
   line-height:1.6;
   overflow-x:clip;
 }
-img{max-width:100%;display:block}
+img{max-width:100%;height:auto;display:block}
 .container{max-width:1160px;margin:0 auto;padding:0 1.25rem}
 section{padding:4.5rem 0}
 @media(max-width:640px){section{padding:3rem 0}}
@@ -135,7 +135,7 @@ nav .btn{margin-left:.25rem}
 /* ---------- split sekcije ---------- */
 .split{display:grid;grid-template-columns:1fr 1fr;gap:3rem;align-items:center;margin-top:3rem}
 @media(max-width:880px){.split{grid-template-columns:1fr;gap:2rem}}
-.split img{border-radius:var(--radius);box-shadow:var(--shadow);width:100%}
+.split img{border-radius:var(--radius);box-shadow:var(--shadow);width:100%;aspect-ratio:3/2;object-fit:cover}
 .split ul{list-style:none;margin-top:1.2rem;display:flex;flex-direction:column;gap:.7rem}
 .split li{display:flex;gap:.6rem;align-items:flex-start;color:var(--body);font-size:.95rem}
 .split li svg{flex-shrink:0;margin-top:3px}
@@ -161,6 +161,7 @@ nav .btn{margin-left:.25rem}
 
 /* ---------- kontakt ---------- */
 .contact-photo{border-radius:var(--radius);box-shadow:var(--shadow);margin:3rem auto 0;max-width:760px;width:100%;aspect-ratio:21/9;object-fit:cover}
+@media(max-width:640px){.contact-photo{aspect-ratio:16/9}}
 .formwrap{background:#fff;border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow);padding:2.4rem;max-width:760px;margin:3rem auto 0}
 @media(max-width:640px){.formwrap{padding:1.5rem}}
 .formgrid{display:grid;grid-template-columns:1fr 1fr;gap:1rem}
@@ -180,7 +181,7 @@ nav .btn{margin-left:.25rem}
 /* ---------- footer ---------- */
 footer{background:var(--navy);color:#b7bbc2;padding:3.5rem 0 2rem}
 footer .logo{color:#fff}
-.foot-logo{width:250px;max-width:100%;height:auto;display:block;margin-bottom:12px;background:#fff;border-radius:14px;padding:14px 16px;box-sizing:border-box}
+.foot-logo{width:240px;max-width:100%;height:auto;display:block;margin-bottom:12px}
 .foot-grid{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:2.5rem}
 @media(max-width:880px){.foot-grid{grid-template-columns:1fr;gap:2rem}}
 footer h4{color:#fff;font-size:.85rem;text-transform:uppercase;letter-spacing:.1em;margin-bottom:1rem}
