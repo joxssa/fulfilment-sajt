@@ -117,7 +117,11 @@ nav .btn{margin-left:.25rem}
 
 /* ---------- foto traka ---------- */
 .photo-strip{display:grid;grid-template-columns:repeat(3,1fr);gap:1.2rem;margin-top:3rem}
-@media(max-width:640px){.photo-strip{grid-template-columns:1fr}}
+@media(max-width:640px){
+.photo-strip{display:flex;overflow-x:auto;gap:.9rem;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;scrollbar-width:none;padding-bottom:.4rem}
+.photo-strip::-webkit-scrollbar{display:none}
+.photo-strip img{flex:0 0 76%;width:76%;scroll-snap-align:center}
+}
 .photo-strip img{border-radius:var(--radius);box-shadow:var(--shadow);aspect-ratio:3/2;object-fit:cover;width:100%}
 
 /* ---------- koraci ---------- */
@@ -227,3 +231,18 @@ footer a:hover{color:var(--orange)}
 .faq summary::after{content:'+';color:var(--orange);font-size:1.4rem;font-weight:800;flex-shrink:0}
 .faq details[open] summary::after{content:'−'}
 .faq details p{padding:0 0 1.1rem;font-size:.95rem}
+
+/* ---------- brendovi (logo strip) ---------- */
+.brendovi-sekcija{padding:2.6rem 0;border-top:1px solid var(--line)}
+.brendovi-sekcija h2{font-size:1.3rem}
+.logo-strip{display:flex;flex-wrap:wrap;justify-content:center;align-items:center;gap:1.1rem 2.6rem;margin-top:1.5rem}
+.brand-chip{font-weight:800;font-size:1.28rem;color:#8b93a0;letter-spacing:.02em;white-space:nowrap;filter:grayscale(1);opacity:.9}
+.brand-chip img{height:30px;width:auto;display:block}
+.brand-chip.mali{text-transform:lowercase;font-weight:700}
+@media(max-width:640px){.logo-strip{gap:.7rem 1.5rem}.brand-chip{font-size:1.02rem}.brand-chip img{height:22px}}
+
+/* ---------- slika u tekstu (razbija duge tekstove, posebno na telefonu) ---------- */
+.tekst-foto{margin:2.4rem auto 0;max-width:860px}
+.tekst-foto img{width:100%;aspect-ratio:16/9;object-fit:cover;border-radius:var(--radius);box-shadow:var(--shadow)}
+.tekst-foto figcaption{font-size:.85rem;color:var(--body);margin-top:.6rem;text-align:center}
+@media(max-width:640px){.tekst-foto{margin-top:1.8rem}.tekst-foto img{aspect-ratio:4/3}}

@@ -159,6 +159,24 @@
   </div>
 </section>
 
+<section class="brendovi-sekcija" id="brendovi">
+  <div class="container">
+    <div class="center">
+      <span class="kicker">Poverenje</span>
+      <h2>Brendovi koji se pakuju u našem magacinu</h2>
+    </div>
+    <div class="logo-strip" aria-label="Brendovi koje pakujemo i šaljemo">
+      <span class="brand-chip mali">maleni</span>
+      <span class="brand-chip">ReGen pro</span>
+      <span class="brand-chip"><img src="images/brend-rabito.png" alt="Rabito" width="475" height="130" loading="lazy"></span>
+      <span class="brand-chip">Solea</span>
+      <span class="brand-chip">Plantigo</span>
+      <span class="brand-chip">Naklik</span>
+      <span class="brand-chip">TVTop</span>
+    </div>
+  </div>
+</section>
+
 <section class="bg-paper" id="kako-radi">
   <div class="container">
     <div class="center">
@@ -564,20 +582,30 @@ links.querySelectorAll('a').forEach(function(a){a.addEventListener('click',funct
 </script>
 
 <script>
+var SLACK_WEBHOOK=''; /* Slack Incoming Webhook URL — kad se upiše, prijave stižu direktno na Slack kanal */
 document.getElementById('prijava').addEventListener('submit',function(e){
   e.preventDefault();
   var f=e.target,g=function(id){return (f.querySelector('#'+id).value||'-').trim()};
-  var body='Nova prijava sa fulfilment.rs%0D%0A%0D%0A'
-    +'Brend: '+encodeURIComponent(g('brend'))+'%0D%0A'
-    +'Proizvod: '+encodeURIComponent(g('proizvod'))+'%0D%0A'
-    +'Paketa mesecno: '+encodeURIComponent(g('paketi'))+'%0D%0A'
-    +'Interes: '+encodeURIComponent(g('interes'))+'%0D%0A'
-    +'Firma/PIB: '+encodeURIComponent(g('firma'))+'%0D%0A'
-    +'Ime: '+encodeURIComponent(g('ime'))+'%0D%0A'
-    +'Telefon: '+encodeURIComponent(g('telefon'))+'%0D%0A'
-    +'Email: '+encodeURIComponent(g('email'))+'%0D%0A'
-    +'Napomena: '+encodeURIComponent(g('poruka'));
-  window.location.href='mailto:info@bizonline.rs?subject='+encodeURIComponent('Prijava — '+g('brend'))+'&body='+body;
+  var tekst='Nova prijava sa fulfilment.rs
+'
+    +'Brend: '+g('brend')+'
+Proizvod: '+g('proizvod')+'
+Paketa mesecno: '+g('paketi')
+    +'
+Interes: '+g('interes')+'
+Firma/PIB: '+g('firma')+'
+Ime: '+g('ime')
+    +'
+Telefon: '+g('telefon')+'
+Email: '+g('email')+'
+Napomena: '+g('poruka');
+  if(SLACK_WEBHOOK){
+    fetch(SLACK_WEBHOOK,{method:'POST',mode:'no-cors',headers:{'Content-Type':'text/plain'},body:JSON.stringify({text:tekst})})
+      .catch(function(){}).finally(function(){window.location.href='hvala.html'});
+  }else{
+    var body=encodeURIComponent(tekst).replace(/%0A/g,'%0D%0A');
+    window.location.href='mailto:info@bizonline.rs?subject='+encodeURIComponent('Prijava — '+g('brend'))+'&body='+body;
+  }
 });
 </script>
 </body>
