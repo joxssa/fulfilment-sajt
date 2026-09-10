@@ -23,14 +23,19 @@ test("all existing public pages retain valid scripts, metadata and local destina
       if (script[1].includes("application/ld+json")) JSON.parse(script[2]);
       else new vm.Script(script[2], { filename: file });
     }
-    const base = /<base\b[^>]*href="\/"/.test(html)
-      ? "https://fulfilment.rs/"
-      : `https://fulfilment.rs/${file}`;
-    for (const match of html.matchAll(/(?:href|src)="([^"]+)"/g)) {
+    const base = `https://fulfilment.rs/${file}`;
+    const targets = [
+      ...html.matchAll(/(?:href|src)="([^"]+)"/g),
+      ...html.matchAll(/content="0; url=([^"]+)"/g),
+      ...html.matchAll(/location\.replace\('([^']+)'\)/g),
+    ];
+    for (const match of targets) {
       const href = match[1];
       if (/^(?:https?:|mailto:|data:|tel:)/.test(href)) continue;
       const url = new URL(href, base);
-      const dest = decodeURIComponent(url.pathname.slice(1)) || "index.html";
+      let dest = decodeURIComponent(url.pathname.slice(1)) || "index.html";
+      if (dest.endsWith("/")) dest += "index.html";
+      else if (!path.extname(dest)) dest += ".html";
       if (!fs.existsSync(path.join(__dirname, dest))) {
         errors.push(`${file}: missing ${href}`);
         continue;
@@ -44,6 +49,26 @@ test("all existing public pages retain valid scripts, metadata and local destina
     }
   }
   assert.deepEqual(errors, []);
+});
+
+test("internal navigation, canonicals, sitemap and redirects use extensionless URLs", () => {
+  for (const file of pages) {
+    const html = read(file);
+    assert.doesNotMatch(html, /href="(?!https?:)[^"]*\.html/, file);
+    assert.doesNotMatch(html, /https:\/\/fulfilment\.rs\/[^"'\s<]*\.html/, file);
+    assert.doesNotMatch(html, /url=[^"']*\.html/, file);
+    assert.doesNotMatch(html, /<base\b/, file);
+    for (const match of html.matchAll(/(?:href|src)="(?!https?:|mailto:|data:|tel:|#)([^"]+)"/g))
+      assert.match(match[1], /^\//, `${file}: ${match[1]} must be root-relative`);
+  }
+  const sitemap = read("sitemap.xml");
+  assert.doesNotMatch(sitemap, /\.html/);
+  const locs = [...sitemap.matchAll(/<loc>https:\/\/fulfilment\.rs\/([^<]*)<\/loc>/g)].map((m) => m[1]);
+  assert.ok(locs.includes("") && locs.includes("softver") && locs.includes("cena-fulfilmenta"));
+  for (const loc of locs)
+    assert.ok(fs.existsSync(path.join(__dirname, loc ? `${loc}.html` : "index.html")), loc);
+  assert.doesNotMatch(sitemap, /hvala/);
+  assert.equal(fs.existsSync(path.join(__dirname, ".nojekyll")), true);
 });
 
 test("FAQ schema matches visible questions and answers, and unsupported public promises are absent", () => {
@@ -77,7 +102,7 @@ test("FAQ schema matches visible questions and answers, and unsupported public p
   }
 });
 
-function harness(fetchHandler) {
+function harness(fetchHandler, location = {}) {
   class Element {
     constructor() {
       this.listeners = {};
@@ -177,6 +202,7 @@ function harness(fetchHandler) {
   };
   const calls = [];
   const navigations = [];
+  const replaced = [];
   const timers = [];
   const cleared = [];
   const context = {
@@ -194,7 +220,13 @@ function harness(fetchHandler) {
       return timers.length;
     },
     clearTimeout: (timer) => cleared.push(timer),
-    window: { location: { assign: (url) => navigations.push(url) } },
+    window: {
+      location: {
+        assign: (url) => navigations.push(url),
+        replace: (url) => replaced.push(url),
+        ...location,
+      },
+    },
     fetch: (url, options) => {
       calls.push({ url, options });
       return fetchHandler(url, options);
@@ -211,6 +243,7 @@ function harness(fetchHandler) {
     fields,
     calls,
     navigations,
+    replaced,
     timers,
     cleared,
     burger,
@@ -244,8 +277,30 @@ test("successful lead uses the existing endpoint and field contract, then confir
     poruka: "Posebna ambalaža\nDrugi red",
     web: "",
   });
-  assert.deepEqual(h.navigations, ["hvala.html"]);
+  assert.deepEqual(h.navigations, ["/hvala/"]);
   assert.deepEqual(h.cleared, [1]);
+});
+
+test("legacy .html addresses are replaced by extensionless URLs before the page script runs", () => {
+  const noNetwork = () => {
+    throw new Error("Unexpected network call");
+  };
+  for (const [from, to] of [
+    ["/softver.html", "/softver"],
+    ["/cena-fulfilmenta.html", "/cena-fulfilmenta"],
+    ["/index.html", "/"],
+    ["/hvala.html", "/hvala/"],
+    ["/hvala/index.html", "/hvala/"],
+  ]) {
+    const h = harness(noNetwork, { pathname: from, search: "?a=1", hash: "#kontakt" });
+    assert.deepEqual(h.replaced, [`${to}?a=1#kontakt`], from);
+    assert.equal(h.form.listeners.submit, undefined, from);
+  }
+  for (const pathname of ["/softver", "/", "/hvala/"]) {
+    const h = harness(noNetwork, { pathname, search: "", hash: "" });
+    assert.deepEqual(h.replaced, [], pathname);
+    assert.equal(typeof h.form.listeners.submit, "function", pathname);
+  }
 });
 
 for (const failure of ["http", "network", "timeout"])
@@ -350,7 +405,7 @@ test("the static brand grid preserves every supplied logo and the mobile action 
     ];
     assert.equal(bars.length, 1, file);
     assert.equal([...bars[0][1].matchAll(/<a\b/g)].length, 1, file);
-    assert.match(bars[0][1], /href="index.html#prijava"/);
+    assert.match(bars[0][1], /href="\/#prijava"/);
     assert.doesNotMatch(bars[0][1], /mailto:|tel:/);
   }
   assert.match(read("premium.css"), /prefers-reduced-motion:\s*reduce/);

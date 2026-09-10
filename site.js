@@ -1,5 +1,14 @@
 // @ts-check
 (() => {
+  const loc = window.location;
+  if (loc && typeof loc.pathname === "string" && /\.html$/i.test(loc.pathname)) {
+    let clean = loc.pathname
+      .replace(/\/index\.html$/i, "/")
+      .replace(/\.html$/i, "");
+    if (clean === "/hvala") clean = "/hvala/";
+    loc.replace(clean + (loc.search || "") + (loc.hash || ""));
+    return;
+  }
   const burger = document.getElementById("burger");
   const links = document.querySelector(".nav-links");
   if (burger && links) {
@@ -80,7 +89,7 @@
         signal: controller.signal,
       });
       if (!response.ok) throw new Error("Slanje nije potvrđeno");
-      window.location.assign("hvala.html");
+      window.location.assign("/hvala/");
     } catch {
       status.textContent =
         "Nismo dobili potvrdu da je zahtev primljen. Podaci su sačuvani u formi. Pokušajte ponovo ili ih pošaljite emailom.";
