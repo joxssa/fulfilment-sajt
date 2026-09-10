@@ -15,7 +15,7 @@ test("all existing public pages retain valid scripts, metadata and local destina
   const errors = [];
   for (const file of pages) {
     const html = read(file);
-    assert.match(html, /<html lang="sr">/, file);
+    assert.match(html, /<html lang="sr-Latn">/, file);
     assert.match(html, /<title>[^<]+<\/title>/, file);
     for (const script of html.matchAll(
       /<script\b([^>]*)>([\s\S]*?)<\/script>/g,
@@ -127,13 +127,11 @@ function harness(fetchHandler, location = {}) {
       return {
         contains: (name) => this.classes.has(name),
         remove: (name) => this.classes.delete(name),
-        toggle: (name) => {
-          if (this.classes.has(name)) {
-            this.classes.delete(name);
-            return false;
-          }
-          this.classes.add(name);
-          return true;
+        toggle: (name, force) => {
+          const open = force === undefined ? !this.classes.has(name) : force;
+          if (open) this.classes.add(name);
+          else this.classes.delete(name);
+          return open;
         },
       };
     }
@@ -166,6 +164,9 @@ function harness(fetchHandler, location = {}) {
   links.querySelectorAll = () => [navLink];
   const marquee = new Element();
   const motionButton = new Button();
+  const dropButton = new Button();
+  const drop = new Element();
+  drop.querySelector = () => dropButton;
   const fields = {};
   const data = {
     brend: "  Čarobni brend  ",
@@ -196,10 +197,13 @@ function harness(fetchHandler, location = {}) {
     listeners: {},
     getElementById: (id) => els[id] || null,
     querySelector: (selector) => (selector === ".nav-links" ? links : marquee),
+    querySelectorAll: (selector) => (selector === ".nav-drop" ? [drop] : []),
     addEventListener(name, callback) {
-      this.listeners[name] = callback;
+      (this.listeners[name] ||= []).push(callback);
     },
   };
+  const dispatch = (name, event) =>
+    (document.listeners[name] || []).forEach((callback) => callback(event));
   const calls = [];
   const navigations = [];
   const replaced = [];
@@ -250,10 +254,24 @@ function harness(fetchHandler, location = {}) {
     links,
     navLink,
     document,
+    dispatch,
+    drop,
+    dropButton,
     motionButton,
     marquee,
     Element,
   };
+}
+
+const HEAD_REDIRECT = /<meta name="viewport"[^>]*>\s*<script>([\s\S]*?)<\/script>/;
+function runHeadRedirect(file, location) {
+  const match = read(file).match(HEAD_REDIRECT);
+  assert.ok(match, `${file}: inline redirect script missing after viewport meta`);
+  const replaced = [];
+  vm.runInNewContext(match[1], {
+    location: { ...location, replace: (url) => replaced.push(url) },
+  });
+  return replaced;
 }
 
 test("successful lead uses the existing endpoint and field contract, then confirms receipt", async () => {
@@ -285,21 +303,46 @@ test("legacy .html addresses are replaced by extensionless URLs before the page 
   const noNetwork = () => {
     throw new Error("Unexpected network call");
   };
-  for (const [from, to] of [
-    ["/softver.html", "/softver"],
-    ["/cena-fulfilmenta.html", "/cena-fulfilmenta"],
-    ["/index.html", "/"],
-    ["/hvala.html", "/hvala/"],
-    ["/hvala/index.html", "/hvala/"],
-  ]) {
-    const h = harness(noNetwork, { pathname: from, search: "?a=1", hash: "#kontakt" });
-    assert.deepEqual(h.replaced, [`${to}?a=1#kontakt`], from);
-    assert.equal(h.form.listeners.submit, undefined, from);
+  const navPages = pages.filter((file) => read(file).includes('<nav aria-label="Glavna navigacija">'));
+  assert.ok(navPages.length >= 13);
+  for (const file of navPages) {
+    for (const [from, to] of [
+      ["/softver.html", "/softver"],
+      ["/cena-fulfilmenta.html", "/cena-fulfilmenta"],
+      ["/index.html", "/"],
+      ["/hvala.html", "/hvala/"],
+      ["/hvala/index.html", "/hvala/"],
+    ]) {
+      assert.deepEqual(runHeadRedirect(file, { pathname: from, search: "?a=1", hash: "#kontakt" }), [`${to}?a=1#kontakt`], `${file} ${from}`);
+    }
+    for (const pathname of ["/softver", "/", "/hvala/", "/fulfilment-za-dropshipping"])
+      assert.deepEqual(runHeadRedirect(file, { pathname, search: "", hash: "" }), [], `${file} ${pathname}`);
   }
-  for (const pathname of ["/softver", "/", "/hvala/"]) {
-    const h = harness(noNetwork, { pathname, search: "", hash: "" });
-    assert.deepEqual(h.replaced, [], pathname);
-    assert.equal(typeof h.form.listeners.submit, "function", pathname);
+  const h = harness(noNetwork, { pathname: "/softver.html", search: "", hash: "" });
+  assert.deepEqual(h.replaced, [], "site.js must not redirect; the head script does");
+  assert.equal(typeof h.form.listeners.submit, "function");
+});
+
+test("Usluge dropdown toggles, closes on Escape with focus restored, and closes on outside click", () => {
+  const h = harness(() => {
+    throw new Error("Unexpected network call");
+  });
+  assert.equal(typeof h.dropButton.listeners.click, "function");
+  h.dropButton.listeners.click({ stopPropagation() {} });
+  assert.equal(h.drop.classList.contains("open"), true);
+  assert.equal(h.dropButton.attrs["aria-expanded"], "true");
+  h.dispatch("keydown", { key: "Escape" });
+  assert.equal(h.drop.classList.contains("open"), false);
+  assert.equal(h.dropButton.attrs["aria-expanded"], "false");
+  assert.equal(h.dropButton.focused, true);
+  h.dropButton.listeners.click({ stopPropagation() {} });
+  h.dispatch("click", { target: new h.Element() });
+  assert.equal(h.drop.classList.contains("open"), false);
+  for (const file of pages.filter((f) => read(f).includes("nav-drop-menu"))) {
+    const menu = read(file).match(/<div class="nav-drop-menu"[^>]*>([\s\S]*?)<\/div>/)[1];
+    const hrefs = [...menu.matchAll(/href="([^"]+)"/g)].map((m) => m[1]);
+    assert.deepEqual(hrefs, ["/skladistenje-robe", "/pakovanje-paketa", "/slanje-pouzecem", "/povrati-i-reklamacije", "/roba-na-veliko", "/usluzni-uvoz-iz-kine", "/fulfilment-za-dropshipping"], file);
+    assert.match(read(file), /<button type="button" class="nav-drop-btn[^"]*" id="nav-usluge-btn" aria-expanded="false" aria-controls="nav-usluge"/, file);
   }
 });
 
@@ -362,14 +405,14 @@ test("mobile menu announces state and Escape returns keyboard focus to its trigg
   });
   h.burger.listeners.click();
   assert.equal(h.burger.attrs["aria-expanded"], "true");
-  h.document.listeners.keydown({ key: "Escape" });
+  h.dispatch("keydown", { key: "Escape" });
   assert.equal(h.burger.attrs["aria-expanded"], "false");
   assert.equal(h.burger.focused, true);
   h.burger.listeners.click();
   h.navLink.listeners.click();
   assert.equal(h.links.classList.contains("open"), false);
   h.burger.listeners.click();
-  h.document.listeners.click({ target: new h.Element() });
+  h.dispatch("click", { target: new h.Element() });
   assert.equal(h.links.classList.contains("open"), false);
 });
 

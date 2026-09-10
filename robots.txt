@@ -1,4 +1,69 @@
+# fulfilment.rs — PAKUM
+# Sve javne stranice su dozvoljene za pretraživače i AI search botove.
+# Ne dodavati Disallow za javne stranice ni Crawl-delay.
+
 User-agent: *
+Allow: /
+
+# Pretraživači (Google Search = AI Overviews i AI Mode; Bing = Copilot)
+User-agent: Googlebot
+Allow: /
+
+User-agent: bingbot
+Allow: /
+
+# AI pretraga i citiranje
+User-agent: OAI-SearchBot
+Allow: /
+
+User-agent: ChatGPT-User
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: Perplexity-User
+Allow: /
+
+User-agent: Claude-SearchBot
+Allow: /
+
+User-agent: Claude-User
+Allow: /
+
+User-agent: DuckAssistBot
+Allow: /
+
+User-agent: Applebot
+Allow: /
+
+# Treniranje modela (dozvoljeno, da modeli znaju za PAKUM)
+User-agent: GPTBot
+Allow: /
+
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: Google-Extended
+Allow: /
+
+User-agent: Applebot-Extended
+Allow: /
+
+User-agent: meta-externalagent
+Allow: /
+
+User-agent: meta-externalfetcher
+Allow: /
+
+User-agent: Amazonbot
+Allow: /
+
+User-agent: CCBot
+Allow: /
+
+# Pregled linka na Facebook/Instagram/WhatsApp
+User-agent: facebookexternalhit
 Allow: /
 
 Sitemap: https://fulfilment.rs/sitemap.xml

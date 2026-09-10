@@ -1,14 +1,5 @@
 // @ts-check
 (() => {
-  const loc = window.location;
-  if (loc && typeof loc.pathname === "string" && /\.html$/i.test(loc.pathname)) {
-    let clean = loc.pathname
-      .replace(/\/index\.html$/i, "/")
-      .replace(/\.html$/i, "");
-    if (clean === "/hvala") clean = "/hvala/";
-    loc.replace(clean + (loc.search || "") + (loc.hash || ""));
-    return;
-  }
   const burger = document.getElementById("burger");
   const links = document.querySelector(".nav-links");
   if (burger && links) {
@@ -36,6 +27,30 @@
         closeMenu();
     });
   }
+
+  document.querySelectorAll(".nav-drop").forEach((drop) => {
+    const button = drop.querySelector(".nav-drop-btn");
+    if (!(button instanceof HTMLButtonElement)) return;
+    /** @param {boolean} open */
+    const setOpen = (open) => {
+      drop.classList.toggle("open", open);
+      button.setAttribute("aria-expanded", String(open));
+    };
+    button.addEventListener("click", (event) => {
+      event.stopPropagation();
+      setOpen(!drop.classList.contains("open"));
+    });
+    document.addEventListener("click", (event) => {
+      if (event.target instanceof Element && !event.target.closest(".nav-drop"))
+        setOpen(false);
+    });
+    document.addEventListener("keydown", (event) => {
+      if (event.key === "Escape" && drop.classList.contains("open")) {
+        setOpen(false);
+        button.focus();
+      }
+    });
+  });
 
   const form = document.getElementById("prijava");
   const submit = form?.querySelector('button[type="submit"]');

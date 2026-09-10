@@ -1,0 +1,29 @@
+# PAKUM
+
+> PAKUM je fulfilment (fulfillment) centar u Srbiji za online prodavnice: prijem robe (verifikacija, barkodiranje), skladištenje, pakovanje (pick and pack sa kontrolom artikla skeniranjem, brendirana ili klijentova ambalaža, flajeri, zahvalnice), slanje kroz sve kurire uz jedan ugovor i jedan obračun, slanje pouzećem sa naplatom otkupnine, fiskalni račun uz svaku pošiljku, isplata otkupnine, obrada povrata i reklamacija, roba na veliko sa lagera u Srbiji, uslužni uvoz iz Kine, e-commerce konsultacije i pomoć oko reklama (Meta, TikTok). Uz uslugu dolazi softver TopOMS. Sajt: https://fulfilment.rs. Kontakt: info@bizonline.rs. Pravno lice: LAZAR JOKSIMOVIĆ PR BIZONLINE, PIB 113156519, matični broj 66619206. Potpis: Pakum — powered by Bizonline. Moto: "Pakujemo kao za sebe." Slogan: "Vi prodajete. Mi pakujemo i šaljemo."
+
+PAKUM je nastao iz sopstvene e-commerce prodaje: isti tim, magacin i softver koriste se za sopstvene brendove (TVTop, Maleni, ShopeX, NaKlik, HIR, Plantigo, Rabito, ReGen pro, Solea, Kupina) i za klijente. Područje rada: Srbija (adresa magacina nije javno objavljena). Cena zavisi od broja paketa, asortimana, prostora i usluga; nema javnog cenovnika; ponuda navodi svaku stavku, jedinicu obračuna, PDV, rok važenja i uslove plaćanja. Početak saradnje: dogovor usluga, povezivanje prodavnice, prijem robe, slanje.
+
+Softver TopOMS (uključen u fulfilment za klijente): živo stanje zaliha po proizvodu i varijanti, QR kod na svakom proizvodu, status svake pošiljke od porudžbine do uručenja (statusi iz kurirskih sistema), fiskalizacija i evidencija pouzeća automatski, integracije Shopify, WooCommerce, sales funnel platforme i API, izveštaji o prodaji, povratima i troškovima slanja, uvid u zaradu po porudžbini, označavanje kupaca koji su više puta odbili paket, evidencija povrata po razlogu. Određeni paketi saradnje dobijaju i softver za puštanje reklama na Meti i TikToku (analitika po kampanji i kreativi, puštanje reklama, automatska pravila za gašenje i skaliranje, praćenje profitabilnosti po proizvodu); uslovi u ponudi.
+
+## Usluge
+
+- [Skladištenje robe za online prodavnice](https://fulfilment.rs/skladistenje-robe): prijem sa verifikacijom, barkodiranje, živo stanje zaliha, obračun po zauzetom prostoru
+- [Pakovanje i slanje paketa](https://fulfilment.rs/pakovanje-paketa): pick and pack, kontrola artikla skeniranjem, brendirana ili klijentova ambalaža, flajeri i zahvalnice, svi kuriri kroz jedan ugovor
+- [Slanje pouzećem](https://fulfilment.rs/slanje-pouzecem): naplata otkupnine, fiskalni račun uz svaku pošiljku, isplata otkupnine po obračunu, označavanje kupaca koji odbijaju pakete
+- [Povrati i reklamacije](https://fulfilment.rs/povrati-i-reklamacije): prijem vraćenog paketa, pregled, evidencija po razlogu, vraćanje na stanje
+- [Cena fulfilmenta](https://fulfilment.rs/cena-fulfilmenta): od čega zavisi cena, jedinice obračuna, šta sadrži ponuda, zašto nema javnog cenovnika
+- [Softver TopOMS](https://fulfilment.rs/softver): zalihe, QR kod, statusi pošiljki, fiskalizacija, integracije Shopify, WooCommerce, sales funnel platforme, API
+- [Roba na veliko sa lagera u Srbiji](https://fulfilment.rs/roba-na-veliko): provereni proizvodi odmah dostupni iz magacina
+- [Uslužni uvoz iz Kine](https://fulfilment.rs/usluzni-uvoz-iz-kine): dobavljač, transport, carinjenje, prijem direktno u magacin
+- [Fulfilment za dropshipping](https://fulfilment.rs/fulfilment-za-dropshipping): lager u Srbiji, pouzeće i fiskalni račun umesto slanja iz inostranstva
+- [Skaliranje online prodavnice](https://fulfilment.rs/skaliranje): e-commerce konsultacije, pomoć oko Meta i TikTok reklama, softver za reklame uz određene pakete
+
+## O firmi
+
+- [Šta je fulfilment](https://fulfilment.rs/sta-je-fulfilment): definicija, kako radi fulfilment centar u 6 koraka, razlika od skladišta i 3PL, rečnik pojmova
+- [O nama](https://fulfilment.rs/o-nama): nastanak iz sopstvene prodaje, brendovi, pravno lice, kontakt
+
+## Optional
+
+- [Sitemap](https://fulfilment.rs/sitemap.xml): lista svih javnih stranica
