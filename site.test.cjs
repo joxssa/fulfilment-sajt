@@ -71,6 +71,25 @@ test("internal navigation, canonicals, sitemap and redirects use extensionless U
   assert.equal(fs.existsSync(path.join(__dirname, ".nojekyll")), true);
 });
 
+test("every indexable page has one H1, SEO-length title and description, extensionless canonical and valid JSON-LD references", () => {
+  const indexable = pages.filter((file) => !/noindex/.test(read(file)));
+  assert.ok(indexable.length >= 13, `indexable pages: ${indexable.length}`);
+  for (const file of indexable) {
+    const html = read(file);
+    assert.equal((html.match(/<h1[\s>]/g) || []).length, 1, `${file}: exactly one H1`);
+    const title = html.match(/<title>([^<]*)<\/title>/)[1];
+    assert.ok(title.length >= 30 && title.length <= 62 && / \| PAKUM$/.test(title), `${file}: title "${title}" (${title.length})`);
+    const meta = html.match(/<meta\s+name="description"\s+content="([^"]*)"/)[1];
+    assert.ok(meta.length >= 110 && meta.length <= 158, `${file}: meta ${meta.length}`);
+    const canonical = html.match(/<link rel="canonical" href="([^"]+)"/)[1];
+    assert.match(canonical, /^https:\/\/fulfilment\.rs\/([a-z0-9-]+|hvala\/)?$/, `${file}: canonical ${canonical}`);
+    assert.doesNotMatch(html, /[ČčCc]akum-pakum|\d[\d.]*\+?\s*paketa\s+(mesečno|dnevno)|\b48\s?h\b|48 sati|isti dan|\bSUS\b|na jugu Srbije|call centar|\bUskoro\b/, `${file}: forbidden phrase`);
+    const ld = [...html.matchAll(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/g)].map((m) => JSON.parse(m[1]));
+    const refsOrg = JSON.stringify(ld).includes('"@id":"https://fulfilment.rs/#organization"');
+    assert.ok(refsOrg, `${file}: Organization @id reference`);
+  }
+});
+
 test("FAQ schema matches visible questions and answers, and unsupported public promises are absent", () => {
   const clean = (text) =>
     text
