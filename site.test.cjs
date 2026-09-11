@@ -293,10 +293,12 @@ function runHeadRedirect(file, location) {
   return replaced;
 }
 
+const BIZOMS_LEAD_URL = "https://bizdb.46.224.193.209.sslip.io/functions/v1/pakum-lead";
+
 test("successful lead uses the existing endpoint and field contract, then confirms receipt", async () => {
   const h = harness(async () => ({ ok: true }));
   await h.send();
-  assert.equal(h.calls.length, 1);
+  assert.equal(h.calls.length, 2);
   assert.equal(h.calls[0].url, "https://sus.rs/api/pakum/prijava");
   assert.equal(h.calls[0].options.method, "POST");
   assert.equal(h.calls[0].options.headers["Content-Type"], "application/json");
@@ -314,8 +316,30 @@ test("successful lead uses the existing endpoint and field contract, then confir
     poruka: "Posebna ambalaža\nDrugi red",
     web: "",
   });
+  assert.equal(h.calls[1].url, BIZOMS_LEAD_URL);
+  assert.equal(h.calls[1].options.method, "POST");
+  assert.equal(h.calls[1].options.headers["Content-Type"], "application/json");
+  assert.equal(h.calls[1].options.keepalive, true);
+  assert.equal(h.calls[1].options.body, h.calls[0].options.body);
   assert.deepEqual(h.navigations, ["/hvala/"]);
   assert.deepEqual(h.cleared, [1]);
+});
+
+test("the BizOMS copy never changes the outcome: its failure keeps the confirmation, its success never hides a primary failure", async () => {
+  let h = harness((url) => (url === BIZOMS_LEAD_URL ? Promise.reject(new Error("bizoms down")) : Promise.resolve({ ok: true })));
+  await h.send();
+  assert.deepEqual(h.navigations, ["/hvala/"]);
+  h = harness((url) => {
+    if (url === BIZOMS_LEAD_URL) throw new Error("sync failure");
+    return Promise.resolve({ ok: true });
+  });
+  await h.send();
+  assert.deepEqual(h.navigations, ["/hvala/"]);
+  h = harness((url) => Promise.resolve({ ok: url === BIZOMS_LEAD_URL }));
+  await h.send();
+  assert.deepEqual(h.navigations, []);
+  assert.equal(h.fallback.hidden, false);
+  assert.match(h.status.textContent, /Nismo dobili potvrdu/);
 });
 
 test("legacy .html addresses are replaced by extensionless URLs before the page script runs", () => {
@@ -401,8 +425,8 @@ for (const failure of ["http", "network", "timeout"])
   });
 
 test("double submission, invalid input and honeypot do not create duplicate or unwanted leads", async () => {
-  let resolve;
-  const h = harness(() => new Promise((r) => (resolve = r)));
+  const resolvers = [];
+  const h = harness(() => new Promise((r) => resolvers.push(r)));
   h.form.valid = false;
   await h.send();
   assert.equal(h.calls.length, 0);
@@ -413,8 +437,8 @@ test("double submission, invalid input and honeypot do not create duplicate or u
   h.fields.web.value = "";
   const pending = h.send();
   await h.send();
-  assert.equal(h.calls.length, 1);
-  resolve({ ok: true });
+  assert.equal(h.calls.length, 2);
+  resolvers.forEach((resolve) => resolve({ ok: true }));
   await pending;
 });
 

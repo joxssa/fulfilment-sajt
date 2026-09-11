@@ -67,6 +67,7 @@
     event.preventDefault();
     if (submit.disabled || !form.reportValidity()) return;
     /** @param {string} id */
+    const BIZOMS_LEAD_URL = "https://bizdb.46.224.193.209.sslip.io/functions/v1/pakum-lead";
     const value = (id) => {
       const field = form.querySelector(`#${id}`);
       return field instanceof HTMLInputElement ||
@@ -97,12 +98,20 @@
     const controller = new AbortController();
     const timeout = setTimeout(() => controller.abort(), 15000);
     try {
-      const response = await fetch("https://sus.rs/api/pakum/prijava", {
+      const request = {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(data),
         signal: controller.signal,
-      });
+      };
+      const primary = fetch("https://sus.rs/api/pakum/prijava", request);
+      // Kopija prijave u BizOMS (Fulfilment › Prijave sa sajta). Dopunska: ne menja ishod slanja.
+      try {
+        fetch(BIZOMS_LEAD_URL, { ...request, keepalive: true }).catch(() => {});
+      } catch {
+        /* kopija u BizOMS nije uspela; glavni kanal odlučuje */
+      }
+      const response = await primary;
       if (!response.ok) throw new Error("Slanje nije potvrđeno");
       window.location.assign("/hvala/");
     } catch {
