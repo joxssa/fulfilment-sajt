@@ -565,3 +565,31 @@ test("linkovi u tekstu nose boju brenda umesto podrazumevane plave, a naslovi ka
   assert.match(css, /\.service-cell h3 a\s*\{[^}]*color:\s*var\(--ink\)[^}]*text-decoration:\s*none/);
   assert.match(css, /prefers-reduced-motion:\s*reduce/);
 });
+
+// ---- 13.09.2026: stari WordPress URL-ovi (iz GSC) dobijaju preusmerenje umesto 404 ----
+
+test("stari WordPress URL /author/aleksandar/ preusmerava na postojeću stranicu i ne indeksira se", () => {
+  const html = read("author/aleksandar/index.html");
+  const target = html.match(/<meta http-equiv="refresh" content="0; url=([^"]+)">/);
+  assert.ok(target, "meta refresh");
+  assert.match(target[1], /^\/[a-z0-9-]+$/);
+  assert.equal(fs.existsSync(path.join(__dirname, `${target[1].slice(1)}.html`)), true, `cilj ${target[1]} postoji`);
+  assert.match(html, new RegExp(`<link rel="canonical" href="https://fulfilment.rs${target[1]}">`));
+  assert.match(html, /<meta name="robots" content="noindex">/);
+  assert.match(html, new RegExp(`location.replace\\("${target[1]}"\\)`));
+  assert.doesNotMatch(read("sitemap.xml"), /author/);
+});
+
+test("404 stranica skida završnu kosu crtu sa starih WordPress adresa, a /hvala/ i koren ostavlja na miru", () => {
+  for (const [from, to] of [
+    ["/o-nama/", "/o-nama"],
+    ["/skladistenje-robe/", "/skladistenje-robe"],
+    ["/softver.html", "/softver"],
+  ]) {
+    assert.deepEqual(runHeadRedirect("404.html", { pathname: from, search: "?a=1", hash: "#x" }), [`${to}?a=1#x`], from);
+  }
+  for (const pathname of ["/", "/hvala/", "/o-nama", "/nepostojeca-strana"])
+    assert.deepEqual(runHeadRedirect("404.html", { pathname, search: "", hash: "" }), [], pathname);
+  // ostale stranice ne diraju završnu kosu crtu (samo 404 to radi)
+  assert.deepEqual(runHeadRedirect("index.html", { pathname: "/o-nama/", search: "", hash: "" }), []);
+});
