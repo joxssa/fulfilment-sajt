@@ -759,3 +759,32 @@ test("engleski FAQ odgovara šemi, forma na /en/ koristi isti kontrakt i vodi na
   assert.equal(h.calls[0].url, "https://sus.rs/api/pakum/prijava");
   assert.match(read("en/thank-you/index.html"), /<meta name="robots" content="noindex">/);
 });
+
+// ---- 13.09.2026: EN oznaka u Slack poruci, engleski logo, vodič za evropske brendove ----
+
+test("prijava sa engleskog sajta nosi EN: ispred brenda, srpska ne", async () => {
+  let h = harness(async () => ({ ok: true }));
+  h.form.dataset = { thanks: "/en/thank-you/", lang: "en" };
+  await h.send();
+  assert.equal(JSON.parse(h.calls[0].options.body).brend, "EN: Čarobni brend");
+  assert.deepEqual(h.navigations, ["/en/thank-you/"]);
+  h = harness(async () => ({ ok: true }));
+  await h.send();
+  assert.equal(JSON.parse(h.calls[0].options.body).brend, "Čarobni brend");
+  assert.match(read("en/index.html"), /<form class="formwrap" id="prijava" data-thanks="\/en\/thank-you\/" data-lang="en"/);
+});
+
+test("engleske strane koriste engleski logo (tagline na engleskom) u meniju i footeru", () => {
+  for (const file of ["images/pakum-logo-wordmark-en.png", "images/pakum-logo-footer-en.png"])
+    assert.equal(fs.existsSync(path.join(__dirname, file)), true, file);
+  for (const file of enPages) {
+    const html = read(file);
+    assert.match(html, /<a class="logo" href="\/en\/"[^>]*><img src="\/images\/pakum-logo-wordmark-en\.png\?v=\d+"/, `${file}: nav logo`);
+    assert.match(html, /<img src="\/images\/pakum-logo-footer-en\.png\?v=\d+"/, `${file}: footer logo`);
+    assert.doesNotMatch(html, /pakum-logo-wordmark\.png|pakum-logo-footer\.png/, `${file}: srpski logo`);
+  }
+  const guide = read("en/fulfilment-serbia-guide.html");
+  assert.match(guide, /<link rel="alternate" hreflang="x-default" href="https:\/\/fulfilment\.rs\/en\/fulfilment-serbia-guide">/);
+  assert.doesNotMatch(guide, /<link rel="alternate" hreflang="sr"/);
+  assert.match(read("en/index.html"), /href="\/en\/fulfilment-serbia-guide"/);
+});

@@ -92,6 +92,8 @@
       };
       const { data, subject, lines } = spec.build(value);
       if (data.web) return;
+      // Forma sa engleskog sajta (data-lang="en"): u Slacku se vidi „EN:" na početku.
+      if (form.dataset && form.dataset.lang === "en" && data.brend) data.brend = `EN: ${data.brend}`;
       submit.disabled = true;
       submit.textContent = "Šaljemo zahtev…";
       status.textContent = "Slanje je u toku.";
