@@ -561,7 +561,7 @@ test("naslovna nosi traku poverenja i plutajuću traku usluga sa ikonicama umest
 
 test("linkovi u tekstu nose boju brenda umesto podrazumevane plave, a naslovi kartica nisu podvučeni", () => {
   const css = read("tema.css");
-  assert.match(css, /main :where\(p, li, td, figcaption\) a:where\(:not\(\.btn, \.text-link\)\)\s*\{[^}]*color:\s*var\(--signal-dark\)/);
+  assert.match(css, /main :where\(p, li, td, figcaption\) a:where\(:not\(\.btn, \.text-link\)\)\s*\{[^}]*color:\s*var\(--signal-deep\)/);
   assert.match(css, /\.service-cell h3 a\s*\{[^}]*color:\s*var\(--ink\)[^}]*text-decoration:\s*none/);
   assert.match(css, /prefers-reduced-motion:\s*reduce/);
 });
