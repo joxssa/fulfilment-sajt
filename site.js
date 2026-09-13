@@ -114,7 +114,8 @@
         }
         const response = await primary;
         if (!response.ok) throw new Error("Slanje nije potvrđeno");
-        window.location.assign("/hvala/");
+        // Engleska verzija forme nosi data-thanks="/en/thank-you/".
+        window.location.assign((form.dataset && form.dataset.thanks) || "/hvala/");
       } catch {
         status.textContent =
           "Nismo dobili potvrdu da je zahtev primljen. Podaci su sačuvani u formi. Pokušajte ponovo ili ih pošaljite emailom.";

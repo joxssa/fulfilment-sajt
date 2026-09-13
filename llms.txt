@@ -27,6 +27,11 @@ Softver TopOMS (uključen u fulfilment za klijente): živo stanje zaliha po proi
 - [Šta je fulfilment](https://fulfilment.rs/sta-je-fulfilment): definicija, kako radi fulfilment centar u 6 koraka, razlika od skladišta i 3PL, rečnik pojmova
 - [O nama](https://fulfilment.rs/o-nama): nastanak iz sopstvene prodaje, brendovi, pravno lice, kontakt
 
+## English version
+
+- [Fulfilment centre in Serbia (English)](https://fulfilment.rs/en/): English pages for brands from the region and abroad that want to sell to Serbian customers with local stock, cash on delivery and fiscal receipts; services, pricing, software, Shopify and WooCommerce, dropshipping, about
+- [Selling in Serbia from abroad](https://fulfilment.rs/en/fulfilment-serbia-for-foreign-brands): market-entry fulfilment (3PL) for foreign brands
+
 ## Optional
 
 - [Sitemap](https://fulfilment.rs/sitemap.xml): lista svih javnih stranica

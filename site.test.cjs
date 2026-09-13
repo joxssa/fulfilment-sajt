@@ -66,7 +66,7 @@ test("internal navigation, canonicals, sitemap and redirects use extensionless U
   const locs = [...sitemap.matchAll(/<loc>https:\/\/fulfilment\.rs\/([^<]*)<\/loc>/g)].map((m) => m[1]);
   assert.ok(locs.includes("") && locs.includes("softver") && locs.includes("cena-fulfilmenta"));
   for (const loc of locs)
-    assert.ok(fs.existsSync(path.join(__dirname, loc ? `${loc}.html` : "index.html")), loc);
+    assert.ok(fs.existsSync(path.join(__dirname, loc === "" || loc.endsWith("/") ? `${loc}index.html` : `${loc}.html`)), loc);
   assert.doesNotMatch(sitemap, /hvala/);
   assert.equal(fs.existsSync(path.join(__dirname, ".nojekyll")), true);
 });
@@ -682,4 +682,80 @@ test("partnerska prijava bez potvrde nudi email sa svojim naslovom, a honeypot j
   h.fields["p-web"].value = "spam";
   await h.sendPartner();
   assert.equal(h.calls.length, 0);
+});
+
+// ---- 13.09.2026: engleska verzija (/en/) — hreflang, meni, forma, SEO okvir ----
+
+const enPages = [
+  ...fs.readdirSync(path.join(__dirname, "en")).filter((file) => file.endsWith(".html")).map((file) => `en/${file}`),
+  "en/thank-you/index.html",
+];
+
+test("engleske strane imaju lang=en, jedan H1, SEO naslov i opis, canonical i hreflang par sa srpskom stranom", () => {
+  assert.ok(enPages.length >= 12, `en strana: ${enPages.length}`);
+  for (const file of enPages) {
+    const html = read(file);
+    assert.match(html, /<html lang="en">/, file);
+    assert.equal((html.match(/<h1[\s>]/g) || []).length, 1, `${file}: exactly one H1`);
+    const title = html.match(/<title>([^<]*)<\/title>/)[1];
+    assert.ok(title.length >= 30 && title.length <= 62 && / \| PAKUM$/.test(title), `${file}: title "${title}" (${title.length})`);
+    const meta = html.match(/<meta name="description" content="([^"]*)"/)[1];
+    assert.ok(meta.length >= 110 && meta.length <= 158, `${file}: meta ${meta.length}`);
+    const canonical = html.match(/<link rel="canonical" href="([^"]+)"/)[1];
+    const expected = file === "en/index.html" ? "https://fulfilment.rs/en/" : file === "en/thank-you/index.html" ? "https://fulfilment.rs/en/thank-you/" : `https://fulfilment.rs/${file.replace(/\.html$/, "")}`;
+    assert.equal(canonical, expected, `${file}: canonical`);
+    assert.match(html, new RegExp(`<link rel="alternate" hreflang="en" href="${expected}">`), `${file}: hreflang en`);
+    const sr = html.match(/<link rel="alternate" hreflang="sr" href="https:\/\/fulfilment\.rs\/([^"]*)">/);
+    if (sr) {
+      const srFile = sr[1] === "" ? "index.html" : sr[1].endsWith("/") ? `${sr[1]}index.html` : `${sr[1]}.html`;
+      assert.equal(fs.existsSync(path.join(__dirname, srFile)), true, `${file}: srpski par ${srFile}`);
+      assert.match(read(srFile), new RegExp(`<link rel="alternate" hreflang="en" href="${expected}">`), `${srFile}: hreflang nazad ka ${expected}`);
+      assert.match(read(srFile), new RegExp(`<a href="${expected.replace("https://fulfilment.rs", "")}" lang="en" hreflang="en" title="English">EN</a>`), `${srFile}: EN prekidač`);
+    }
+    assert.match(html, /<link rel="alternate" hreflang="x-default"/, `${file}: x-default`);
+    assert.ok(html.includes('"@id":"https://fulfilment.rs/#organization"'), `${file}: Organization`);
+    assert.match(html, /<meta name="viewport"[^>]*>\s*<script>\(function\(\)\{var p=location\.pathname;/, `${file}: head redirect`);
+    assert.doesNotMatch(html, /href="(?!https?:)[^"]*\.html/, `${file}: .html link`);
+    for (const script of html.matchAll(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/g)) JSON.parse(script[1]);
+    for (const match of html.matchAll(/(?:href|src)="(?!https?:|mailto:|data:|tel:|#)([^"]+)"/g)) {
+      const href = match[1];
+      assert.match(href, /^\//, `${file}: ${href} must be root-relative`);
+      const url = new URL(href, "https://fulfilment.rs/");
+      let dest = decodeURIComponent(url.pathname.slice(1)) || "index.html";
+      if (dest.endsWith("/")) dest += "index.html";
+      else if (!path.extname(dest)) dest += ".html";
+      assert.equal(fs.existsSync(path.join(__dirname, dest)), true, `${file}: missing ${href}`);
+    }
+    const bars = [...html.matchAll(/<aside class="mobile-contact-bar"[^>]*>([\s\S]*?)<\/aside>/g)];
+    assert.equal(bars.length, 1, `${file}: mobile bar`);
+    assert.match(bars[0][1], /href="\/en\/#quote"/, file);
+    assert.match(html, /<a href="\/[^"]*" lang="sr-Latn" hreflang="sr" title="Srpski">SR<\/a>/, `${file}: SR prekidač`);
+    assert.doesNotMatch(html, /\d[\d,.]*\+?\s*parcels\s+(per|a)\s+day|\b48\s?h\b|same[- ]day|\bSUS\b/, `${file}: forbidden phrase`);
+  }
+  assert.match(read("sitemap.xml"), /<loc>https:\/\/fulfilment\.rs\/en\/<\/loc>/);
+  assert.match(read("sitemap.xml"), /<loc>https:\/\/fulfilment\.rs\/en\/fulfilment-serbia-for-foreign-brands<\/loc>/);
+  assert.doesNotMatch(read("sitemap.xml"), /thank-you/);
+  assert.match(read("llms.txt"), /https:\/\/fulfilment\.rs\/en\//);
+});
+
+test("engleski FAQ odgovara šemi, forma na /en/ koristi isti kontrakt i vodi na englesku hvala stranu", async () => {
+  const clean = (text) => text.replace(/<[^>]+>/g, "").replace(/\s+/g, " ").trim();
+  for (const file of enPages) {
+    const html = read(file);
+    const questions = [...html.matchAll(/<details[^>]*>\s*<summary>([\s\S]*?)<\/summary>\s*<p>([\s\S]*?)<\/p>\s*<\/details>/g)].map((m) => [clean(m[1]), clean(m[2])]);
+    for (const script of html.matchAll(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/g)) {
+      const json = JSON.parse(script[1]);
+      if (json["@type"] === "FAQPage") assert.deepEqual(json.mainEntity.map((item) => [item.name, item.acceptedAnswer.text]), questions, file);
+    }
+  }
+  const home = read("en/index.html");
+  assert.match(home, /<form class="formwrap" id="prijava" data-thanks="\/en\/thank-you\/"/);
+  for (const id of ["brend", "sajt", "proizvod", "paketi", "interes", "firma", "pib", "ime", "telefon", "email", "poruka", "web"])
+    assert.match(home, new RegExp(`id="${id}"`), `en forma: ${id}`);
+  const h = harness(async () => ({ ok: true }));
+  h.form.dataset = { thanks: "/en/thank-you/" };
+  await h.send();
+  assert.deepEqual(h.navigations, ["/en/thank-you/"]);
+  assert.equal(h.calls[0].url, "https://sus.rs/api/pakum/prijava");
+  assert.match(read("en/thank-you/index.html"), /<meta name="robots" content="noindex">/);
 });
