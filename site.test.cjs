@@ -496,3 +496,72 @@ test("the static brand grid preserves every supplied logo and the mobile action 
   }
   assert.match(read("premium.css"), /prefers-reduced-motion:\s*reduce/);
 });
+
+// ---- 13.09.2026: tema.css (završni sloj dizajna), forma 3.000+, vidljive mrvice, Shopify/WooCommerce stranica ----
+
+test("tema.css se učitava posle premium.css na svakoj stranici sa navigacijom", () => {
+  assert.equal(fs.existsSync(path.join(__dirname, "tema.css")), true);
+  for (const file of pages) {
+    const html = read(file);
+    if (!html.includes("<nav")) continue;
+    const premium = html.indexOf('href="/premium.css');
+    const tema = html.indexOf('href="/tema.css');
+    assert.ok(premium > -1 && tema > premium, `${file}: tema.css posle premium.css`);
+  }
+});
+
+test("forma nudi obim preko 3.000 paketa i zadržava postojeće vrednosti koje BizOMS i sus.rs već primaju", () => {
+  const select = read("index.html").match(/<select id="paketi"[^>]*>([\s\S]*?)<\/select>/)[1];
+  const options = [...select.matchAll(/<option>([^<]+)<\/option>/g)].map((m) => m[1]);
+  assert.deepEqual(options, ["Do 500", "501 – 1.000", "1.001 – 3.000", "Preko 3.000"]);
+});
+
+test("vidljive mrvice odgovaraju BreadcrumbList šemi i stoje pre H1 na svakoj podstranici", () => {
+  for (const file of pages) {
+    const html = read(file);
+    const ld = html.match(/<script type="application\/ld\+json">(\{[^<]*"BreadcrumbList"[^<]*)<\/script>/);
+    if (!ld) {
+      assert.doesNotMatch(html, /class="breadcrumbs"/, file);
+      continue;
+    }
+    const names = JSON.parse(ld[1]).itemListElement.map((item) => item.name);
+    const nav = html.match(/<nav aria-label="Putanja"><ol class="breadcrumbs">([\s\S]*?)<\/ol><\/nav>/);
+    assert.ok(nav, `${file}: vidljive mrvice`);
+    const visible = [...nav[1].matchAll(/<li>(?:<a href="[^"]+">|<span aria-current="page">)([^<]+)/g)].map((m) => m[1]);
+    assert.deepEqual(visible, names, file);
+    assert.match(nav[1], /^<li><a href="\/">Početna<\/a><\/li>/);
+    assert.ok(html.indexOf('class="breadcrumbs"') < html.indexOf("<h1"), `${file}: mrvice pre H1`);
+  }
+});
+
+test("stranica za Shopify i WooCommerce je povezana iz naslovne, footera, sitemapa i llms.txt", () => {
+  assert.equal(fs.existsSync(path.join(__dirname, "fulfilment-shopify-woocommerce.html")), true);
+  assert.match(read("sitemap.xml"), /<loc>https:\/\/fulfilment\.rs\/fulfilment-shopify-woocommerce<\/loc>/);
+  assert.match(read("llms.txt"), /\(https:\/\/fulfilment\.rs\/fulfilment-shopify-woocommerce\)/);
+  assert.match(read("index.html"), /<h3><a href="\/fulfilment-shopify-woocommerce">/);
+  for (const file of pages) {
+    const html = read(file);
+    if (!html.includes("<footer")) continue;
+    assert.match(html, /<li><a href="\/fulfilment-shopify-woocommerce">Fulfilment za Shopify i WooCommerce<\/a><\/li>/, file);
+  }
+});
+
+test("naslovna nosi traku poverenja i plutajuću traku usluga sa ikonicama umesto stare tekstualne trake", () => {
+  const home = read("index.html");
+  assert.doesNotMatch(home, /legacy-service-band/);
+  const band = home.match(/<ul class="band-card" role="list">([\s\S]*?)<\/ul>/);
+  assert.ok(band, "band-card");
+  const items = [...band[1].matchAll(/<strong>([^<]+)<\/strong>/g)].map((m) => m[1]);
+  assert.deepEqual(items, ["Prijem robe", "Skladištenje", "Pakovanje i slanje", "Povrati"]);
+  assert.equal([...band[1].matchAll(/<svg /g)].length, 4);
+  const trust = home.match(/<ul class="hero-trust"[^>]*>([\s\S]*?)<\/ul>/);
+  assert.ok(trust, "hero-trust");
+  assert.equal([...trust[1].matchAll(/<li>/g)].length, 3);
+});
+
+test("linkovi u tekstu nose boju brenda umesto podrazumevane plave, a naslovi kartica nisu podvučeni", () => {
+  const css = read("tema.css");
+  assert.match(css, /main :where\(p, li, td, figcaption\) a:where\(:not\(\.btn, \.text-link\)\)\s*\{[^}]*color:\s*var\(--signal-dark\)/);
+  assert.match(css, /\.service-cell h3 a\s*\{[^}]*color:\s*var\(--ink\)[^}]*text-decoration:\s*none/);
+  assert.match(css, /prefers-reduced-motion:\s*reduce/);
+});

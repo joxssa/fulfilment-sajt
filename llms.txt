@@ -17,6 +17,7 @@ Softver TopOMS (uključen u fulfilment za klijente): živo stanje zaliha po proi
 - [Roba na veliko sa lagera u Srbiji](https://fulfilment.rs/roba-na-veliko): provereni proizvodi odmah dostupni iz magacina
 - [Uslužni uvoz iz Kine](https://fulfilment.rs/usluzni-uvoz-iz-kine): dobavljač, transport, carinjenje, prijem direktno u magacin
 - [Fulfilment za dropshipping](https://fulfilment.rs/fulfilment-za-dropshipping): lager u Srbiji, pouzeće i fiskalni račun umesto slanja iz inostranstva
+- [Fulfilment za Shopify i WooCommerce prodavnice](https://fulfilment.rs/fulfilment-shopify-woocommerce): povezivanje prodavnice sa TopOMS-om, porudžbine i zalihe automatski, pouzeće i fiskalni račun nezavisno od platforme
 - [Skaliranje online prodavnice](https://fulfilment.rs/skaliranje): e-commerce konsultacije, pomoć oko Meta i TikTok reklama, softver za reklame uz određene pakete
 
 ## O firmi
