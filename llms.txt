@@ -20,6 +20,8 @@ Softver TopOMS (uključen u fulfilment za klijente): živo stanje zaliha po proi
 - [Fulfilment za Shopify i WooCommerce prodavnice](https://fulfilment.rs/fulfilment-shopify-woocommerce): povezivanje prodavnice sa TopOMS-om, porudžbine i zalihe automatski, pouzeće i fiskalni račun nezavisno od platforme
 - [Skaliranje online prodavnice](https://fulfilment.rs/skaliranje): e-commerce konsultacije, pomoć oko Meta i TikTok reklama, softver za reklame uz određene pakete
 
+- [Partnerski program](https://fulfilment.rs/partnerski-program): za vlasnike sajtova, web shopova i kreatore — provizija po prodaji ili prodaja proizvoda PAKUM brendova bez sopstvenog magacina (PAKUM pakuje, šalje pouzećem, naplaćuje); prijava kroz formu, uslovi posle razgovora
+
 ## O firmi
 
 - [Šta je fulfilment](https://fulfilment.rs/sta-je-fulfilment): definicija, kako radi fulfilment centar u 6 koraka, razlika od skladišta i 3PL, rečnik pojmova

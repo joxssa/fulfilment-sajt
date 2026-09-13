@@ -175,6 +175,12 @@ function harness(fetchHandler, location = {}) {
   }
   const submit = new Button();
   const form = new Form();
+  const partnerSubmit = new Button();
+  const partnerForm = new Form();
+  partnerForm.querySelector = (selector) =>
+    selector.includes("button") ? partnerSubmit : fields[selector.slice(1)] || null;
+  const partnerStatus = new Element();
+  const partnerFallback = new Anchor();
   const status = new Element();
   const fallback = new Anchor();
   const burger = new Button();
@@ -200,6 +206,18 @@ function harness(fetchHandler, location = {}) {
     email: "qa@example.test",
     poruka: "Posebna ambalaža\nDrugi red",
     web: "",
+    "p-naziv": " Moj blog ",
+    "p-link": "https://mojblog.rs",
+    "p-kanal": "Instagram / TikTok",
+    "p-doseg": "20.000 – 100.000",
+    "p-nacin": "Provizija po prodaji",
+    "p-proizvodi": "Kozmetika, kuhinja",
+    "p-firma": "",
+    "p-ime": "Pera Partner",
+    "p-telefon": "0611111111",
+    "p-email": "pera@example.test",
+    "p-poruka": "Imam FB grupu",
+    "p-web": "",
   };
   for (const [name, value] of Object.entries(data)) {
     fields[name] = new Input();
@@ -211,6 +229,9 @@ function harness(fetchHandler, location = {}) {
     "email-fallback": fallback,
     burger,
     "marquee-toggle": motionButton,
+    partner: partnerForm,
+    "partner-status": partnerStatus,
+    "partner-fallback": partnerFallback,
   };
   const document = {
     listeners: {},
@@ -279,6 +300,11 @@ function harness(fetchHandler, location = {}) {
     motionButton,
     marquee,
     Element,
+    partnerForm,
+    partnerSubmit,
+    partnerStatus,
+    partnerFallback,
+    sendPartner: () => partnerForm.listeners.submit({ preventDefault() {} }),
   };
 }
 
@@ -592,4 +618,68 @@ test("404 stranica skida završnu kosu crtu sa starih WordPress adresa, a /hvala
     assert.deepEqual(runHeadRedirect("404.html", { pathname, search: "", hash: "" }), [], pathname);
   // ostale stranice ne diraju završnu kosu crtu (samo 404 to radi)
   assert.deepEqual(runHeadRedirect("index.html", { pathname: "/o-nama/", search: "", hash: "" }), []);
+});
+
+// ---- 13.09.2026: partnerski program (stranica + forma na isti Slack kanal) ----
+
+test("partnerski program je u meniju, footeru, sitemapu i llms.txt, a stranica ima formu sa obaveznim poljima", () => {
+  for (const file of pages) {
+    const html = read(file);
+    if (html.includes('<nav aria-label="Glavna navigacija">'))
+      assert.match(html, /<a href="\/partnerski-program"[^>]*>Partneri<\/a>/, `${file}: meni`);
+    if (html.includes("<footer"))
+      assert.match(html, /<li><a href="\/partnerski-program">Partnerski program<\/a><\/li>/, `${file}: footer`);
+  }
+  assert.match(read("sitemap.xml"), /<loc>https:\/\/fulfilment\.rs\/partnerski-program<\/loc>/);
+  assert.match(read("llms.txt"), /\(https:\/\/fulfilment\.rs\/partnerski-program\)/);
+  const page = read("partnerski-program.html");
+  assert.match(page, /<form class="formwrap" id="partner"/);
+  for (const id of ["p-naziv", "p-link", "p-ime", "p-telefon", "p-email"])
+    assert.match(page, new RegExp(`<input id="${id}"[^>]*\\brequired\\b`), `${id} obavezno`);
+  for (const id of ["p-kanal", "p-doseg", "p-nacin"]) assert.match(page, new RegExp(`<select id="${id}"`), id);
+  assert.match(page, /<input type="text" id="p-web" name="web"/);
+  assert.match(page, /id="partner-status"/);
+  assert.match(page, /id="partner-fallback"/);
+  assert.match(page, /site\.js\?v=20260913/);
+});
+
+test("partnerska prijava ide istim kanalom (sus.rs + BizOMS kopija) sa jasno mapiranim poljima i potvrdom", async () => {
+  const h = harness(async () => ({ ok: true }));
+  await h.sendPartner();
+  assert.equal(h.calls.length, 2);
+  assert.equal(h.calls[0].url, "https://sus.rs/api/pakum/prijava");
+  assert.deepEqual(JSON.parse(h.calls[0].options.body), {
+    brend: "PARTNER: Moj blog",
+    sajt: "https://mojblog.rs",
+    proizvod: "Kozmetika, kuhinja",
+    paketi: "",
+    interes: "Partnerski program — Provizija po prodaji",
+    firma: "",
+    pib: "",
+    ime: "Pera Partner",
+    telefon: "0611111111",
+    email: "pera@example.test",
+    poruka: "Kanal: Instagram / TikTok. Doseg: 20.000 – 100.000. Imam FB grupu",
+    web: "",
+  });
+  assert.equal(h.calls[1].url, "https://bizdb.46.224.193.209.sslip.io/functions/v1/pakum-lead");
+  assert.equal(h.calls[1].options.body, h.calls[0].options.body);
+  assert.deepEqual(h.navigations, ["/hvala/"]);
+  assert.equal(h.partnerSubmit.disabled, true);
+});
+
+test("partnerska prijava bez potvrde nudi email sa svojim naslovom, a honeypot je blokira", async () => {
+  let h = harness(() => Promise.resolve({ ok: false }));
+  await h.sendPartner();
+  assert.deepEqual(h.navigations, []);
+  assert.equal(h.partnerFallback.hidden, false);
+  assert.match(h.partnerStatus.textContent, /Nismo dobili potvrdu/);
+  const mail = new URL(h.partnerFallback.href);
+  assert.equal(mail.searchParams.get("subject"), "Partnerski program — Moj blog");
+  assert.match(mail.searchParams.get("body"), /Način saradnje: Provizija po prodaji/);
+  assert.equal(h.partnerSubmit.disabled, false);
+  h = harness(() => { throw new Error("Unexpected network call"); });
+  h.fields["p-web"].value = "spam";
+  await h.sendPartner();
+  assert.equal(h.calls.length, 0);
 });
