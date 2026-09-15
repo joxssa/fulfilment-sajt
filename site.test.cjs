@@ -181,6 +181,12 @@ function harness(fetchHandler, location = {}) {
     selector.includes("button") ? partnerSubmit : fields[selector.slice(1)] || null;
   const partnerStatus = new Element();
   const partnerFallback = new Anchor();
+  const ponudaSubmit = new Button();
+  const ponudaForm = new Form();
+  ponudaForm.querySelector = (selector) =>
+    selector.includes("button") ? ponudaSubmit : fields[selector.slice(1)] || null;
+  const ponudaStatus = new Element();
+  const ponudaFallback = new Anchor();
   const status = new Element();
   const fallback = new Anchor();
   const burger = new Button();
@@ -218,6 +224,21 @@ function harness(fetchHandler, location = {}) {
     "p-email": "pera@example.test",
     "p-poruka": "Imam FB grupu",
     "p-web": "",
+    "q-ime": " Mila Testić ",
+    "q-telefon": "0655555555",
+    "q-email": "mila@example.test",
+    "q-firma": "Mila d.o.o.",
+    "q-pib": "112233445",
+    "q-izvor": "Google pretraga",
+    "q-brend": "Mila Cosmetics",
+    "q-proizvod": "Kozmetika",
+    "q-sajt": "https://mila.rs",
+    "q-paketi": "501 – 1.000",
+    "q-interes": "Fulfilment (slanje paketa)",
+    "q-roba": "Kod mene ili u mom prostoru",
+    "q-pocetak": "Odmah",
+    "q-poruka": "Imam gratis uzorke uz paket",
+    "q-web": "",
   };
   for (const [name, value] of Object.entries(data)) {
     fields[name] = new Input();
@@ -232,6 +253,9 @@ function harness(fetchHandler, location = {}) {
     partner: partnerForm,
     "partner-status": partnerStatus,
     "partner-fallback": partnerFallback,
+    ponuda: ponudaForm,
+    "ponuda-status": ponudaStatus,
+    "ponuda-fallback": ponudaFallback,
   };
   const document = {
     listeners: {},
@@ -305,6 +329,11 @@ function harness(fetchHandler, location = {}) {
     partnerStatus,
     partnerFallback,
     sendPartner: () => partnerForm.listeners.submit({ preventDefault() {} }),
+    ponudaForm,
+    ponudaSubmit,
+    ponudaStatus,
+    ponudaFallback,
+    sendPonuda: () => ponudaForm.listeners.submit({ preventDefault() {} }),
   };
 }
 
@@ -515,6 +544,11 @@ test("the static brand grid preserves every supplied logo and the mobile action 
         /<aside class="mobile-contact-bar"[^>]*>([\s\S]*?)<\/aside>/g,
       ),
     ];
+    // Strana sa upitnikom nema plutajuću traku: sama forma je sadržaj te strane.
+    if (file === "zahtev-za-ponudu.html") {
+      assert.equal(bars.length, 0, file);
+      continue;
+    }
     assert.equal(bars.length, 1, file);
     assert.equal([...bars[0][1].matchAll(/<a\b/g)].length, 1, file);
     assert.match(bars[0][1], /href="\/#prijava"/);
@@ -640,7 +674,7 @@ test("partnerski program je u meniju, footeru, sitemapu i llms.txt, a stranica i
   assert.match(page, /<input type="text" id="p-web" name="web"/);
   assert.match(page, /id="partner-status"/);
   assert.match(page, /id="partner-fallback"/);
-  assert.match(page, /site\.js\?v=20260913/);
+  assert.match(page, /site\.js\?v=20260915/);
 });
 
 test("partnerska prijava ide istim kanalom (sus.rs + BizOMS kopija) sa jasno mapiranim poljima i potvrdom", async () => {
@@ -787,4 +821,461 @@ test("engleske strane koriste engleski logo (tagline na engleskom) u meniju i fo
   assert.match(guide, /<link rel="alternate" hreflang="x-default" href="https:\/\/fulfilment\.rs\/en\/fulfilment-serbia-guide">/);
   assert.doesNotMatch(guide, /<link rel="alternate" hreflang="sr"/);
   assert.match(read("en/index.html"), /href="\/en\/fulfilment-serbia-guide"/);
+});
+
+// ---- 15.09.2026: upitnik u četiri koraka (/zahtev-za-ponudu) ----
+
+test("strana sa upitnikom ima četiri koraka, PIB od devet cifara i veze ka sebi", () => {
+  const page = read("zahtev-za-ponudu.html");
+  assert.deepEqual(
+    [...page.matchAll(/<fieldset class="korak" id="korak-(\d)" data-korak="\1">/g)].map((m) => m[1]),
+    ["1", "2", "3", "4"],
+  );
+  assert.equal((page.match(/data-dalje/g) || []).length, 3, "tri dugmeta napred");
+  assert.equal((page.match(/data-nazad/g) || []).length, 3, "tri dugmeta nazad");
+  assert.equal((page.match(/class="korak-tacka" data-idi="\d"/g) || []).length, 4, "četiri tačke u traci");
+  assert.equal((page.match(/type="submit"/g) || []).length, 1, "samo poslednji korak šalje");
+  for (const id of ["q-ime", "q-telefon", "q-email", "q-brend", "q-proizvod"])
+    assert.match(page, new RegExp(`<input id="${id}"[^>]*\\brequired\\b`), `${id} obavezno`);
+  const pib = page.match(/<input id="q-pib"[^>]*>/)[0];
+  assert.match(pib, /pattern="\[0-9\]\{9\}"/, "PIB: devet cifara");
+  assert.match(pib, /maxlength="9"/);
+  assert.doesNotMatch(pib, /\brequired\b/, "PIB je opcion");
+  for (const id of ["q-izvor", "q-paketi", "q-interes", "q-roba", "q-pocetak"])
+    assert.match(page, new RegExp(`<select id="${id}"`), id);
+  assert.match(page, /<input type="text" id="q-web" name="web"/, "honeypot");
+  assert.match(page, /id="ponuda-status"/);
+  assert.match(page, /id="ponuda-fallback"/);
+  assert.match(page, /koraci\.css\?v=20260915/);
+  assert.match(page, /koraci\.js\?v=20260915/);
+  assert.match(page, /site\.js\?v=20260915/);
+  assert.match(read("sitemap.xml"), /<loc>https:\/\/fulfilment\.rs\/zahtev-za-ponudu<\/loc>/);
+  assert.match(read("llms.txt"), /\(https:\/\/fulfilment\.rs\/zahtev-za-ponudu\)/);
+  assert.match(read("index.html"), /href="\/zahtev-za-ponudu"[^>]*>Radije korak po korak/);
+  for (const file of pages) {
+    const html = read(file);
+    if (html.includes('<li><a href="/#kontakt">Zatraži ponudu</a></li>'))
+      assert.match(
+        html,
+        /<li><a href="\/zahtev-za-ponudu">Upitnik u četiri koraka<\/a><\/li>/,
+        `${file}: footer`,
+      );
+  }
+});
+
+test("upitnik šalje isti ugovor polja kao forma sa naslovne, sa dodatnim odgovorima u napomeni", async () => {
+  const h = harness(async () => ({ ok: true }));
+  await h.sendPonuda();
+  assert.equal(h.calls.length, 2);
+  assert.equal(h.calls[0].url, "https://sus.rs/api/pakum/prijava");
+  assert.deepEqual(JSON.parse(h.calls[0].options.body), {
+    brend: "Mila Cosmetics",
+    sajt: "https://mila.rs",
+    proizvod: "Kozmetika",
+    paketi: "501 – 1.000",
+    interes: "Fulfilment (slanje paketa)",
+    firma: "Mila d.o.o.",
+    pib: "112233445",
+    ime: "Mila Testić",
+    telefon: "0655555555",
+    email: "mila@example.test",
+    poruka:
+      "Imam gratis uzorke uz paket Roba je sada: Kod mene ili u mom prostoru. Početak saradnje: Odmah. Za nas su čuli preko: Google pretraga. Popunjeno kroz upitnik u četiri koraka.",
+    web: "",
+  });
+  assert.equal(h.calls[1].url, BIZOMS_LEAD_URL);
+  assert.equal(h.calls[1].options.body, h.calls[0].options.body);
+  assert.deepEqual(h.navigations, ["/hvala/"]);
+  assert.equal(h.ponudaSubmit.disabled, true);
+});
+
+test("upitnik bez potvrde nudi email sa svim podacima, a honeypot ga blokira", async () => {
+  let h = harness(() => Promise.resolve({ ok: false }));
+  await h.sendPonuda();
+  assert.deepEqual(h.navigations, []);
+  assert.equal(h.ponudaFallback.hidden, false);
+  assert.match(h.ponudaStatus.textContent, /Nismo dobili potvrdu/);
+  const mail = new URL(h.ponudaFallback.href);
+  assert.equal(mail.searchParams.get("subject"), "Ponuda — Mila Cosmetics");
+  assert.match(mail.searchParams.get("body"), /PIB: 112233445/);
+  assert.match(mail.searchParams.get("body"), /upitnik u četiri koraka/);
+  assert.equal(h.ponudaSubmit.disabled, false);
+  h = harness(async () => ({ ok: true }));
+  h.fields["q-web"].value = "bot";
+  await h.sendPonuda();
+  assert.equal(h.calls.length, 0);
+  assert.deepEqual(h.navigations, []);
+});
+
+// Lagani DOM za koraci.js: samo ono što skripta stvarno dodiruje.
+function koraciHarness() {
+  class Element {
+    constructor(tag) {
+      this.tagName = String(tag || "div").toUpperCase();
+      this.attrs = {};
+      this.classes = new Set();
+      this.children = [];
+      this.parentNode = null;
+      this.listeners = {};
+      this.hidden = false;
+      this.disabled = false;
+      this.value = "";
+      this.textContent = "";
+      this.style = {};
+      this.valid = true;
+      this.reported = 0;
+      this.focused = 0;
+    }
+    addEventListener(name, callback) {
+      (this.listeners[name] ||= []).push(callback);
+    }
+    setAttribute(name, value) {
+      this.attrs[name] = String(value);
+    }
+    removeAttribute(name) {
+      delete this.attrs[name];
+    }
+    getAttribute(name) {
+      return name in this.attrs ? this.attrs[name] : null;
+    }
+    append(...nodes) {
+      for (const node of nodes) {
+        node.parentNode = this;
+        this.children.push(node);
+      }
+    }
+    get className() {
+      return [...this.classes].join(" ");
+    }
+    set className(value) {
+      this.classes = new Set(String(value).split(" ").filter(Boolean));
+    }
+    focus() {
+      this.focused += 1;
+    }
+    checkValidity() {
+      const skup = this.closest("fieldset");
+      // Kao u browseru: polje u isključenom fieldsetu se ne proverava.
+      if (skup && skup.disabled) return true;
+      return this.valid;
+    }
+    reportValidity() {
+      this.reported += 1;
+      return this.valid;
+    }
+    setCustomValidity(message) {
+      this.customValidity = message;
+      this.valid = !message;
+    }
+    getBoundingClientRect() {
+      return { top: 0 };
+    }
+    get classList() {
+      return {
+        contains: (name) => this.classes.has(name),
+        add: (name) => this.classes.add(name),
+        remove: (name) => this.classes.delete(name),
+        toggle: (name, force) => {
+          const on = force === undefined ? !this.classes.has(name) : force;
+          if (on) this.classes.add(name);
+          else this.classes.delete(name);
+          return on;
+        },
+      };
+    }
+    matches(selector) {
+      const one = selector.trim();
+      if (one.startsWith("[") && one.endsWith("]")) return one.slice(1, -1) in this.attrs;
+      if (one.startsWith("#")) return this.attrs.id === one.slice(1);
+      const [tag, ...klase] = one.split(".");
+      if (tag && this.tagName !== tag.toUpperCase()) return false;
+      return klase.every((klasa) => this.classes.has(klasa));
+    }
+    closest(selector) {
+      let node = this;
+      while (node) {
+        if (node.matches(selector)) return node;
+        node = node.parentNode;
+      }
+      return null;
+    }
+    potomci() {
+      return this.children.flatMap((child) => [child, ...child.potomci()]);
+    }
+    querySelectorAll(selector) {
+      const delovi = selector.split(",").map((deo) => deo.trim());
+      return this.potomci().filter((node) => delovi.some((deo) => node.matches(deo)));
+    }
+    querySelector(selector) {
+      return this.querySelectorAll(selector)[0] || null;
+    }
+  }
+  class HTMLElement extends Element {}
+  class HTMLFormElement extends HTMLElement {}
+  class HTMLFieldSetElement extends HTMLElement {}
+  class HTMLInputElement extends HTMLElement {}
+  class HTMLSelectElement extends HTMLElement {}
+  class HTMLTextAreaElement extends HTMLElement {}
+  class HTMLButtonElement extends HTMLElement {}
+
+  const byId = {};
+  const napravi = (Klasa, tag, id, klase = []) => {
+    const node = new Klasa(tag);
+    if (id) {
+      node.attrs.id = id;
+      byId[id] = node;
+    }
+    for (const klasa of klase) node.classes.add(klasa);
+    return node;
+  };
+
+  const form = napravi(HTMLFormElement, "form", "ponuda");
+  const raspored = [
+    [
+      ["q-ime", HTMLInputElement, true],
+      ["q-telefon", HTMLInputElement, true],
+      ["q-email", HTMLInputElement, true],
+      ["q-firma", HTMLInputElement, false],
+      ["q-pib", HTMLInputElement, false],
+      ["q-izvor", HTMLSelectElement, false],
+    ],
+    [
+      ["q-brend", HTMLInputElement, true],
+      ["q-proizvod", HTMLInputElement, true],
+      ["q-sajt", HTMLInputElement, false],
+      ["q-paketi", HTMLSelectElement, false],
+      ["q-interes", HTMLSelectElement, false],
+      ["q-roba", HTMLSelectElement, false],
+      ["q-pocetak", HTMLSelectElement, false],
+    ],
+    [["q-poruka", HTMLTextAreaElement, false]],
+    [],
+  ];
+  const koraci = [];
+  const dugmadDalje = [];
+  const dugmadNazad = [];
+  raspored.forEach((polja, redni) => {
+    const korak = napravi(HTMLFieldSetElement, "fieldset", `korak-${redni + 1}`, ["korak"]);
+    korak.attrs["data-korak"] = String(redni + 1);
+    for (const [id, Klasa] of polja) {
+      const tag = Klasa === HTMLSelectElement ? "select" : Klasa === HTMLTextAreaElement ? "textarea" : "input";
+      korak.append(napravi(Klasa, tag, id));
+    }
+    if (redni > 0) {
+      const nazad = napravi(HTMLButtonElement, "button", `nazad-${redni + 1}`);
+      nazad.attrs["data-nazad"] = "";
+      korak.append(nazad);
+      dugmadNazad.push(nazad);
+    }
+    if (redni < raspored.length - 1) {
+      const dalje = napravi(HTMLButtonElement, "button", `dalje-${redni + 1}`);
+      dalje.attrs["data-dalje"] = "";
+      korak.append(dalje);
+      dugmadDalje.push(dalje);
+    }
+    form.append(korak);
+    koraci.push(korak);
+  });
+
+  const lis = [1, 2, 3, 4].map((broj) => {
+    const li = napravi(Element, "li", `tacka-${broj}`);
+    li.append(napravi(HTMLButtonElement, "button", `tacka-dugme-${broj}`));
+    return li;
+  });
+  const traka = napravi(Element, "div", "korak-traka");
+  const punjenje = napravi(HTMLElement, "span", "korak-traka-punjenje");
+  const status = napravi(Element, "p", "korak-status");
+  const pregled = napravi(Element, "dl", "pregled");
+
+  const scrolls = [];
+  const document = {
+    listeners: {},
+    getElementById: (id) => byId[id] || null,
+    querySelectorAll: (selector) => (selector === "#koraci li" ? lis : []),
+    createElement: (tag) => new HTMLElement(tag),
+    addEventListener(name, callback) {
+      (this.listeners[name] ||= []).push(callback);
+    },
+  };
+  const context = {
+    document,
+    Element,
+    HTMLElement,
+    HTMLFormElement,
+    HTMLFieldSetElement,
+    HTMLInputElement,
+    HTMLSelectElement,
+    HTMLTextAreaElement,
+    HTMLButtonElement,
+    window: {
+      innerHeight: 800,
+      scrollY: 0,
+      scrollTo: (opcije) => scrolls.push(opcije),
+      matchMedia: () => ({ matches: false }),
+    },
+  };
+  vm.runInNewContext(fs.readFileSync(path.join(__dirname, "koraci.js"), "utf8"), context);
+
+  const klikni = (dugme) => {
+    let sprecen = 0;
+    for (const callback of form.listeners.click || [])
+      callback({ target: dugme, preventDefault: () => (sprecen += 1) });
+    return sprecen;
+  };
+  return {
+    form,
+    koraci,
+    lis,
+    traka,
+    punjenje,
+    status,
+    pregled,
+    polja: byId,
+    scrolls,
+    klikni,
+    dalje: (redni) => klikni(dugmadDalje[redni - 1]),
+    nazad: (redni) => klikni(dugmadNazad[redni - 2]),
+    tacka: (broj) => {
+      for (const callback of lis[broj - 1].children[0].listeners.click || []) callback({});
+    },
+    enter: (polje) => {
+      let sprecen = 0;
+      for (const callback of form.listeners.keydown || [])
+        callback({ key: "Enter", target: polje, preventDefault: () => (sprecen += 1) });
+      return sprecen;
+    },
+    posalji: () => {
+      const trag = { sprecen: 0, zaustavljen: 0 };
+      for (const callback of document.listeners.submit || [])
+        callback({
+          target: form,
+          preventDefault: () => (trag.sprecen += 1),
+          stopPropagation: () => (trag.zaustavljen += 1),
+        });
+      return trag;
+    },
+  };
+}
+
+test("koraci: na učitavanju je vidljiv samo prvi korak, ostali su isključeni", () => {
+  const k = koraciHarness();
+  assert.deepEqual(
+    k.koraci.map((korak) => korak.hidden),
+    [false, true, true, true],
+  );
+  assert.deepEqual(
+    k.koraci.map((korak) => korak.disabled),
+    [false, true, true, true],
+    "sakriveni koraci su isključeni, pa prazno obavezno polje ne blokira slanje",
+  );
+  assert.equal(k.status.textContent, "Korak 1 od 4 — Vaši podaci");
+  assert.equal(k.punjenje.style.width, "25%");
+  assert.equal(k.traka.getAttribute("aria-valuenow"), "1");
+  assert.equal(k.lis[0].classes.has("aktivan"), true);
+  assert.equal(k.lis[1].children[0].disabled, true, "nedostignut korak se ne otvara klikom");
+});
+
+test("koraci: neispravno polje zaustavlja prelaz, ispravno vodi dalje i puni traku", () => {
+  const k = koraciHarness();
+  k.polja["q-ime"].valid = false;
+  assert.equal(k.dalje(1), 1, "klik je preuzet");
+  assert.equal(k.koraci[0].hidden, false, "ostajemo na prvom koraku");
+  assert.equal(k.polja["q-ime"].reported, 1, "korisnik dobija poruku o polju");
+  k.polja["q-ime"].valid = true;
+  k.dalje(1);
+  assert.equal(k.koraci[0].hidden, true);
+  assert.equal(k.koraci[1].hidden, false);
+  assert.equal(k.koraci[1].disabled, false);
+  assert.equal(k.punjenje.style.width, "50%");
+  assert.equal(k.status.textContent, "Korak 2 od 4 — Proizvodi i obim");
+  assert.equal(k.lis[0].classes.has("zavrsen"), true);
+  assert.equal(k.lis[1].classes.has("aktivan"), true);
+  assert.equal(k.koraci[1].getAttribute("tabindex"), "-1");
+  assert.equal(k.koraci[1].focused, 1, "fokus prelazi na novi korak");
+  k.nazad(2);
+  assert.equal(k.koraci[0].hidden, false);
+  assert.equal(k.status.textContent, "Korak 1 od 4 — Vaši podaci");
+  k.tacka(2);
+  assert.equal(k.koraci[1].hidden, false, "tačka vodi na već dostignut korak");
+});
+
+test("koraci: slanje sa nepotpunog upitnika je zaustavljeno, Enter vodi na sledeći korak", () => {
+  const k = koraciHarness();
+  const trag = k.posalji();
+  assert.equal(trag.sprecen, 1, "slanje sa prvog koraka je sprečeno");
+  assert.equal(trag.zaustavljen, 1, "slušalac forme iz site.js ga ne vidi");
+  assert.equal(k.koraci[1].hidden, false, "umesto slanja idemo na sledeći korak");
+  assert.equal(k.enter(k.polja["q-brend"]), 1, "Enter u polju ne šalje formu");
+  assert.equal(k.koraci[2].hidden, false);
+  k.dalje(3);
+  assert.equal(k.koraci[3].hidden, false, "poslednji korak");
+  assert.equal(k.punjenje.style.width, "100%");
+  assert.equal(k.posalji().sprecen, 0, "sa poslednjeg koraka slanje prolazi");
+});
+
+test("koraci: pregled prikazuje samo popunjena polja, ispravno označena", () => {
+  const k = koraciHarness();
+  k.polja["q-ime"].value = "Mila Testić";
+  k.polja["q-telefon"].value = "0655555555";
+  k.polja["q-pib"].value = "112233445";
+  k.polja["q-brend"].value = "Mila Cosmetics";
+  k.dalje(1);
+  k.dalje(2);
+  k.dalje(3);
+  const redovi = k.pregled.children.map((red) => [
+    red.children[0].textContent,
+    red.children[1].textContent,
+  ]);
+  assert.deepEqual(redovi, [
+    ["Ime i prezime", "Mila Testić"],
+    ["Broj telefona", "0655555555"],
+    ["PIB", "112233445"],
+    ["Naziv brenda", "Mila Cosmetics"],
+  ]);
+  assert.equal(k.pregled.children.every((red) => red.classes.has("pregled-red")), true);
+});
+
+test("koraci: PIB koji nije devet cifara dobija jasnu poruku, ispravan prolazi", () => {
+  const k = koraciHarness();
+  const pib = k.polja["q-pib"];
+  const proveri = (vrednost) => {
+    pib.value = vrednost;
+    for (const callback of pib.listeners.input || []) callback({});
+  };
+  proveri("12345");
+  assert.equal(pib.customValidity, "PIB ima tačno devet cifara.");
+  proveri("112233445");
+  assert.equal(pib.customValidity, "");
+  proveri("");
+  assert.equal(pib.customValidity, "", "prazno polje je dozvoljeno");
+});
+
+test("koraci: praznina u preskočenom koraku ne prolazi ni skokom na tačku ni slanjem", () => {
+  const k = koraciHarness();
+  k.dalje(1);
+  k.dalje(2);
+  k.dalje(3);
+  assert.equal(k.koraci[3].hidden, false, "stigli smo do pregleda");
+  k.polja["q-brend"].valid = false;
+  const trag = k.posalji();
+  assert.equal(trag.sprecen, 1, "slanje je zaustavljeno");
+  assert.equal(trag.zaustavljen, 1, "site.js ga ne vidi");
+  assert.equal(k.koraci[1].hidden, false, "otvara se sporni korak");
+  assert.ok(k.polja["q-brend"].reported >= 1, "polje dobija poruku");
+  k.tacka(1);
+  assert.equal(k.koraci[0].hidden, false);
+  k.tacka(4);
+  assert.equal(k.koraci[1].hidden, false, "skok na tačku staje na spornom koraku");
+  k.polja["q-brend"].valid = true;
+  k.tacka(4);
+  assert.equal(k.koraci[3].hidden, false, "posle ispravke skok prolazi");
+  assert.equal(k.posalji().sprecen, 0, "slanje prolazi");
+});
+
+test("koraci: Enter u padajućoj listi ne preskače pitanje", () => {
+  const k = koraciHarness();
+  assert.equal(k.enter(k.polja["q-izvor"]), 0, "Enter u listi ostaje browseru");
+  assert.equal(k.koraci[0].hidden, false, "ostajemo na istom koraku");
+  assert.equal(k.enter(k.polja["q-ime"]), 1, "Enter u tekstualnom polju vodi dalje");
+  assert.equal(k.koraci[1].hidden, false);
 });

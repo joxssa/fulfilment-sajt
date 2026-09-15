@@ -21,6 +21,7 @@ Softver TopOMS (uključen u fulfilment za klijente): živo stanje zaliha po proi
 - [Skaliranje online prodavnice](https://fulfilment.rs/skaliranje): e-commerce konsultacije, pomoć oko Meta i TikTok reklama, softver za reklame uz određene pakete
 
 - [Partnerski program](https://fulfilment.rs/partnerski-program): za vlasnike sajtova, web shopova i kreatore — provizija po prodaji ili prodaja proizvoda PAKUM brendova bez sopstvenog magacina (PAKUM pakuje, šalje pouzećem, naplaćuje); prijava kroz formu, uslovi posle razgovora
+- [Zahtev za ponudu u četiri koraka](https://fulfilment.rs/zahtev-za-ponudu): upitnik podeljen na četiri koraka (kontakt i PIB, proizvodi i obim, napomena, pregled pre slanja); ista prijava kao forma na naslovnoj
 
 ## O firmi
 

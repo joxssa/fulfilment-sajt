@@ -1,0 +1,350 @@
+/* ---------------------------------------------------------------
+   Forma u četiri koraka (/zahtev-za-ponudu).
+   Učitava je samo ta strana — ostatak sajta ne dira.
+   Oslanja se na promenljive iz tema.css (--signal, --dark, --paper…)
+   i na postojeće klase .formgrid, .field, .btn, .form-foot.
+   --------------------------------------------------------------- */
+
+/* ---------- traka koraka u tamnom hero-u ---------- */
+.koraci-hero {
+  padding-bottom: 112px;
+}
+.koraci-wrap {
+  max-width: 660px;
+  margin: 38px auto 0;
+}
+.koraci {
+  display: flex;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  counter-reset: none;
+}
+.koraci li {
+  flex: 1 1 0;
+  position: relative;
+  min-width: 0;
+  padding: 0;
+  margin: 0;
+}
+.koraci li::before {
+  content: "";
+  position: absolute;
+  top: 21px;
+  right: 50%;
+  left: -50%;
+  height: 2px;
+  background: rgba(255, 255, 255, 0.16);
+}
+.koraci li:first-child::before {
+  display: none;
+}
+.koraci li.zavrsen::before,
+.koraci li.aktivan::before {
+  background: rgba(253, 105, 4, 0.55);
+}
+.korak-tacka {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 9px;
+  width: 100%;
+  background: none;
+  border: 0;
+  padding: 0;
+  font: inherit;
+  color: inherit;
+  cursor: default;
+}
+.koraci li.zavrsen .korak-tacka {
+  cursor: pointer;
+}
+.korak-krug {
+  display: grid;
+  place-items: center;
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  border: 2px solid rgba(255, 255, 255, 0.22);
+  background: #17191d;
+  color: #aab1b9;
+  font-weight: 800;
+  font-size: 15px;
+  line-height: 1;
+  transition:
+    background 0.25s var(--ease),
+    color 0.25s var(--ease),
+    border-color 0.25s var(--ease),
+    transform 0.25s var(--ease);
+}
+.koraci li.aktivan .korak-krug {
+  background: var(--signal);
+  border-color: var(--signal);
+  color: #111;
+  box-shadow: 0 0 0 6px rgba(253, 105, 4, 0.16);
+  transform: scale(1.06);
+}
+.koraci li.zavrsen .korak-krug {
+  background: rgba(253, 105, 4, 0.16);
+  border-color: rgba(253, 105, 4, 0.6);
+  color: #ffb37f;
+}
+.korak-ime {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #8f98a2;
+  white-space: nowrap;
+}
+.koraci li.aktivan .korak-ime {
+  color: #fff;
+}
+.koraci li.zavrsen .korak-ime {
+  color: #cfd3d9;
+}
+.korak-tacka:focus-visible {
+  outline: 2px solid var(--signal);
+  outline-offset: 4px;
+  border-radius: 12px;
+}
+
+.korak-traka {
+  height: 4px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.14);
+  margin-top: 26px;
+  overflow: hidden;
+}
+.korak-traka span {
+  display: block;
+  height: 100%;
+  width: 25%;
+  border-radius: 999px;
+  background: var(--signal);
+  transition: width 0.35s var(--ease);
+}
+.korak-status {
+  margin-top: 12px;
+  font-size: 13px;
+  color: #cfd3d9;
+  text-align: center;
+}
+
+/* ---------- kartica sa koracima ---------- */
+.koraci-sekcija {
+  background: var(--paper);
+  padding: 0 0 72px;
+}
+.koraci-kartica {
+  /* kartica ulazi u tamni hero — mora da se crta preko njega */
+  position: relative;
+  z-index: 2;
+  max-width: 760px;
+  margin: -72px auto 0;
+  background: #fff;
+  border: 1px solid var(--line);
+  border-radius: 20px;
+  box-shadow: var(--sh-md);
+  padding: clamp(20px, 4vw, 40px);
+}
+.korak {
+  border: 0;
+  margin: 0;
+  padding: 0;
+  min-width: 0;
+}
+.korak-glava {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 0;
+  margin-bottom: 6px;
+  font-size: clamp(19px, 2.4vw, 24px);
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  color: var(--ink);
+}
+.korak-broj {
+  display: grid;
+  place-items: center;
+  flex: 0 0 auto;
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  background: var(--signal);
+  color: #111;
+  font-size: 15px;
+  font-weight: 800;
+}
+.korak-opis {
+  margin: 0 0 22px 52px;
+  font-size: 14px;
+  color: var(--muted);
+}
+.korak .formgrid {
+  gap: 18px 20px;
+}
+.korak-noge {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  margin-top: 26px;
+  padding-top: 22px;
+  border-top: 1px solid var(--line);
+}
+.korak-noge .btn {
+  min-height: 52px;
+}
+.korak-noge [data-dalje],
+.korak-noge [type="submit"] {
+  margin-left: auto;
+}
+.polje-savet {
+  font-size: 12px;
+  color: var(--muted);
+}
+
+/* ---------- pregled (4. korak) ---------- */
+.pregled {
+  margin: 0;
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  overflow: hidden;
+  background: var(--paper);
+}
+.pregled-red {
+  display: grid;
+  grid-template-columns: 210px minmax(0, 1fr);
+  gap: 10px 18px;
+  padding: 13px 18px;
+  border-bottom: 1px solid var(--line);
+}
+.pregled-red:last-child {
+  border-bottom: 0;
+}
+.pregled dt {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--muted);
+}
+.pregled dd {
+  margin: 0;
+  min-width: 0;
+  font-size: 15px;
+  color: var(--ink);
+  /* duga adresa ili link mora da se prelomi, ne da isteče iz kartice */
+  overflow-wrap: anywhere;
+}
+.pregled-prazno {
+  padding: 16px 18px;
+  font-size: 14px;
+  color: var(--muted);
+}
+
+/* ---------- šta sledi posle slanja ---------- */
+.posle-slanja {
+  max-width: 760px;
+  margin: 28px auto 0;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 14px;
+}
+.posle-slanja article {
+  background: #fff;
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  padding: 18px;
+}
+.posle-slanja h2 {
+  font-size: 15px;
+  margin: 0 0 6px;
+  letter-spacing: -0.01em;
+}
+.posle-slanja p {
+  font-size: 13.5px;
+  margin: 0;
+  line-height: 1.6;
+}
+.posle-broj {
+  display: inline-grid;
+  place-items: center;
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  background: var(--signal-soft);
+  border: 1px solid var(--signal-line);
+  color: var(--signal-deep);
+  font-size: 12px;
+  font-weight: 800;
+  margin-bottom: 10px;
+}
+
+/* ---------- telefon ---------- */
+@media (max-width: 720px) {
+  .koraci-hero {
+    padding-bottom: 96px;
+  }
+  .koraci-kartica {
+    margin-top: -60px;
+    border-radius: 16px;
+  }
+  .koraci-sekcija {
+    padding-bottom: 56px;
+  }
+  .korak-opis {
+    margin-left: 0;
+  }
+  .pregled-red {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 3px;
+    padding: 12px 14px;
+  }
+  .posle-slanja {
+    grid-template-columns: 1fr;
+  }
+}
+@media (max-width: 560px) {
+  .korak-ime {
+    display: none;
+  }
+  .korak-krug {
+    width: 38px;
+    height: 38px;
+  }
+  .koraci li::before {
+    top: 19px;
+  }
+  .korak-glava {
+    gap: 11px;
+  }
+  .korak-broj {
+    width: 34px;
+    height: 34px;
+  }
+  .korak-noge {
+    flex-wrap: wrap;
+  }
+  .korak-noge .btn {
+    flex: 1 1 100%;
+    justify-content: center;
+  }
+  .korak-noge [data-nazad] {
+    order: 2;
+  }
+  .korak-noge [data-dalje],
+  .korak-noge [type="submit"] {
+    order: 1;
+    margin-left: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .korak-krug,
+  .korak-traka span {
+    transition: none;
+  }
+}

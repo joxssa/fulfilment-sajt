@@ -173,6 +173,60 @@
     },
   });
 
+  // Upitnik u četiri koraka (/zahtev-za-ponudu): ista polja ka serveru kao i
+  // forma sa naslovne; dodatna pitanja (izvor, gde je roba, kada počinje) idu
+  // u napomenu, da ugovor sa API-jem ostane nepromenjen.
+  bindLeadForm({
+    formId: "ponuda",
+    statusId: "ponuda-status",
+    fallbackId: "ponuda-fallback",
+    build: (value) => {
+      const izvor = value("q-izvor");
+      const roba = value("q-roba");
+      const pocetak = value("q-pocetak");
+      const napomena = value("q-poruka");
+      const dodatno = [
+        roba ? `Roba je sada: ${roba}.` : "",
+        pocetak ? `Početak saradnje: ${pocetak}.` : "",
+        izvor ? `Za nas su čuli preko: ${izvor}.` : "",
+        "Popunjeno kroz upitnik u četiri koraka.",
+      ].filter(Boolean);
+      const data = {
+        brend: value("q-brend"),
+        sajt: value("q-sajt"),
+        proizvod: value("q-proizvod"),
+        paketi: value("q-paketi"),
+        interes: value("q-interes"),
+        firma: value("q-firma"),
+        pib: value("q-pib"),
+        ime: value("q-ime"),
+        telefon: value("q-telefon"),
+        email: value("q-email"),
+        poruka: [napomena, ...dodatno].filter(Boolean).join(" "),
+        web: value("q-web"),
+      };
+      return {
+        data,
+        subject: `Ponuda — ${data.brend}`,
+        lines: [
+          "Zahtev za ponudu (upitnik u četiri koraka) — fulfilment.rs",
+          "",
+          `Ime: ${data.ime}`,
+          `Telefon: ${data.telefon}`,
+          `Email: ${data.email}`,
+          `Firma: ${data.firma}`,
+          `PIB: ${data.pib}`,
+          `Brend: ${data.brend}`,
+          `Proizvod: ${data.proizvod}`,
+          `Sajt: ${data.sajt}`,
+          `Paketa mesečno: ${data.paketi}`,
+          `Usluge: ${data.interes}`,
+          `Napomena: ${data.poruka}`,
+        ],
+      };
+    },
+  });
+
   // Partnerski program (/partnerski-program): ista polja ka serveru, mapirana da Slack poruka bude jasna.
   bindLeadForm({
     formId: "partner",
