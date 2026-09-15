@@ -551,7 +551,7 @@ test("the static brand grid preserves every supplied logo and the mobile action 
     }
     assert.equal(bars.length, 1, file);
     assert.equal([...bars[0][1].matchAll(/<a\b/g)].length, 1, file);
-    assert.match(bars[0][1], /href="\/#prijava"/);
+    assert.match(bars[0][1], /href="\/zahtev-za-ponudu"/);
     assert.doesNotMatch(bars[0][1], /mailto:|tel:/);
   }
   assert.match(read("premium.css"), /prefers-reduced-motion:\s*reduce/);
@@ -854,10 +854,12 @@ test("strana sa upitnikom ima četiri koraka, PIB od devet cifara i veze ka sebi
   assert.match(read("index.html"), /href="\/zahtev-za-ponudu"[^>]*>Radije korak po korak/);
   for (const file of pages) {
     const html = read(file);
-    if (html.includes('<li><a href="/#kontakt">Zatraži ponudu</a></li>'))
+    // Svaki "Zatraži ponudu" na srpskim stranama vodi na upitnik, ne vise na formu sa naslovne.
+    assert.doesNotMatch(html, /href="\/?#(kontakt|prijava)"/, `${file}: stari link na formu sa naslovne`);
+    if (html.includes("<footer"))
       assert.match(
         html,
-        /<li><a href="\/zahtev-za-ponudu">Upitnik u četiri koraka<\/a><\/li>/,
+        /<li><a href="\/zahtev-za-ponudu">Zatraži ponudu<\/a><\/li>/,
         `${file}: footer`,
       );
   }
