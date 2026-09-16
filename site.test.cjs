@@ -51,6 +51,22 @@ test("all existing public pages retain valid scripts, metadata and local destina
   assert.deepEqual(errors, []);
 });
 
+test("fulfilment posluje kao PAKUM DOO NIŠ — nigde više Bizonline podaci", () => {
+  // Lazarova reč 16.09: „gde god piše bizonline, mora da piše PAKUM — bizonline više nema veze sa fulfilmentom".
+  for (const file of [...pages, ...enPages, "site.js", "llms.txt"]) {
+    const text = read(file);
+    assert.doesNotMatch(text, /bizonline/i, `${file}: stara firma`);
+    assert.doesNotMatch(text, /113156519|66619206/, `${file}: stari PIB ili matični broj`);
+  }
+  const footer = read("index.html");
+  assert.match(footer, /<li><a href="mailto:info@pakum\.rs">info@pakum\.rs<\/a><\/li>/);
+  assert.match(footer, /<li>PAKUM DOO NIŠ<\/li>/);
+  assert.match(footer, /Matični broj: 22332040/);
+  assert.match(footer, /PIB: 115952498/);
+  assert.match(footer, /"legalName":"PAKUM DOO NIŠ"/);
+  assert.match(footer, /"taxID":"115952498"/);
+});
+
 test("internal navigation, canonicals, sitemap and redirects use extensionless URLs", () => {
   for (const file of pages) {
     const html = read(file);
@@ -469,7 +485,7 @@ for (const failure of ["http", "network", "timeout"])
     assert.match(h.status.textContent, /Nismo dobili potvrdu/);
     const mail = new URL(h.fallback.href);
     assert.equal(mail.protocol, "mailto:");
-    assert.equal(mail.pathname, "info@bizonline.rs");
+    assert.equal(mail.pathname, "info@pakum.rs");
     assert.equal(mail.searchParams.get("subject"), "Ponuda — Čarobni brend");
     assert.match(
       mail.searchParams.get("body"),

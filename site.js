@@ -121,7 +121,7 @@
       } catch {
         status.textContent =
           "Nismo dobili potvrdu da je zahtev primljen. Podaci su sačuvani u formi. Pokušajte ponovo ili ih pošaljite emailom.";
-        fallback.href = `mailto:info@bizonline.rs?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(lines.join("\n"))}`;
+        fallback.href = `mailto:info@pakum.rs?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(lines.join("\n"))}`;
         fallback.hidden = false;
         submit.disabled = false;
         submit.textContent = "Pokušaj ponovo";
