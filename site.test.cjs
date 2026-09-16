@@ -1349,13 +1349,32 @@ test("snimci softvera stoje na naslovnoj i na /softver (sr i en), integracije im
     const html = read(file);
     assert.match(html, /<ul class="integrations"/, `${file}: traka integracija`);
     assert.match(html, /\/images\/logo-shopify\.svg/, `${file}: Shopify logo`);
-    assert.match(html, /\/images\/logo-woocommerce\.svg/, `${file}: WooCommerce logo`);
+    assert.match(html, /\/images\/logo-woo\.svg/, `${file}: WooCommerce logo`);
   }
-  for (const image of ["logo-shopify.svg", "logo-woocommerce.svg", "skica-izvestaji.svg", "skica-reklame.svg"])
+  for (const image of ["logo-shopify.svg", "logo-woo.svg", "skica-izvestaji.svg", "skica-reklame.svg"])
     assert.equal(fs.existsSync(path.join(__dirname, "images", image)), true, image);
   const softver = read("softver.html");
   assert.match(softver, /\/images\/skica-izvestaji\.svg/);
   assert.match(softver, /\/images\/skica-reklame\.svg/);
-  assert.match(read("tema.css"), /\.screens img \{[^}]*object-fit: contain/);
-  assert.doesNotMatch(read("tema.css"), /\.screens img \{[^}]*aspect-ratio/);
+  assert.match(read("tema.css"), /\.screens img \{[^}]*object-fit: cover/);
+});
+
+test("naslovna govori o roku 17:30 (dve smene) i o softveru koji klijent dobija, sr i en (Lazar 17.09)", () => {
+  const home = read("index.html");
+  assert.match(home, /<section id="rok-slanja">/);
+  assert.match(home, /Stiglo do 17:30, poslato istog dana\./);
+  assert.match(home, /Dve smene u magacinu/);
+  assert.match(home, /<section id="softver-koji-dobijate">/);
+  assert.equal([...home.matchAll(/<div class="grid-3 feature-grid">[\s\S]*?<\/div>\s*<p/g)][0][0].split('<article class="card">').length - 1, 8);
+  assert.match(home, /Do kada porudžbina treba da stigne da bi bila poslata istog dana\?/);
+  const en = read("en/index.html");
+  assert.match(en, /<section id="dispatch-cutoff">/);
+  assert.match(en, /<section id="software-you-get">/);
+  assert.equal([...en.matchAll(/<div class="grid-3 feature-grid">[\s\S]*?<\/div>\s*<p/g)][0][0].split('<article class="card">').length - 1, 8);
+  // natpisi bez pilule: kicker je oznaka sa crtom; snimci na telefonu jedan ispod drugog; lepljivo dugme sklonjeno
+  const css = read("tema.css");
+  assert.match(css, /\.kicker::before \{ width: 22px; height: 2px;/);
+  assert.match(css, /@media \(max-width: 880px\) \{\s*\.screens \{ grid-template-columns: 1fr;/);
+  assert.match(css, /\.mobile-contact-bar \{ display: none !important; \}/);
+  assert.match(css, /\.hero-trust li \{ background: #fff;/);
 });
