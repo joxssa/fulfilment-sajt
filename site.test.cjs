@@ -89,7 +89,8 @@ test("internal navigation, canonicals, sitemap and redirects use extensionless U
 
 test("every indexable page has one H1, SEO-length title and description, extensionless canonical and valid JSON-LD references", () => {
   const indexable = pages.filter((file) => !/noindex/.test(read(file)));
-  assert.ok(indexable.length >= 13, `indexable pages: ${indexable.length}`);
+  // 16.09: roba-na-veliko, usluzni-uvoz-iz-kine i skaliranje su namerno noindex (sajt za sad nudi samo fulfilment) → 11 indeksiranih
+  assert.ok(indexable.length >= 11, `indexable pages: ${indexable.length}`);
   for (const file of indexable) {
     const html = read(file);
     assert.equal((html.match(/<h1[\s>]/g) || []).length, 1, `${file}: exactly one H1`);
@@ -455,7 +456,8 @@ test("Usluge dropdown toggles, closes on Escape with focus restored, and closes 
   for (const file of pages.filter((f) => read(f).includes("nav-drop-menu"))) {
     const menu = read(file).match(/<div class="nav-drop-menu"[^>]*>([\s\S]*?)<\/div>/)[1];
     const hrefs = [...menu.matchAll(/href="([^"]+)"/g)].map((m) => m[1]);
-    assert.deepEqual(hrefs, ["/skladistenje-robe", "/pakovanje-paketa", "/slanje-pouzecem", "/povrati-i-reklamacije", "/roba-na-veliko", "/usluzni-uvoz-iz-kine", "/fulfilment-za-dropshipping"], file);
+    // Lazarova reč 16.09: za sad samo fulfilment usluge — roba na veliko i uslužni uvoz su sklonjeni iz menija
+    assert.deepEqual(hrefs, ["/skladistenje-robe", "/pakovanje-paketa", "/slanje-pouzecem", "/povrati-i-reklamacije", "/fulfilment-za-dropshipping"], file);
     assert.match(read(file), /<button type="button" class="nav-drop-btn[^"]*" id="nav-usluge-btn" aria-expanded="false" aria-controls="nav-usluge"/, file);
   }
 });
@@ -1307,4 +1309,53 @@ test("koraci: Enter u padajućoj listi ne preskače pitanje", () => {
   assert.equal(k.koraci[0].hidden, false, "ostajemo na istom koraku");
   assert.equal(k.enter(k.polja["q-ime"]), 1, "Enter u tekstualnom polju vodi dalje");
   assert.equal(k.koraci[1].hidden, false);
+});
+
+// ---- 16.09.2026: sajt za sad nudi SAMO fulfilment; snimci softvera na naslovnoj; bez imena vlasnika/autora ----
+
+test("roba na veliko, uslužni uvoz i skaliranje su sklonjeni sa sajta: nisu u meniju, footeru, naslovnoj, sitemapu ni llms.txt, a stranice su noindex", () => {
+  const hidden = ["roba-na-veliko", "usluzni-uvoz-iz-kine", "skaliranje"];
+  for (const slug of hidden) {
+    assert.match(read(`${slug}.html`), /<meta name="robots" content="noindex">/, `${slug}: noindex`);
+    assert.equal(read("sitemap.xml").includes(`/${slug}<`), false, `${slug}: sitemap`);
+    assert.equal(read("llms.txt").includes(`/${slug})`), false, `${slug}: llms`);
+  }
+  for (const file of pages.filter((f) => !hidden.some((slug) => f === `${slug}.html`) && !/noindex/.test(read(f)))) {
+    const html = read(file);
+    for (const slug of hidden) assert.doesNotMatch(html, new RegExp(`href="/${slug}"`), `${file}: link ka /${slug}`);
+  }
+  const home = read("index.html");
+  assert.doesNotMatch(home, /uslužni uvoz iz Kine|roba na veliko|E-commerce konsultacije/i);
+  assert.equal([...home.matchAll(/<article class="service-cell">/g)].length, 6);
+  // ni engleska verzija ne nudi uvoz i robu na veliko (Astra 16.09)
+  for (const file of enPages) assert.doesNotMatch(read(file), /assisted import|organise the import|import them for you|wholesale from our (own )?stock/i, `${file}: EN uvoz/veleprodaja`);
+});
+
+test("ime vlasnika, autor i datum ažuriranja se ne pojavljuju nigde na sajtu", () => {
+  for (const file of [...pages, ...enPages, "llms.txt"]) {
+    const text = read(file);
+    assert.doesNotMatch(text, /Joksimovi|\bLazar\b|Ažurirano \d|"@type":"Person"|hero-note/i, `${file}: ime/autor/ažurirano`);
+  }
+});
+
+test("snimci softvera stoje na naslovnoj i na /softver (sr i en), integracije imaju logoe, a segmenti softvera imaju skice", () => {
+  for (const file of ["index.html", "softver.html", "en/index.html", "en/software.html"]) {
+    const html = read(file);
+    for (const image of ["topoms-lista-porudzbina-fulfilment", "topoms-mobilna-aplikacija-fulfilment", "topoms-povrati-reklamacije-fulfilment"])
+      assert.match(html, new RegExp(`/images/${image}-1400\.webp`), `${file}: ${image}`);
+    assert.match(html, /<div class="screens">/, `${file}: .screens`);
+  }
+  for (const file of ["softver.html", "fulfilment-shopify-woocommerce.html", "en/software.html", "en/shopify-woocommerce.html"]) {
+    const html = read(file);
+    assert.match(html, /<ul class="integrations"/, `${file}: traka integracija`);
+    assert.match(html, /\/images\/logo-shopify\.svg/, `${file}: Shopify logo`);
+    assert.match(html, /\/images\/logo-woocommerce\.svg/, `${file}: WooCommerce logo`);
+  }
+  for (const image of ["logo-shopify.svg", "logo-woocommerce.svg", "skica-izvestaji.svg", "skica-reklame.svg"])
+    assert.equal(fs.existsSync(path.join(__dirname, "images", image)), true, image);
+  const softver = read("softver.html");
+  assert.match(softver, /\/images\/skica-izvestaji\.svg/);
+  assert.match(softver, /\/images\/skica-reklame\.svg/);
+  assert.match(read("tema.css"), /\.screens img \{[^}]*object-fit: contain/);
+  assert.doesNotMatch(read("tema.css"), /\.screens img \{[^}]*aspect-ratio/);
 });

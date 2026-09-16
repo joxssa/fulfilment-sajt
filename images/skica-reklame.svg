@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 800" width="1200" height="800" role="img" aria-labelledby="t"><title id="t">Skica softvera za reklame: kampanje, automatska pravila i zarada po proizvodu</title>
+<defs><style>text{font-family:Arial,Helvetica,sans-serif;fill:#0f1114}.m{fill:#667079}.h{font-weight:700}.w{fill:#fff}</style></defs>
+<rect width="1200" height="800" fill="#eeece7"/>
+<rect x="80" y="70" width="1040" height="660" rx="26" fill="#fff" stroke="#e6e8eb"/>
+<text x="120" y="130" font-size="30" class="h">Kampanje · Meta i TikTok</text>
+<text x="120" y="164" font-size="18" class="m">Trošak reklame, roba, slanje i povrati na jednom mestu</text>
+<rect x="852" y="104" width="228" height="44" rx="22" fill="#0f1114"/><text x="966" y="133" font-size="17" text-anchor="middle" class="w h">Danas · 3.180 RSD</text>
+<g font-size="15" class="m"><text x="120" y="214">KAMPANJA</text><text x="560" y="214">TROŠAK</text><text x="700" y="214">PORUDŽBINE</text><text x="860" y="214">ROAS</text><text x="990" y="214">STATUS</text></g>
+<line x1="120" y1="228" x2="1080" y2="228" stroke="#e6e8eb" stroke-width="2"/>
+<g font-size="17">
+<text x="120" y="268">Pojas za leđa · video 03</text><text x="560" y="268">48.200</text><text x="700" y="268">61</text><rect x="850" y="248" width="70" height="28" rx="14" fill="#e6f6ec"/><text x="885" y="268" text-anchor="middle" fill="#1f7a45" class="h">3,1×</text><rect x="990" y="250" width="44" height="24" rx="12" fill="#2e9e5b"/><circle cx="1022" cy="262" r="9" fill="#fff"/>
+<line x1="120" y1="290" x2="1080" y2="290" stroke="#f0f1f3"/>
+<text x="120" y="330">Masažer za vrat · slika 01</text><text x="560" y="330">31.900</text><text x="700" y="330">27</text><rect x="850" y="310" width="70" height="28" rx="14" fill="#e6f6ec"/><text x="885" y="330" text-anchor="middle" fill="#1f7a45" class="h">2,2×</text><rect x="990" y="312" width="44" height="24" rx="12" fill="#2e9e5b"/><circle cx="1022" cy="324" r="9" fill="#fff"/>
+<line x1="120" y1="352" x2="1080" y2="352" stroke="#f0f1f3"/>
+<text x="120" y="392">Set za bebe · video 02</text><text x="560" y="392">22.400</text><text x="700" y="392">9</text><rect x="850" y="372" width="70" height="28" rx="14" fill="#fdecea"/><text x="885" y="392" text-anchor="middle" fill="#b3261e" class="h">1,1×</text><rect x="990" y="374" width="44" height="24" rx="12" fill="#c9ccd1"/><circle cx="1002" cy="386" r="9" fill="#fff"/>
+<line x1="120" y1="414" x2="1080" y2="414" stroke="#f0f1f3"/>
+<text x="120" y="454">Kuhinjska vaga · slika 04</text><text x="560" y="454">17.600</text><text x="700" y="454">23</text><rect x="850" y="434" width="70" height="28" rx="14" fill="#e6f6ec"/><text x="885" y="454" text-anchor="middle" fill="#1f7a45" class="h">2,7×</text><rect x="990" y="436" width="44" height="24" rx="12" fill="#2e9e5b"/><circle cx="1022" cy="448" r="9" fill="#fff"/>
+</g>
+<rect x="120" y="500" width="470" height="196" rx="18" fill="#fff6f0"/>
+<text x="144" y="538" font-size="17" fill="#b84a00" class="h">Automatsko pravilo</text>
+<text x="144" y="572" font-size="16">Ugasi kampanju kad je ROAS ispod 1,2× dva dana</text>
+<text x="144" y="602" font-size="16">Podigni budžet 20% kad je ROAS iznad 2,5×</text>
+<rect x="144" y="630" width="200" height="40" rx="20" fill="#fd6904"/><text x="244" y="656" font-size="16" text-anchor="middle" class="w h">Pravilo je uključeno</text>
+<text x="620" y="538" font-size="17" class="h">Zarada po proizvodu</text>
+<text x="620" y="536" font-size="0"></text>
+<g font-size="15">
+<text x="620" y="578">Pojas za leđa</text><rect x="800" y="564" width="280" height="18" rx="4" fill="#f6f5f2"/><rect x="800" y="564" width="236" height="18" rx="4" fill="#0f1114"/>
+<text x="620" y="618">Masažer za vrat</text><rect x="800" y="604" width="280" height="18" rx="4" fill="#f6f5f2"/><rect x="800" y="604" width="168" height="18" rx="4" fill="#0f1114"/>
+<text x="620" y="658">Kuhinjska vaga</text><rect x="800" y="644" width="280" height="18" rx="4" fill="#f6f5f2"/><rect x="800" y="644" width="122" height="18" rx="4" fill="#0f1114"/>
+<text x="620" y="698">Set za bebe</text><rect x="800" y="684" width="280" height="18" rx="4" fill="#f6f5f2"/><rect x="800" y="684" width="34" height="18" rx="4" fill="#fd6904"/>
+</g>
+</svg>

@@ -1516,3 +1516,11 @@ footer a:hover {
 .screen-points li svg { flex-shrink: 0; margin-top: 4px; }
 @media (max-width: 880px) { .screens { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1.1rem; } }
 @media (max-width: 640px) { .screens, .screen-points { grid-template-columns: 1fr; } .screens { margin-top: 1.8rem; gap: 1rem; } .screen-points { gap: .7rem; margin-top: 1.6rem; } }
+
+/* ===== Traka integracija (Shopify, WooCommerce, sales funnel, API) — 16.09.2026 ===== */
+.integrations { list-style: none; padding: 0; margin: 1.8rem 0 0; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: .9rem; }
+.integrations li { display: flex; align-items: center; gap: .8rem; min-height: 72px; padding: .9rem 1.1rem; background: #fff; border: 1px solid var(--line); border-radius: 16px; font-weight: 700; color: var(--ink); font-size: .95rem; line-height: 1.25; }
+.integrations img, .integrations svg { width: 38px; height: 38px; flex-shrink: 0; display: block; }
+.integrations small { display: block; font-weight: 500; color: var(--muted); font-size: .8rem; margin-top: .15rem; }
+@media (max-width: 880px) { .integrations { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (max-width: 420px) { .integrations { grid-template-columns: 1fr; } }

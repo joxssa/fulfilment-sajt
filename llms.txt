@@ -1,6 +1,6 @@
 # PAKUM
 
-> PAKUM je fulfilment (fulfillment) centar u Srbiji za online prodavnice: prijem robe (verifikacija, barkodiranje), skladištenje, pakovanje (pick and pack sa kontrolom artikla skeniranjem, brendirana ili klijentova ambalaža, flajeri, zahvalnice), slanje kroz sve kurire uz jedan ugovor i jedan obračun, slanje pouzećem sa naplatom otkupnine, fiskalni račun uz svaku pošiljku, isplata otkupnine, obrada povrata i reklamacija, roba na veliko sa lagera u Srbiji, uslužni uvoz iz Kine, e-commerce konsultacije i pomoć oko reklama (Meta, TikTok). Uz uslugu dolazi softver TopOMS. Sajt: https://fulfilment.rs. Kontakt: info@pakum.rs. Pravno lice: PAKUM DOO NIŠ, PIB 115952498, matični broj 22332040. Potpis: PAKUM DOO NIŠ. Moto: "Pakujemo kao za sebe." Slogan: "Vi prodajete. Mi pakujemo i šaljemo."
+> PAKUM je fulfilment (fulfillment) centar u Srbiji za online prodavnice: prijem robe (verifikacija, barkodiranje), skladištenje, pakovanje (pick and pack sa kontrolom artikla skeniranjem, brendirana ili klijentova ambalaža, flajeri, zahvalnice), slanje kroz sve kurire uz jedan ugovor i jedan obračun, slanje pouzećem sa naplatom otkupnine, fiskalni račun uz svaku pošiljku, isplata otkupnine, obrada povrata i reklamacija. Uz uslugu dolazi softver TopOMS. Sajt: https://fulfilment.rs. Kontakt: info@pakum.rs. Pravno lice: PAKUM DOO NIŠ, PIB 115952498, matični broj 22332040. Potpis: PAKUM DOO NIŠ. Moto: "Pakujemo kao za sebe." Slogan: "Vi prodajete. Mi pakujemo i šaljemo."
 
 PAKUM je nastao iz sopstvene e-commerce prodaje: isti tim, magacin i softver koriste se za sopstvene brendove (TVTop, Maleni, ShopeX, NaKlik, HIR, Plantigo, Rabito, ReGen pro, Solea, Kupina) i za klijente. Područje rada: Srbija (adresa magacina nije javno objavljena). Cena zavisi od broja paketa, asortimana, prostora i usluga; nema javnog cenovnika; ponuda navodi svaku stavku, jedinicu obračuna, PDV, rok važenja i uslove plaćanja. Početak saradnje: dogovor usluga, povezivanje prodavnice, prijem robe, slanje.
 
@@ -14,11 +14,8 @@ Softver TopOMS (uključen u fulfilment za klijente): živo stanje zaliha po proi
 - [Povrati i reklamacije](https://fulfilment.rs/povrati-i-reklamacije): prijem vraćenog paketa, pregled, evidencija po razlogu, vraćanje na stanje
 - [Cena fulfilmenta](https://fulfilment.rs/cena-fulfilmenta): od čega zavisi cena, jedinice obračuna, šta sadrži ponuda, zašto nema javnog cenovnika
 - [Softver TopOMS](https://fulfilment.rs/softver): zalihe, QR kod, statusi pošiljki, fiskalizacija, integracije Shopify, WooCommerce, sales funnel platforme, API
-- [Roba na veliko sa lagera u Srbiji](https://fulfilment.rs/roba-na-veliko): provereni proizvodi odmah dostupni iz magacina
-- [Uslužni uvoz iz Kine](https://fulfilment.rs/usluzni-uvoz-iz-kine): dobavljač, transport, carinjenje, prijem direktno u magacin
 - [Fulfilment za dropshipping](https://fulfilment.rs/fulfilment-za-dropshipping): lager u Srbiji, pouzeće i fiskalni račun umesto slanja iz inostranstva
 - [Fulfilment za Shopify i WooCommerce prodavnice](https://fulfilment.rs/fulfilment-shopify-woocommerce): povezivanje prodavnice sa TopOMS-om, porudžbine i zalihe automatski, pouzeće i fiskalni račun nezavisno od platforme
-- [Skaliranje online prodavnice](https://fulfilment.rs/skaliranje): e-commerce konsultacije, pomoć oko Meta i TikTok reklama, softver za reklame uz određene pakete
 
 - [Partnerski program](https://fulfilment.rs/partnerski-program): za vlasnike sajtova, web shopova i kreatore — provizija po prodaji ili prodaja proizvoda PAKUM brendova bez sopstvenog magacina (PAKUM pakuje, šalje pouzećem, naplaćuje); prijava kroz formu, uslovi posle razgovora
 - [Zahtev za ponudu u četiri koraka](https://fulfilment.rs/zahtev-za-ponudu): upitnik podeljen na četiri koraka (kontakt i PIB, proizvodi i obim, napomena, pregled pre slanja); ista prijava kao forma na naslovnoj
