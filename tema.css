@@ -1503,3 +1503,16 @@ footer a:hover {
     transform: none;
   }
 }
+
+/* ===== Snimci ekrana softvera (softver.html, en/software.html) — 16.09.2026 =====
+   3 kolone na desktopu, 2 na tabletu, 1 na telefonu; snimak se nikad ne seče (object-fit: contain). */
+.screens { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1.4rem; margin-top: 2.4rem; }
+.screens figure { margin: 0; min-width: 0; display: flex; flex-direction: column; background: #fff; border: 1px solid var(--line); border-radius: var(--radius); box-shadow: var(--shadow); overflow: hidden; }
+.screens img { display: block; width: 100%; height: auto; object-fit: contain; border-radius: 0; box-shadow: none; border-bottom: 1px solid var(--line); background: #f4f6f8; }
+.screens figcaption { padding: .95rem 1.1rem 1.15rem; font-size: .92rem; line-height: 1.55; color: var(--muted); }
+.screens figcaption strong { display: block; color: var(--ink); font-weight: 700; margin-bottom: .25rem; }
+.screen-points { list-style: none; padding: 0; margin: 2rem auto 0; max-width: 980px; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: .8rem 2rem; }
+.screen-points li { display: flex; gap: .6rem; align-items: flex-start; color: var(--body); font-size: .95rem; line-height: 1.5; }
+.screen-points li svg { flex-shrink: 0; margin-top: 4px; }
+@media (max-width: 880px) { .screens { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1.1rem; } }
+@media (max-width: 640px) { .screens, .screen-points { grid-template-columns: 1fr; } .screens { margin-top: 1.8rem; gap: 1rem; } .screen-points { gap: .7rem; margin-top: 1.6rem; } }
