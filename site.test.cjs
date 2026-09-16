@@ -571,9 +571,16 @@ test("tema.css se učitava posle premium.css na svakoj stranici sa navigacijom",
 });
 
 test("forma nudi obim preko 3.000 paketa i zadržava postojeće vrednosti koje BizOMS i sus.rs već primaju", () => {
-  const select = read("index.html").match(/<select id="paketi"[^>]*>([\s\S]*?)<\/select>/)[1];
-  const options = [...select.matchAll(/<option>([^<]+)<\/option>/g)].map((m) => m[1]);
-  assert.deepEqual(options, ["Do 500", "501 – 1.000", "1.001 – 3.000", "Preko 3.000"]);
+  // Srpska forma je od 16.09. upitnik u četiri koraka; engleska ostaje na /en/.
+  const upitnik = read("zahtev-za-ponudu.html").match(/<select id="q-paketi"[^>]*>([\s\S]*?)<\/select>/)[1];
+  const opcije = [...upitnik.matchAll(/<option>([^<]+)<\/option>/g)].map((m) => m[1]);
+  assert.deepEqual(opcije, ["Do 500", "501 – 1.000", "1.001 – 3.000", "Preko 3.000"]);
+  assert.match(upitnik, /<option value="">Izaberite \(opciono\)<\/option>/);
+  const en = read("en/index.html").match(/<select id="paketi"[^>]*>([\s\S]*?)<\/select>/)[1];
+  assert.deepEqual(
+    [...en.matchAll(/<option>([^<]+)<\/option>/g)].map((m) => m[1]),
+    ["Up to 500", "501 – 1,000", "1,001 – 3,000", "Over 3,000"],
+  );
 });
 
 test("vidljive mrvice odgovaraju BreadcrumbList šemi i stoje pre H1 na svakoj podstranici", () => {
@@ -851,7 +858,11 @@ test("strana sa upitnikom ima četiri koraka, PIB od devet cifara i veze ka sebi
   assert.match(page, /site\.js\?v=20260915/);
   assert.match(read("sitemap.xml"), /<loc>https:\/\/fulfilment\.rs\/zahtev-za-ponudu<\/loc>/);
   assert.match(read("llms.txt"), /\(https:\/\/fulfilment\.rs\/zahtev-za-ponudu\)/);
-  assert.match(read("index.html"), /href="\/zahtev-za-ponudu"[^>]*>Radije korak po korak/);
+  const naslovna = read("index.html");
+  // Stara forma sa naslovne je uklonjena (Lazarova reč 16.09) — ostaje samo poziv na upitnik.
+  assert.doesNotMatch(naslovna, /<form[^>]*id="prijava"/, "naslovna nema staru formu");
+  assert.doesNotMatch(naslovna, /<select id="paketi"|id="poruka"|id="brend"/, "naslovna nema polja stare forme");
+  assert.match(naslovna, /<section class="contact-section" id="kontakt">[\s\S]*?href="\/zahtev-za-ponudu"[\s\S]*?<\/section>/);
   for (const file of pages) {
     const html = read(file);
     // Svaki "Zatraži ponudu" na srpskim stranama vodi na upitnik, ne vise na formu sa naslovne.

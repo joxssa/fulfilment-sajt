@@ -467,185 +467,23 @@
         </div>
       </section>
       <section class="contact-section" id="kontakt">
-        <div class="container contact-grid">
-          <div class="contact-copy">
-            <span class="kicker">Vaša ponuda</span>
-            <h2>Zatražite ponudu za svoju firmu.</h2>
-            <p>
-              Pošaljite nam podatke o prodaji i uslugama koje su vam potrebne.
-              Cena zavisi od obima, asortimana i odabranih usluga.
-            </p>
-            <p class="hint" style="margin-top:.9rem">
-              <a href="/zahtev-za-ponudu">Radije korak po korak? Popunite upitnik u četiri koraka ↗</a>
-            </p>
-            <div class="contact-email">
-              <span>Kontaktirajte nas direktno</span
-              ><a href="mailto:info@bizonline.rs">info@bizonline.rs</a>
-            </div>
-          </div>
-          <form
-            class="formwrap"
-            id="prijava"
-            aria-label="Zahtev za fulfilment ponudu"
-          >
-            <h3 class="form-title">Ponuda za vaš brend.</h3>
-            <p class="form-subtitle">
-              Bez obaveze. Polja označena sa * su obavezna.
-            </p>
-            <div class="honeypot" aria-hidden="true">
-              <label for="web">Ostavite prazno</label
-              ><input
-                type="text"
-                id="web"
-                name="web"
-                tabindex="-1"
-                autocomplete="off"
-              />
-            </div>
-            <div class="formgrid">
-              <div class="field">
-                <label for="brend">Naziv brenda *</label
-                ><input
-                  id="brend"
-                  name="Brend"
-                  required
-                  maxlength="200"
-                  placeholder="Vaš brend"
-                />
-              </div>
-              <div class="field">
-                <label for="sajt">Link sajta ili Instagram profila</label
-                ><input
-                  id="sajt"
-                  name="Sajt"
-                  type="url"
-                  maxlength="300"
-                  placeholder="https://…"
-                />
-              </div>
-              <div class="field">
-                <label for="proizvod">Šta prodajete? *</label
-                ><input
-                  id="proizvod"
-                  name="Proizvod"
-                  required
-                  maxlength="300"
-                  placeholder="Npr. kozmetika, odeća…"
-                />
-              </div>
-              <div class="field">
-                <label for="paketi">Paketa mesečno</label
-                ><select id="paketi" name="Paketa mesecno">
-                  <option>Do 500</option>
-                  <option>501 – 1.000</option>
-                  <option>1.001 – 3.000</option>
-                  <option>Preko 3.000</option>
-                </select>
-              </div>
-              <div class="field">
-                <label for="interes">Koje usluge vam trebaju?</label
-                ><select id="interes" name="Interes">
-                  <option>Fulfilment (slanje paketa)</option>
-                  <option>Roba na veliko</option>
-                  <option>Uslužni uvoz iz Kine</option>
-                  <option>Konsultacije</option>
-                  <option>Pomoć oko reklama</option>
-                  <option>Kombinacija</option>
-                </select>
-              </div>
-              <div class="field">
-                <label for="firma">Naziv firme</label
-                ><input
-                  id="firma"
-                  name="Firma"
-                  autocomplete="organization"
-                  maxlength="250"
-                />
-              </div>
-              <div class="field">
-                <label for="pib">PIB (opciono)</label
-                ><input
-                  id="pib"
-                  name="PIB"
-                  inputmode="numeric"
-                  maxlength="20"
-                  placeholder="9 cifara"
-                />
-              </div>
-              <div class="field">
-                <label for="ime">Ime i prezime *</label
-                ><input
-                  id="ime"
-                  name="Ime"
-                  autocomplete="name"
-                  required
-                  maxlength="150"
-                />
-              </div>
-              <div class="field">
-                <label for="telefon">Broj telefona *</label
-                ><input
-                  id="telefon"
-                  name="Telefon"
-                  type="tel"
-                  autocomplete="tel"
-                  required
-                  maxlength="60"
-                  placeholder="06x xxx xxxx"
-                />
-              </div>
-              <div class="field">
-                <label for="email">Email adresa *</label
-                ><input
-                  id="email"
-                  name="Email"
-                  type="email"
-                  autocomplete="email"
-                  required
-                  maxlength="250"
-                  placeholder="vi@firma.rs"
-                />
-              </div>
-              <div class="field full">
-                <label for="poruka"
-                  >Kako trenutno pakujete i šaljete? (opciono)</label
-                ><textarea
-                  id="poruka"
-                  name="Poruka"
-                  maxlength="4000"
-                  placeholder="Asortiman, ambalaža, posebni zahtevi…"
-                ></textarea>
-              </div>
-            </div>
-            <div class="form-foot">
-              <button class="btn btn-primary btn-lg" type="submit">
-                Pošalji zahtev za ponudu
-                <span class="arrow" aria-hidden="true">↗</span>
-              </button>
-              <p class="hint">
-                Podatke iz forme koristimo za obradu vašeg upita i kontakt
-                povodom ponude.
+        <div class="container">
+          <div class="cta-banner" style="margin-top: 0">
+            <div>
+              <span class="kicker">Vaša ponuda</span>
+              <h2>Zatražite ponudu za svoju firmu.</h2>
+              <p>
+                Upitnik u četiri koraka: vaši podaci, proizvodi i obim,
+                napomena i pregled pre slanja. Popunjavanje traje oko dva
+                minuta, a odgovor dobijate telefonom. Cena zavisi od obima,
+                asortimana i odabranih usluga.
               </p>
-              <p
-                class="form-status"
-                id="form-status"
-                role="status"
-                aria-live="polite"
-              ></p>
-              <a
-                class="email-fallback"
-                id="email-fallback"
-                href="mailto:info@bizonline.rs"
-                hidden
-                >Otvori email sa ovim podacima ↗</a
-              ><noscript
-                ><p class="hint">
-                  Za slanje forme uključite JavaScript ili pišite na
-                  <a href="mailto:info@bizonline.rs">info@bizonline.rs</a>.
-                </p></noscript
-              >
             </div>
-          </form>
+            <a class="btn btn-primary btn-lg" href="/zahtev-za-ponudu"
+              >Popuni upitnik
+              <span class="arrow" aria-hidden="true">↗</span></a
+            >
+          </div>
         </div>
       </section>
     </main>
