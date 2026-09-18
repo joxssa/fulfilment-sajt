@@ -72,9 +72,9 @@
 <a href="/o-nama">O nama</a>
 <a href="/partnerski-program">Partneri</a>
 <a href="/en/" lang="en" hreflang="en" title="English">EN</a>
-<a class="nav-mobile-cta" href="/zahtev-za-ponudu">Zatraži ponudu ↗</a>
+<a class="nav-mobile-cta" href="/#kontakt">Zatraži ponudu ↗</a>
 </div>
-<a class="btn btn-primary" href="/zahtev-za-ponudu">Zatraži ponudu <span class="arrow" aria-hidden="true">↗</span></a>
+<a class="btn btn-primary" href="/#kontakt">Zatraži ponudu <span class="arrow" aria-hidden="true">↗</span></a>
 <button class="burger" id="burger" type="button" aria-label="Otvori meni" aria-expanded="false" aria-controls="nav-links"><span></span><span></span><span></span></button>
 </div>
 </nav>
@@ -95,7 +95,7 @@
             <h1>Fulfilment centar u Srbiji<br />za vašu online prodaju.</h1>
             <p class="lead">Prijem robe, skladištenje, pakovanje, slanje pouzećem i povrati. Isti tim, magacin i softver koristimo za sopstvenu online prodaju.</p>
             <div class="hero-ctas">
-              <a class="btn btn-primary btn-lg" href="/zahtev-za-ponudu"
+              <a class="btn btn-primary btn-lg" href="/#prijava"
                 >Zatražite ponudu
                 <span class="arrow" aria-hidden="true">↗</span></a
               ><a class="btn btn-ghost btn-lg" href="#usluge"
@@ -126,7 +126,7 @@
 <span class="kicker">Fulfilment centar u Srbiji</span>
 <h2>Fulfilment centar koji radi kao vaš magacin, pakeraj i kurirski sto</h2>
 <p style="margin-top:1rem">PAKUM je fulfilment (fulfillment) centar u Srbiji za online prodavnice. Preuzimamo sve što se dešava od klika kupca do uručenog paketa: prijem robe sa verifikacijom i barkodiranjem, <a href="/skladistenje-robe">skladištenje</a>, <a href="/pakovanje-paketa">pakovanje sa kontrolom artikla skeniranjem</a>, slanje kroz sve kurire uz jedan ugovor i jedan obračun, <a href="/slanje-pouzecem">naplatu pouzeća sa fiskalnim računom uz svaku pošiljku</a>, isplatu otkupnine i <a href="/povrati-i-reklamacije">obradu povrata i reklamacija</a>. Uz uslugu dobijate <a href="/softver">softver TopOMS</a> u kome pratite živo stanje zaliha i status svake pošiljke.</p>
-<p style="margin-top:1rem">Šaljemo širom Srbije, uključujući Beograd, Novi Sad i Niš. Isti tim, magacin i softver koristimo za sopstvene brendove i za klijente, zato kažemo: pakujemo kao za sebe. Ako tek ulazite u temu, pročitajte <a href="/sta-je-fulfilment">šta je fulfilment i kako radi fulfilment centar</a>, a ako već šaljete pakete svakog dana, <a href="/zahtev-za-ponudu">zatražite ponudu</a>.</p>
+<p style="margin-top:1rem">Šaljemo širom Srbije, uključujući Beograd, Novi Sad i Niš. Isti tim, magacin i softver koristimo za sopstvene brendove i za klijente, zato kažemo: pakujemo kao za sebe. Ako tek ulazite u temu, pročitajte <a href="/sta-je-fulfilment">šta je fulfilment i kako radi fulfilment centar</a>, a ako već šaljete pakete svakog dana, <a href="/#prijava">zatražite ponudu</a>.</p>
 </div>
 </div>
 </section>
@@ -508,23 +508,37 @@
         </div>
       </section>
       <section class="contact-section" id="kontakt">
-        <div class="container">
-          <div class="cta-banner" style="margin-top: 0">
-            <div>
-              <span class="kicker">Vaša ponuda</span>
-              <h2>Zatražite ponudu za svoju firmu.</h2>
-              <p>
-                Upitnik u četiri koraka: vaši podaci, proizvodi i obim,
-                napomena i pregled pre slanja. Popunjavanje traje oko dva
-                minuta, a odgovor dobijate telefonom. Cena zavisi od obima,
-                asortimana i odabranih usluga.
-              </p>
-            </div>
-            <a class="btn btn-primary btn-lg" href="/zahtev-za-ponudu"
-              >Popuni upitnik
-              <span class="arrow" aria-hidden="true">↗</span></a
-            >
+        <div class="container contact-grid">
+          <div class="contact-copy">
+            <span class="kicker">Vaša ponuda</span>
+            <h2>Zatražite ponudu za svoju firmu.</h2>
+            <p>Pošaljite nam podatke o prodaji i uslugama koje su vam potrebne. Cena zavisi od obima, asortimana i odabranih usluga.</p>
+            <div class="contact-email"><span>Kontaktirajte nas direktno</span><a href="mailto:info@pakum.rs">info@pakum.rs</a></div>
           </div>
+          <form class="formwrap" id="prijava" aria-label="Zahtev za fulfilment ponudu">
+            <h3 class="form-title">Ponuda za vaš brend.</h3>
+            <p class="form-subtitle">Bez obaveze. Polja označena sa * su obavezna.</p>
+            <div class="honeypot" aria-hidden="true"><label for="web">Ostavite prazno</label><input type="text" id="web" name="web" tabindex="-1" autocomplete="off"></div>
+            <div class="formgrid">
+              <div class="field"><label for="brend">Naziv brenda *</label><input id="brend" name="Brend" required maxlength="200" placeholder="Vaš brend"></div>
+              <div class="field"><label for="sajt">Link sajta ili Instagram profila</label><input id="sajt" name="Sajt" type="url" maxlength="300" placeholder="https://…"></div>
+              <div class="field"><label for="proizvod">Šta prodajete? *</label><input id="proizvod" name="Proizvod" required maxlength="300" placeholder="Npr. kozmetika, odeća…"></div>
+              <div class="field"><label for="paketi">Paketa mesečno</label><select id="paketi" name="Paketa mesecno"><option>Do 500</option><option>501 – 1.000</option><option>1.001 – 3.000</option><option>Preko 3.000</option></select></div>
+              <div class="field"><label for="interes">Koje usluge vam trebaju?</label><select id="interes" name="Interes"><option>Fulfilment (slanje paketa)</option><option>Fulfilment za dropshipping</option><option>Povezivanje Shopify ili WooCommerce prodavnice</option><option>Nisam siguran, treba mi savet</option></select></div>
+              <div class="field"><label for="firma">Naziv firme</label><input id="firma" name="Firma" autocomplete="organization" maxlength="250"></div>
+              <div class="field"><label for="pib">PIB (opciono)</label><input id="pib" name="PIB" inputmode="numeric" pattern="[0-9]{9}" maxlength="9" autocomplete="off" placeholder="9 cifara" title="PIB ima tačno 9 cifara"></div>
+              <div class="field"><label for="ime">Ime i prezime *</label><input id="ime" name="Ime" autocomplete="name" required maxlength="150"></div>
+              <div class="field"><label for="telefon">Broj telefona *</label><input id="telefon" name="Telefon" type="tel" autocomplete="tel" required maxlength="60" placeholder="06x xxx xxxx"></div>
+              <div class="field"><label for="email">Email adresa *</label><input id="email" name="Email" type="email" autocomplete="email" required maxlength="250" placeholder="vi@firma.rs"></div>
+              <div class="field full"><label for="poruka">Kako trenutno pakujete i šaljete? (opciono)</label><textarea id="poruka" name="Poruka" maxlength="4000" placeholder="Asortiman, ambalaža, posebni zahtevi…"></textarea></div>
+            </div>
+            <div class="form-foot">
+              <button class="btn btn-primary btn-lg" type="submit">Pošalji zahtev za ponudu <span class="arrow" aria-hidden="true">↗</span></button>
+              <p class="hint">Podatke iz forme koristimo za obradu vašeg upita i kontakt povodom ponude.</p>
+              <p class="form-status" id="form-status" role="status" aria-live="polite"></p>
+              <a class="email-fallback" id="email-fallback" href="mailto:info@pakum.rs" hidden>Otvori email sa ovim podacima ↗</a><noscript><p class="hint">Za slanje forme uključite JavaScript ili pišite na <a href="mailto:info@pakum.rs">info@pakum.rs</a>.</p></noscript>
+            </div>
+          </form>
         </div>
       </section>
     </main>
@@ -541,7 +555,8 @@
 <li><a href="/o-nama">Naša priča</a></li>
 <li><a href="/softver">Softver TopOMS</a></li>
 <li><a href="/partnerski-program">Partnerski program</a></li>
-<li><a href="/zahtev-za-ponudu">Zatraži ponudu</a></li>
+<li><a href="/zahtev-za-ponudu">Upitnik u četiri koraka</a></li>
+<li><a href="/#kontakt">Zatraži ponudu</a></li>
 </ul>
 </div>
 <div>
@@ -575,7 +590,7 @@
 </footer>
     <script src="/site.js?v=20260915" defer></script>
     <aside class="mobile-contact-bar" aria-label="Zahtev za ponudu">
-      <a class="btn btn-primary" href="/zahtev-za-ponudu"
+      <a class="btn btn-primary" href="/#prijava"
         >Zatražite ponudu <span aria-hidden="true">↗</span></a
       >
     </aside>

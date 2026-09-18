@@ -569,7 +569,7 @@ test("the static brand grid preserves every supplied logo and the mobile action 
     }
     assert.equal(bars.length, 1, file);
     assert.equal([...bars[0][1].matchAll(/<a\b/g)].length, 1, file);
-    assert.match(bars[0][1], /href="\/zahtev-za-ponudu"/);
+    assert.match(bars[0][1], /href="\/#prijava"/);
     assert.doesNotMatch(bars[0][1], /mailto:|tel:/);
   }
   assert.match(read("premium.css"), /prefers-reduced-motion:\s*reduce/);
@@ -589,11 +589,14 @@ test("tema.css se učitava posle premium.css na svakoj stranici sa navigacijom",
 });
 
 test("forma nudi obim preko 3.000 paketa i zadržava postojeće vrednosti koje BizOMS i sus.rs već primaju", () => {
-  // Srpska forma je od 16.09. upitnik u četiri koraka; engleska ostaje na /en/.
+  // Upitnik u četiri koraka (/zahtev-za-ponudu) ostaje kao sporedna opcija; forma je 18.09. vraćena na naslovnu.
   const upitnik = read("zahtev-za-ponudu.html").match(/<select id="q-paketi"[^>]*>([\s\S]*?)<\/select>/)[1];
   const opcije = [...upitnik.matchAll(/<option>([^<]+)<\/option>/g)].map((m) => m[1]);
   assert.deepEqual(opcije, ["Do 500", "501 – 1.000", "1.001 – 3.000", "Preko 3.000"]);
   assert.match(upitnik, /<option value="">Izaberite \(opciono\)<\/option>/);
+  // 18.09.2026: forma vraćena na naslovnu (Lazar: „upitnik je komplikovan, ljudi odustaju“) — iste vrednosti obima kao pre.
+  const naslovnaSelect = read("index.html").match(/<select id="paketi"[^>]*>([\s\S]*?)<\/select>/)[1];
+  assert.deepEqual([...naslovnaSelect.matchAll(/<option>([^<]+)<\/option>/g)].map((m) => m[1]), ["Do 500", "501 – 1.000", "1.001 – 3.000", "Preko 3.000"]);
   const en = read("en/index.html").match(/<select id="paketi"[^>]*>([\s\S]*?)<\/select>/)[1];
   assert.deepEqual(
     [...en.matchAll(/<option>([^<]+)<\/option>/g)].map((m) => m[1]),
@@ -877,20 +880,21 @@ test("strana sa upitnikom ima četiri koraka, PIB od devet cifara i veze ka sebi
   assert.match(read("sitemap.xml"), /<loc>https:\/\/fulfilment\.rs\/zahtev-za-ponudu<\/loc>/);
   assert.match(read("llms.txt"), /\(https:\/\/fulfilment\.rs\/zahtev-za-ponudu\)/);
   const naslovna = read("index.html");
-  // Stara forma sa naslovne je uklonjena (Lazarova reč 16.09) — ostaje samo poziv na upitnik.
-  assert.doesNotMatch(naslovna, /<form[^>]*id="prijava"/, "naslovna nema staru formu");
-  assert.doesNotMatch(naslovna, /<select id="paketi"|id="poruka"|id="brend"/, "naslovna nema polja stare forme");
-  assert.match(naslovna, /<section class="contact-section" id="kontakt">[\s\S]*?href="\/zahtev-za-ponudu"[\s\S]*?<\/section>/);
+  // 18.09.2026: forma je VRAĆENA na naslovnu (Lazar: „upitnik je komplikovan, ljudi odustaju“); upitnik ostaje kao sporedna opcija u footeru.
+  assert.match(naslovna, /<section class="contact-section" id="kontakt">[\s\S]*?<form class="formwrap" id="prijava"[\s\S]*?<\/form>[\s\S]*?<\/section>/, "naslovna ima formu u sekciji kontakt");
+  for (const id of ["brend", "sajt", "proizvod", "paketi", "interes", "firma", "pib", "ime", "telefon", "email", "poruka", "web", "form-status", "email-fallback"]) assert.match(naslovna, new RegExp(`id="${id}"`), `naslovna: polje ${id}`);
+  assert.doesNotMatch(naslovna, /Radije korak po korak|bizonline\.rs|Popuni upitnik/);
+  // Astra 18.09: PIB ostaje opciono, ali kao u upitniku — tačno devet cifara (site.js prosleđuje vrednost nepromenjenu)
+  assert.match(naslovna, /<input id="pib"[^>]*pattern="\[0-9\]\{9\}"[^>]*maxlength="9"/, "naslovna: PIB devet cifara");
+  assert.doesNotMatch(naslovna, /<input id="pib"[^>]*required/, "naslovna: PIB nije obavezan");
   for (const file of pages) {
     const html = read(file);
-    // Svaki "Zatraži ponudu" na srpskim stranama vodi na upitnik, ne vise na formu sa naslovne.
-    assert.doesNotMatch(html, /href="\/?#(kontakt|prijava)"/, `${file}: stari link na formu sa naslovne`);
-    if (html.includes("<footer"))
-      assert.match(
-        html,
-        /<li><a href="\/zahtev-za-ponudu">Zatraži ponudu<\/a><\/li>/,
-        `${file}: footer`,
-      );
+    // Svaki "Zatraži ponudu" na srpskim stranama vodi na formu sa naslovne (nav i footer /#kontakt, dugmad /#prijava); upitnik samo iz footera.
+    assert.doesNotMatch(html, /href="\/zahtev-za-ponudu"[^>]*>\s*Zatraži(te)? ponudu/, `${file}: dugme vodi na upitnik`);
+    if (html.includes("<footer")) {
+      assert.match(html, /<li><a href="\/zahtev-za-ponudu">Upitnik u četiri koraka<\/a><\/li>/, `${file}: footer upitnik`);
+      assert.match(html, /<li><a href="\/#kontakt">Zatraži ponudu<\/a><\/li>/, `${file}: footer ponuda`);
+    }
   }
 });
 
