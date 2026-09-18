@@ -1359,16 +1359,21 @@ test("snimci softvera stoje na naslovnoj i na /softver (sr i en), integracije im
   assert.match(read("tema.css"), /\.screens img \{[^}]*object-fit: cover/);
 });
 
-test("naslovna govori o roku 17:30 (dve smene) i o softveru koji klijent dobija, sr i en (Lazar 17.09)", () => {
+test("naslovna: potvrđeno do 17 h = red za slanje tog dana (bez golog obećanja „poslato istog dana“, Lazar 18.09), dve smene, softver koji klijent dobija, sr i en", () => {
   const home = read("index.html");
   assert.match(home, /<section id="rok-slanja">/);
-  assert.match(home, /Stiglo do 17:30, poslato istog dana\./);
-  assert.match(home, /Dve smene u magacinu/);
+  assert.match(home, /Potvrđeno do 17 h ulazi u red za slanje tog dana\./);
+  assert.match(home, /Dve smene do 17:30/);
+  // Lazar 18.09: ne sme da stoji golo obećanje „stiglo → poslato istog dana“; red za slanje, ne garancija
+  assert.doesNotMatch(home, /Stiglo do 17:30|šaljemo istog dana|predaje kuriru istog dana/);
+  assert.match(home, /Porudžbina potvrđena do 17 h radnim danom ulazi u red za slanje tog dana\./);
   assert.match(home, /<section id="softver-koji-dobijate">/);
   assert.equal([...home.matchAll(/<div class="grid-3 feature-grid">[\s\S]*?<\/div>\s*<p/g)][0][0].split('<article class="card">').length - 1, 8);
-  assert.match(home, /Do kada porudžbina treba da stigne da bi bila poslata istog dana\?/);
+  assert.match(home, /Do kada porudžbina treba da bude potvrđena da bi krenula istog dana\?/);
   const en = read("en/index.html");
   assert.match(en, /<section id="dispatch-cutoff">/);
+  assert.match(en, /Confirmed by 17:00, it joins that day's dispatch queue\./);
+  assert.doesNotMatch(en, /Received by 17:30|shipped that day|handed to the courier that day/);
   assert.match(en, /<section id="software-you-get">/);
   assert.equal([...en.matchAll(/<div class="grid-3 feature-grid">[\s\S]*?<\/div>\s*<p/g)][0][0].split('<article class="card">').length - 1, 8);
   // natpisi bez pilule: kicker je oznaka sa crtom; snimci na telefonu jedan ispod drugog; lepljivo dugme sklonjeno
