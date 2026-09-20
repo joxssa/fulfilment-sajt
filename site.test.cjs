@@ -1380,10 +1380,12 @@ test("naslovna: potvrđeno do 17 h = red za slanje tog dana (bez golog obećanja
   assert.doesNotMatch(en, /Received by 17:30|shipped that day|handed to the courier that day/);
   assert.match(en, /<section id="software-you-get">/);
   assert.equal([...en.matchAll(/<div class="grid-3 feature-grid">[\s\S]*?<\/div>\s*<p/g)][0][0].split('<article class="card">').length - 1, 8);
-  // natpisi bez pilule: kicker je oznaka sa crtom; snimci na telefonu jedan ispod drugog; lepljivo dugme sklonjeno
+  // natpisi bez pilule: kicker je oznaka sa crtom; snimci na telefonu jedan ispod drugog
   const css = read("tema.css");
   assert.match(css, /\.kicker::before \{ width: 22px; height: 2px;/);
   assert.match(css, /@media \(max-width: 880px\) \{\s*\.screens \{ grid-template-columns: 1fr;/);
-  assert.match(css, /\.mobile-contact-bar \{ display: none !important; \}/);
+  // Lepljivo dugme za prijavu vraćeno (Lazar 20.09): nema kill pravila, a šire od 640px pluta dole desno.
+  assert.doesNotMatch(css, /\.mobile-contact-bar \{ display: none !important; \}/);
+  assert.match(css, /@media \(min-width: 641px\) \{\s*\.mobile-contact-bar \{\s*display: block;\s*position: fixed;/);
   assert.match(css, /\.hero-trust li \{ background: #fff;/);
 });
