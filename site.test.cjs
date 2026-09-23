@@ -1495,6 +1495,24 @@ test("izvor: dolazak sa oznakom oglasa uvek preuzima zapis (važi poslednji ozna
   assert.equal(dugacak.zapis.landing.length, 300, "ulazna strana sa upitom je skraćena");
 });
 
+test("izvor: dolazak samo sa fbclid (neplaćena objava, link u bio-u) ne briše sačuvan klik sa Google oglasa; fbclid posle direktne posete se pamti (pregled 23.09)", () => {
+  const { izracunajIzvor } = izvorLogika();
+  const google = zapisIzvora({ gclid: "G-1", utm_term: "fulfilment", landing: "/?gclid=G-1" }, 2 * DAN);
+  const fb = izRealma(izracunajIzvor({ search: "?fbclid=IwAR", putanja: "/", referrer: "https://l.instagram.com/", host: "fulfilment.rs", sacuvano: google, sada: SADA }));
+  assert.equal(fb.upisi, false);
+  assert.equal(fb.zapis.gclid, "G-1");
+  assert.equal(fb.zapis.fbclid, undefined);
+  // plaćeni Meta klik (sa utm) je nov označen klik i preuzima zapis
+  const placen = izRealma(izracunajIzvor({ search: "?fbclid=IwAR&utm_source=facebook&utm_medium=paid_social", putanja: "/", referrer: "", host: "fulfilment.rs", sacuvano: google, sada: SADA }));
+  assert.equal(placen.upisi, true);
+  assert.equal(placen.zapis.utm_medium, "paid_social");
+  // bez sačuvanog Google klika fbclid se pamti
+  const direktno = zapisIzvora({ landing: "/" }, DAN);
+  const fb2 = izRealma(izracunajIzvor({ search: "?fbclid=IwAR", putanja: "/", referrer: "", host: "fulfilment.rs", sacuvano: direktno, sada: SADA }));
+  assert.equal(fb2.upisi, true);
+  assert.equal(fb2.zapis.fbclid, "IwAR");
+});
+
 test("izvor: poseta bez oznake čuva sačuvan zapis; spoljni sajt menja samo zapis bez oznake; bez zapisa važi ova poseta", () => {
   const { izracunajIzvor } = izvorLogika();
   const oglas = zapisIzvora({ gclid: "G-1", utm_source: "google", landing: "/?gclid=G-1" }, 3 * DAN);

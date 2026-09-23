@@ -179,8 +179,12 @@
     const spolja = spoljniReferrer(referrer, host);
     if (spolja) poseta.referrer = spolja;
     poseta.vreme = new Date(sada).toISOString();
-    if (Object.keys(oglas).length) return { zapis: poseta, upisi: true };
     const prethodni = procitajIzvor(sacuvano, sada);
+    // Facebook/Instagram dodaje fbclid i na neplaćene objave i link u bio-u — takav dolazak ne briše sačuvan klik sa Google oglasa
+    const samoFbclid = Object.keys(oglas).every((kljuc) => kljuc === "fbclid");
+    const googleKlik = !!prethodni && ["gclid", "gbraid", "wbraid"].some((kljuc) => kljuc in prethodni);
+    if (Object.keys(oglas).length && !(samoFbclid && googleKlik)) return { zapis: poseta, upisi: true };
+    if (Object.keys(oglas).length) return { zapis: prethodni, upisi: false };
     const prethodniOznacen = !!prethodni && IZVOR_PARAMETRI.some((kljuc) => kljuc in prethodni);
     if (prethodni && (!spolja || prethodniOznacen)) return { zapis: prethodni, upisi: false };
     return { zapis: poseta, upisi: true };
