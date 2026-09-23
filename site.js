@@ -57,6 +57,193 @@
   const PRIMARY_URL = "https://sus.rs/api/pakum/prijava";
   const BIZOMS_LEAD_URL = "https://bizdb.46.224.193.209.sslip.io/functions/v1/pakum-lead";
 
+  // ---- Izvor prijave (Lazar 23.09.2026) ----
+  // Pamti odakle je posetilac došao: klik sa Google oglasa (gclid/gbraid/wbraid), Facebook
+  // (fbclid), utm_* iz sufiksa oglasa, ulazna strana i spoljni sajt sa kog je stigao.
+  // Čuva se u localStorage 90 dana. Dolazak sa oznakom oglasa uvek preuzima zapis (važi
+  // poslednji označen klik); dolazak sa spoljnog sajta menja samo zapis bez oznake; inače
+  // ostaje sačuvani. Ide SAMO u kopiju za BizOMS (fulfilment_leads.raw.izvor) — sus.rs
+  // dobija isto telo kao ranije.
+  const IZVOR_KLJUC = "pakum_izvor";
+  const IZVOR_ROK_MS = 90 * 24 * 60 * 60 * 1000;
+  const IZVOR_BUDUCNOST_MS = 24 * 60 * 60 * 1000;
+  const IZVOR_MAKS = 300;
+  const IZVOR_PARAMETRI = [
+    "gclid",
+    "gbraid",
+    "wbraid",
+    "fbclid",
+    "utm_source",
+    "utm_medium",
+    "utm_campaign",
+    "utm_term",
+    "utm_content",
+  ];
+  const IZVOR_POLJA = [...IZVOR_PARAMETRI, "landing", "referrer", "vreme"];
+  // Funkcija pakum-lead odbija telo duže od 20.000 znakova; izvor nikad ne sme da obori prijavu.
+  const BIZOMS_TELO_MAKS = 19000;
+  const KONTROLNI_ZNACI = /[\u0000-\u001F\u007F]/g;
+
+  /**
+   * Tekst bez kontrolnih znakova, bez razmaka na krajevima, najviše IZVOR_MAKS znakova.
+   * Skraćivanje ne ostavlja pola emodžija (usamljen surogat baza ne prima u jsonb).
+   * @param {unknown} vrednost
+   * @returns {string}
+   */
+  const ocistiIzvor = (vrednost) =>
+    typeof vrednost === "string"
+      ? vrednost
+          .replace(KONTROLNI_ZNACI, "")
+          .trim()
+          .slice(0, IZVOR_MAKS)
+          .replace(/[\uD800-\uDBFF]$/, "")
+      : "";
+
+  /**
+   * Parametri oglasa iz adrese strane (samo poznati ključevi, očišćeni i skraćeni).
+   * @param {string} search
+   * @returns {Record<string, string>}
+   */
+  const parametriOglasa = (search) => {
+    /** @type {Record<string, string>} */
+    const nadjeno = {};
+    const parametri = new URLSearchParams(search || "");
+    for (const kljuc of IZVOR_PARAMETRI) {
+      const vrednost = ocistiIzvor(parametri.get(kljuc));
+      if (vrednost) nadjeno[kljuc] = vrednost;
+    }
+    return nadjeno;
+  };
+
+  /**
+   * Spoljni referrer kao „host/putanja“ (bez upita i heša). Prazno za isti sajt
+   * (i sa www. i bez njega) ili neispravnu adresu.
+   * @param {string} referrer
+   * @param {string} host hostname ove strane
+   * @returns {string}
+   */
+  const spoljniReferrer = (referrer, host) => {
+    if (!referrer) return "";
+    let adresa;
+    try {
+      adresa = new URL(referrer);
+    } catch {
+      return "";
+    }
+    if (!adresa.hostname) return "";
+    /** @param {string} ime */
+    const bezWww = (ime) => ime.toLowerCase().replace(/^www\./, "");
+    if (host && bezWww(adresa.hostname) === bezWww(host)) return "";
+    return ocistiIzvor(adresa.hostname + adresa.pathname);
+  };
+
+  /**
+   * Sačuvan zapis izvora: samo poznata polja, očišćena. null ako je neispravan, bez
+   * vremena, stariji od 90 dana ili iz budućnosti (više od dan, zbog pomerenog sata).
+   * @param {string | null} tekst
+   * @param {number} sada
+   * @returns {Record<string, string> | null}
+   */
+  const procitajIzvor = (tekst, sada) => {
+    if (!tekst) return null;
+    let sirovo;
+    try {
+      sirovo = JSON.parse(tekst);
+    } catch {
+      return null;
+    }
+    if (!sirovo || typeof sirovo !== "object" || Array.isArray(sirovo)) return null;
+    /** @type {Record<string, string>} */
+    const zapis = {};
+    for (const kljuc of IZVOR_POLJA) {
+      const vrednost = ocistiIzvor(sirovo[kljuc]);
+      if (vrednost) zapis[kljuc] = vrednost;
+    }
+    const vreme = Date.parse(zapis.vreme || "");
+    if (!Number.isFinite(vreme)) return null;
+    if (sada - vreme >= IZVOR_ROK_MS || vreme - sada > IZVOR_BUDUCNOST_MS) return null;
+    return zapis;
+  };
+
+  /**
+   * Koji izvor važi posle ove posete i da li ga treba upisati.
+   * @param {{ search: string, putanja: string, referrer: string, host: string, sacuvano: string | null, sada: number }} ulaz
+   * @returns {{ zapis: Record<string, string>, upisi: boolean }}
+   */
+  const izracunajIzvor = ({ search, putanja, referrer, host, sacuvano, sada }) => {
+    const oglas = parametriOglasa(search);
+    /** @type {Record<string, string>} */
+    const poseta = { ...oglas };
+    const landing = ocistiIzvor(`${putanja || ""}${search || ""}`);
+    if (landing) poseta.landing = landing;
+    const spolja = spoljniReferrer(referrer, host);
+    if (spolja) poseta.referrer = spolja;
+    poseta.vreme = new Date(sada).toISOString();
+    if (Object.keys(oglas).length) return { zapis: poseta, upisi: true };
+    const prethodni = procitajIzvor(sacuvano, sada);
+    const prethodniOznacen = !!prethodni && IZVOR_PARAMETRI.some((kljuc) => kljuc in prethodni);
+    if (prethodni && (!spolja || prethodniOznacen)) return { zapis: prethodni, upisi: false };
+    return { zapis: poseta, upisi: true };
+  };
+
+  /**
+   * Telo kopije za BizOMS: isti podaci kao za sus.rs plus „izvor“. Bez izvora (samo vreme)
+   * ili kad bi telo prešlo granicu funkcije pakum-lead ide isto telo kao za sus.rs.
+   * @param {Record<string, string>} data
+   * @param {Record<string, string>} izvor
+   * @param {string} osnovno telo za sus.rs
+   * @returns {string}
+   */
+  const teloZaBizoms = (data, izvor, osnovno) => {
+    if (!Object.keys(izvor).some((kljuc) => kljuc !== "vreme")) return osnovno;
+    const telo = JSON.stringify({ ...data, izvor });
+    return telo.length > BIZOMS_TELO_MAKS ? osnovno : telo;
+  };
+
+  /**
+   * Beleži izvor pri svakom učitavanju strane. Blokiran ili pun localStorage (privatni
+   * režim) ne sme da smeta formi: tada važi samo ova poseta.
+   * @returns {Record<string, string>}
+   */
+  const zabeleziIzvor = () => {
+    /** @type {Storage | null} */
+    let skladiste = null;
+    /** @type {string | null} */
+    let sacuvano = null;
+    try {
+      skladiste = window.localStorage;
+      sacuvano = skladiste.getItem(IZVOR_KLJUC);
+    } catch {
+      skladiste = null;
+      sacuvano = null;
+    }
+    const lokacija = window.location;
+    const { zapis, upisi } = izracunajIzvor({
+      search: (lokacija && lokacija.search) || "",
+      putanja: (lokacija && lokacija.pathname) || "",
+      referrer: document.referrer || "",
+      host: (lokacija && lokacija.hostname) || "",
+      sacuvano,
+      sada: Date.now(),
+    });
+    if (upisi && skladiste) {
+      try {
+        skladiste.setItem(IZVOR_KLJUC, JSON.stringify(zapis));
+      } catch {
+        /* skladište je puno ili blokirano; izvor ove posete i dalje ide uz prijavu */
+      }
+    }
+    return zapis;
+  };
+
+  /** @type {Record<string, string>} */
+  let izvorPosete = {};
+  try {
+    izvorPosete = zabeleziIzvor();
+  } catch {
+    izvorPosete = {};
+  }
+
   /**
    * @typedef {Object} LeadSpec
    * @property {string} formId
@@ -108,9 +295,10 @@
           signal: controller.signal,
         };
         const primary = fetch(PRIMARY_URL, request);
-        // Kopija u BizOMS. Dopunska: ne menja ishod slanja.
+        // Kopija u BizOMS (sa izvorom prijave). Dopunska: ne menja ishod slanja.
         try {
-          fetch(BIZOMS_LEAD_URL, { ...request, keepalive: true }).catch(() => {});
+          const bizomsBody = teloZaBizoms(data, izvorPosete, request.body);
+          fetch(BIZOMS_LEAD_URL, { ...request, body: bizomsBody, keepalive: true }).catch(() => {});
         } catch {
           /* kopija u BizOMS nije uspela; glavni kanal odlučuje */
         }
@@ -273,4 +461,18 @@
       };
     },
   });
+
+  // Vrednost skripte browser odbacuje; testovi (vm.runInNewContext) je koriste da
+  // provere čistu logiku izvora bez DOM-a.
+  return {
+    izvor: {
+      KLJUC: IZVOR_KLJUC,
+      ROK_MS: IZVOR_ROK_MS,
+      parametriOglasa,
+      spoljniReferrer,
+      procitajIzvor,
+      izracunajIzvor,
+      teloZaBizoms,
+    },
+  };
 })();

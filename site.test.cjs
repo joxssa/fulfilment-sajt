@@ -138,7 +138,9 @@ test("FAQ schema matches visible questions and answers, and unsupported public p
   }
 });
 
-function harness(fetchHandler, location = {}) {
+// okruzenje (izvor prijave): { referrer, localStorage } — localStorage je objekat sa getItem/setItem
+// ili "blokirano" (pristup baca grešku, kao u privatnom režimu).
+function harness(fetchHandler, location = {}, okruzenje = {}) {
   class Element {
     constructor() {
       this.listeners = {};
@@ -276,6 +278,7 @@ function harness(fetchHandler, location = {}) {
   };
   const document = {
     listeners: {},
+    referrer: okruzenje.referrer || "",
     getElementById: (id) => els[id] || null,
     querySelector: (selector) => (selector === ".nav-links" ? links : marquee),
     querySelectorAll: (selector) => (selector === ".nav-drop" ? [drop] : []),
@@ -312,14 +315,24 @@ function harness(fetchHandler, location = {}) {
         ...location,
       },
     },
+    URL,
+    URLSearchParams,
     fetch: (url, options) => {
       calls.push({ url, options });
       return fetchHandler(url, options);
     },
   };
-  vm.runInNewContext(source, context);
+  if (okruzenje.localStorage === "blokirano")
+    Object.defineProperty(context.window, "localStorage", {
+      get() {
+        throw new Error("SecurityError: skladište je blokirano");
+      },
+    });
+  else if (okruzenje.localStorage) context.window.localStorage = okruzenje.localStorage;
+  const api = vm.runInNewContext(source, context);
   const send = () => form.listeners.submit({ preventDefault() {} });
   return {
+    api,
     send,
     form,
     submit,
@@ -1388,4 +1401,260 @@ test("naslovna: potvrđeno do 17 h = red za slanje tog dana (bez golog obećanja
   assert.doesNotMatch(css, /\.mobile-contact-bar \{ display: none !important; \}/);
   assert.match(css, /@media \(min-width: 641px\) \{\s*\.mobile-contact-bar \{\s*display: block;\s*position: fixed;/);
   assert.match(css, /\.hero-trust li \{ background: #fff;/);
+});
+
+// ---- 23.09.2026: izvor prijave (Google klik, utm) — ide samo u kopiju za BizOMS (raw.izvor) ----
+
+const bezMreze = () => {
+  throw new Error("Unexpected network call");
+};
+// Čista logika izvora: vrednost koju site.js vraća u vm-u (browser je odbacuje).
+const izvorLogika = () => harness(bezMreze).api.izvor;
+// Objekti iz vm-a imaju svoj Object.prototype; za deepEqual ih prevodimo u ovaj realm.
+const izRealma = (vrednost) => JSON.parse(JSON.stringify(vrednost));
+const DAN = 24 * 60 * 60 * 1000;
+const SADA = Date.parse("2026-09-23T10:00:00.000Z");
+const zapisIzvora = (polja, pre = 0) => JSON.stringify({ ...polja, vreme: new Date(SADA - pre).toISOString() });
+function skladiste(pocetno = {}) {
+  const podaci = { ...pocetno };
+  return {
+    podaci,
+    getItem: (kljuc) => (kljuc in podaci ? podaci[kljuc] : null),
+    setItem: (kljuc, vrednost) => {
+      podaci[kljuc] = String(vrednost);
+    },
+  };
+}
+
+test("izvor: iz adrese se čitaju samo parametri oglasa (gclid, gbraid, wbraid, fbclid, utm_*), očišćeni i skraćeni na 300 znakova", () => {
+  const { parametriOglasa } = izvorLogika();
+  assert.deepEqual(
+    izRealma(
+      parametriOglasa(
+        "?gclid=%20Cj0KCQ%20&utm_source=google&utm_medium=cpc&utm_campaign=23012345&utm_term=fulfilment+srbija&gad_source=1&utm_content=&x=1",
+      ),
+    ),
+    { gclid: "Cj0KCQ", utm_source: "google", utm_medium: "cpc", utm_campaign: "23012345", utm_term: "fulfilment srbija" },
+  );
+  assert.deepEqual(izRealma(parametriOglasa("?gbraid=g1&wbraid=w1&fbclid=f1&utm_content=baner")), {
+    gbraid: "g1",
+    wbraid: "w1",
+    fbclid: "f1",
+    utm_content: "baner",
+  });
+  assert.deepEqual(izRealma(parametriOglasa("")), {});
+  assert.deepEqual(izRealma(parametriOglasa("?a=1&gad_source=1")), {});
+  assert.equal(parametriOglasa(`?utm_term=${"x".repeat(1000)}`).utm_term.length, 300);
+  assert.equal(parametriOglasa("?utm_term=a%0Ab%09c").utm_term, "abc", "kontrolni znaci se uklanjaju");
+  const emodzi = parametriOglasa(`?utm_term=${"x".repeat(299)}%F0%9F%93%A6`).utm_term;
+  assert.equal(emodzi, "x".repeat(299), "skraćivanje ne ostavlja pola emodžija");
+});
+
+test("izvor: referrer se beleži kao host/putanja samo kad je spoljni sajt (isti sajt, sa www. ili bez, se preskače)", () => {
+  const { spoljniReferrer } = izvorLogika();
+  assert.equal(spoljniReferrer("https://www.google.com/", "fulfilment.rs"), "www.google.com/");
+  assert.equal(
+    spoljniReferrer("https://l.facebook.com/l.php?u=https%3A%2F%2Ffulfilment.rs#x", "fulfilment.rs"),
+    "l.facebook.com/l.php",
+    "bez upita i heša",
+  );
+  assert.equal(spoljniReferrer("https://fulfilment.rs/softver?a=1", "fulfilment.rs"), "");
+  assert.equal(spoljniReferrer("https://www.fulfilment.rs/", "fulfilment.rs"), "");
+  assert.equal(spoljniReferrer("https://fulfilment.rs/", "www.fulfilment.rs"), "");
+  assert.equal(spoljniReferrer("", "fulfilment.rs"), "");
+  assert.equal(spoljniReferrer("nije adresa", "fulfilment.rs"), "");
+  assert.equal(spoljniReferrer("about:blank", "fulfilment.rs"), "");
+  assert.equal(spoljniReferrer(`https://primer.rs/${"a".repeat(500)}`, "fulfilment.rs").length, 300);
+});
+
+test("izvor: dolazak sa oznakom oglasa uvek preuzima zapis (važi poslednji označen klik), sa ulaznom stranom, spoljnim sajtom i vremenom", () => {
+  const { izracunajIzvor } = izvorLogika();
+  const stari = zapisIzvora({ fbclid: "fb-staro", landing: "/softver?fbclid=fb-staro" }, 5 * DAN);
+  const search = "?gclid=G-123&utm_source=google&utm_medium=cpc&utm_campaign=2301&utm_term=fulfilment&gad_source=1";
+  assert.deepEqual(
+    izRealma(
+      izracunajIzvor({ search, putanja: "/", referrer: "https://www.google.com/", host: "fulfilment.rs", sacuvano: stari, sada: SADA }),
+    ),
+    {
+      zapis: {
+        gclid: "G-123",
+        utm_source: "google",
+        utm_medium: "cpc",
+        utm_campaign: "2301",
+        utm_term: "fulfilment",
+        landing: `/${search}`,
+        referrer: "www.google.com/",
+        vreme: "2026-09-23T10:00:00.000Z",
+      },
+      upisi: true,
+    },
+  );
+  const dugacak = izRealma(
+    izracunajIzvor({ search: `?gclid=${"g".repeat(400)}`, putanja: "/", referrer: "", host: "fulfilment.rs", sacuvano: null, sada: SADA }),
+  );
+  assert.equal(dugacak.zapis.landing.length, 300, "ulazna strana sa upitom je skraćena");
+});
+
+test("izvor: poseta bez oznake čuva sačuvan zapis; spoljni sajt menja samo zapis bez oznake; bez zapisa važi ova poseta", () => {
+  const { izracunajIzvor } = izvorLogika();
+  const oglas = zapisIzvora({ gclid: "G-1", utm_source: "google", landing: "/?gclid=G-1" }, 3 * DAN);
+  const direktno = zapisIzvora({ landing: "/cena-fulfilmenta" }, 3 * DAN);
+  const unutra = { search: "", putanja: "/softver", referrer: "https://fulfilment.rs/", host: "fulfilment.rs", sada: SADA };
+  const spolja = { ...unutra, referrer: "https://www.google.com/" };
+  assert.deepEqual(izRealma(izracunajIzvor({ ...unutra, sacuvano: oglas })), { zapis: JSON.parse(oglas), upisi: false });
+  assert.deepEqual(
+    izRealma(izracunajIzvor({ ...spolja, sacuvano: oglas })),
+    { zapis: JSON.parse(oglas), upisi: false },
+    "spoljni sajt ne gazi klik sa oglasa",
+  );
+  assert.deepEqual(izRealma(izracunajIzvor({ ...spolja, sacuvano: direktno })), {
+    zapis: { landing: "/softver", referrer: "www.google.com/", vreme: "2026-09-23T10:00:00.000Z" },
+    upisi: true,
+  });
+  assert.deepEqual(izRealma(izracunajIzvor({ ...unutra, sacuvano: direktno })), { zapis: JSON.parse(direktno), upisi: false });
+  assert.deepEqual(izRealma(izracunajIzvor({ ...unutra, sacuvano: null })), {
+    zapis: { landing: "/softver", vreme: "2026-09-23T10:00:00.000Z" },
+    upisi: true,
+  });
+});
+
+test("izvor: zapis stariji od 90 dana, iz budućnosti, neispravan ili bez vremena se ne koristi; nepoznata polja se odbacuju", () => {
+  const { procitajIzvor, izracunajIzvor, ROK_MS, KLJUC } = izvorLogika();
+  assert.equal(KLJUC, "pakum_izvor");
+  assert.equal(ROK_MS, 90 * DAN);
+  const polja = { gclid: "G-1", utm_source: "google" };
+  assert.deepEqual(izRealma(procitajIzvor(zapisIzvora(polja, 89 * DAN), SADA)), JSON.parse(zapisIzvora(polja, 89 * DAN)));
+  assert.equal(procitajIzvor(zapisIzvora(polja, 90 * DAN), SADA), null);
+  assert.equal(procitajIzvor(zapisIzvora(polja, -2 * DAN), SADA), null);
+  assert.notEqual(procitajIzvor(zapisIzvora(polja, -60 * 1000), SADA), null, "sat pomeren za minut ne briše klik");
+  for (const los of [null, "", "{", "[]", "123", "\"tekst\"", "null", JSON.stringify(polja), JSON.stringify({ ...polja, vreme: "juče" })])
+    assert.equal(procitajIzvor(los, SADA), null, String(los));
+  const podmetnut = JSON.stringify({
+    gclid: ` ${"g".repeat(5000)} `,
+    utm_source: 42,
+    script: "<x>",
+    landing: "/\u0000a",
+    vreme: new Date(SADA).toISOString(),
+  });
+  assert.deepEqual(izRealma(procitajIzvor(podmetnut, SADA)), { gclid: "g".repeat(300), landing: "/a", vreme: "2026-09-23T10:00:00.000Z" });
+  assert.deepEqual(
+    izRealma(izracunajIzvor({ search: "", putanja: "/", referrer: "", host: "fulfilment.rs", sacuvano: zapisIzvora(polja, 91 * DAN), sada: SADA })),
+    { zapis: { landing: "/", vreme: "2026-09-23T10:00:00.000Z" }, upisi: true },
+    "istekao klik sa oglasa više ne važi",
+  );
+});
+
+test("izvor: telo za BizOMS = isti podaci + izvor; bez izvora ili preko granice funkcije pakum-lead ide isto telo kao za sus.rs", () => {
+  const { teloZaBizoms } = izvorLogika();
+  const data = { brend: "B", poruka: "P" };
+  const osnovno = JSON.stringify(data);
+  assert.equal(teloZaBizoms(data, {}, osnovno), osnovno);
+  assert.equal(teloZaBizoms(data, { vreme: "2026-09-23T10:00:00.000Z" }, osnovno), osnovno);
+  const izvor = { gclid: "G", landing: "/", vreme: "2026-09-23T10:00:00.000Z" };
+  assert.equal(teloZaBizoms(data, izvor, osnovno), JSON.stringify({ ...data, izvor }));
+  const velika = { brend: "B", poruka: "\"".repeat(9800) };
+  assert.equal(teloZaBizoms(velika, izvor, JSON.stringify(velika)), JSON.stringify(velika));
+});
+
+test("izvor: klik sa Google oglasa se pamti i stiže u BizOMS kopiju sve tri forme; telo za sus.rs je bajt za bajt isto kao bez izvora", async () => {
+  const bez = harness(async () => ({ ok: true }));
+  await bez.send();
+  await bez.sendPonuda();
+  await bez.sendPartner();
+  const osnovna = bez.calls.filter((poziv) => poziv.url !== BIZOMS_LEAD_URL).map((poziv) => poziv.options.body);
+  assert.equal(osnovna.length, 3);
+
+  const s = skladiste();
+  const search = "?gclid=G-777&utm_source=google&utm_medium=cpc&utm_campaign=2301&utm_term=fulfilment";
+  const h = harness(async () => ({ ok: true }), { pathname: "/", search, hostname: "fulfilment.rs" }, {
+    referrer: "https://www.google.com/",
+    localStorage: s,
+  });
+  const { vreme, ...sacuvan } = JSON.parse(s.podaci.pakum_izvor);
+  assert.deepEqual(sacuvan, {
+    gclid: "G-777",
+    utm_source: "google",
+    utm_medium: "cpc",
+    utm_campaign: "2301",
+    utm_term: "fulfilment",
+    landing: `/${search}`,
+    referrer: "www.google.com/",
+  });
+  assert.ok(Math.abs(Date.parse(vreme) - Date.now()) < 60000, "vreme je ISO trenutak posete");
+  await h.send();
+  await h.sendPonuda();
+  await h.sendPartner();
+  assert.equal(h.calls.length, 6);
+  for (let redni = 0; redni < 3; redni += 1) {
+    const primarni = h.calls[2 * redni];
+    const kopija = h.calls[2 * redni + 1];
+    assert.equal(primarni.url, "https://sus.rs/api/pakum/prijava");
+    assert.equal(primarni.options.body, osnovna[redni], "sus.rs telo nepromenjeno");
+    assert.doesNotMatch(primarni.options.body, /"izvor"|G-777/);
+    assert.equal(kopija.url, BIZOMS_LEAD_URL);
+    assert.equal(kopija.options.method, "POST");
+    assert.equal(kopija.options.keepalive, true);
+    assert.equal(kopija.options.headers["Content-Type"], "application/json");
+    assert.deepEqual(JSON.parse(kopija.options.body), {
+      ...JSON.parse(osnovna[redni]),
+      izvor: { ...sacuvan, vreme },
+    });
+  }
+  assert.deepEqual(h.navigations, ["/hvala/", "/hvala/", "/hvala/"]);
+});
+
+test("izvor: na sledećoj strani (interni klik, bez parametara) prijava i dalje nosi sačuvan klik sa oglasa, a engleska forma isto", async () => {
+  const pre = JSON.stringify({
+    gclid: "G-1",
+    utm_source: "google",
+    landing: "/?gclid=G-1",
+    vreme: new Date(Date.now() - 2 * DAN).toISOString(),
+  });
+  const s = skladiste({ pakum_izvor: pre });
+  let h = harness(async () => ({ ok: true }), { pathname: "/partnerski-program", search: "", hostname: "fulfilment.rs" }, {
+    referrer: "https://fulfilment.rs/",
+    localStorage: s,
+  });
+  assert.equal(s.podaci.pakum_izvor, pre, "zapis se ne dira");
+  await h.sendPartner();
+  assert.deepEqual(JSON.parse(h.calls[1].options.body).izvor, JSON.parse(pre));
+  h = harness(async () => ({ ok: true }), { pathname: "/en/", search: "", hostname: "fulfilment.rs" }, {
+    referrer: "https://fulfilment.rs/",
+    localStorage: s,
+  });
+  h.form.dataset = { thanks: "/en/thank-you/", lang: "en" };
+  await h.send();
+  assert.equal(JSON.parse(h.calls[0].options.body).brend, "EN: Čarobni brend");
+  assert.doesNotMatch(h.calls[0].options.body, /"izvor"/);
+  const kopija = JSON.parse(h.calls[1].options.body);
+  assert.equal(kopija.brend, "EN: Čarobni brend");
+  assert.deepEqual(kopija.izvor, JSON.parse(pre));
+  assert.deepEqual(h.navigations, ["/en/thank-you/"]);
+});
+
+test("izvor: blokiran ili pun localStorage ne smeta formi — kopija nosi izvor ove posete, sus.rs dobija isto telo", async () => {
+  const lokacija = { pathname: "/", search: "?utm_source=google&utm_medium=cpc", hostname: "fulfilment.rs" };
+  const baci = (poruka) => () => {
+    throw new Error(poruka);
+  };
+  const pokvareno = [
+    "blokirano",
+    { getItem: baci("SecurityError"), setItem: baci("SecurityError") },
+    { getItem: () => null, setItem: baci("QuotaExceededError") },
+  ];
+  for (const localStorage of pokvareno) {
+    const h = harness(async () => ({ ok: true }), lokacija, { referrer: "https://www.google.com/", localStorage });
+    await h.send();
+    assert.equal(h.calls.length, 2);
+    assert.doesNotMatch(h.calls[0].options.body, /"izvor"/);
+    const { vreme, ...izvor } = JSON.parse(h.calls[1].options.body).izvor;
+    assert.deepEqual(izvor, {
+      utm_source: "google",
+      utm_medium: "cpc",
+      landing: "/?utm_source=google&utm_medium=cpc",
+      referrer: "www.google.com/",
+    });
+    assert.ok(Number.isFinite(Date.parse(vreme)));
+    assert.deepEqual(h.navigations, ["/hvala/"]);
+  }
 });
