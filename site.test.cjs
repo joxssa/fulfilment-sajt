@@ -119,6 +119,12 @@ test("FAQ schema matches visible questions and answers, and unsupported public p
       html,
       /400\.000|2\.000 m²|30\.000|48h|48 sati|fizički ne može|uvek jednako/,
     );
+    // Lazar 22.09 i 24.09: u cenu je uključena SAMO kurirska kesa — kutija, streč, bubble folija i punjenje nisu.
+    assert.doesNotMatch(
+      html,
+      /[Zz]aštitna ambalaža je uključena|streč i bubble folija su uključeni|kutiju sa zaštitom primerenom|standardnu ambalažu|standardnu ili vašu/,
+      `${file}: ambalaža predstavljena kao uključena`,
+    );
     const questions = [
       ...html.matchAll(
         /<details[^>]*>\s*<summary>([\s\S]*?)<\/summary>\s*<p>([\s\S]*?)<\/p>\s*<\/details>/g,
@@ -817,6 +823,8 @@ test("engleski FAQ odgovara šemi, forma na /en/ koristi isti kontrakt i vodi na
   const clean = (text) => text.replace(/<[^>]+>/g, "").replace(/\s+/g, " ").trim();
   for (const file of enPages) {
     const html = read(file);
+    // Lazar 22.09 i 24.09: u cenu je uključena SAMO kurirska kesa.
+    assert.doesNotMatch(html, /Protective material is included|stretch and bubble wrap are included|our standard packaging/, `${file}: packaging presented as included`);
     const questions = [...html.matchAll(/<details[^>]*>\s*<summary>([\s\S]*?)<\/summary>\s*<p>([\s\S]*?)<\/p>\s*<\/details>/g)].map((m) => [clean(m[1]), clean(m[2])]);
     for (const script of html.matchAll(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/g)) {
       const json = JSON.parse(script[1]);
@@ -1675,4 +1683,37 @@ test("izvor: blokiran ili pun localStorage ne smeta formi — kopija nosi izvor 
     assert.ok(Number.isFinite(Date.parse(vreme)));
     assert.deepEqual(h.navigations, ["/hvala/"]);
   }
+});
+
+// ---- 24.09.2026: politika privatnosti (sr + en) — futer svake strane, napomena uz svaku formu, sitemap i llms.txt ----
+
+test("politika privatnosti: link u futeru svake strane, napomena uz svaku formu, sitemap i llms.txt", () => {
+  assert.equal(fs.existsSync(path.join(__dirname, "politika-privatnosti.html")), true);
+  assert.equal(fs.existsSync(path.join(__dirname, "en/privacy-policy.html")), true);
+  for (const file of [...pages, ...enPages]) {
+    const html = read(file);
+    if (!html.includes("<footer")) continue;
+    const link = file.startsWith("en/")
+      ? '<li><a href="/en/privacy-policy">Privacy policy</a></li>'
+      : '<li><a href="/politika-privatnosti">Politika privatnosti</a></li>';
+    assert.equal(html.split(link).length - 1, 1, `${file}: link na politiku u futeru`);
+  }
+  for (const file of [...pages, ...enPages]) {
+    const html = read(file);
+    for (const form of html.matchAll(/<form\b[\s\S]*?<\/form>/g)) {
+      const target = file.startsWith("en/") ? "/en/privacy-policy" : "/politika-privatnosti";
+      assert.match(form[0], new RegExp(`<p class="hint">[^<]*<a href="${target}"[^>]*>`), `${file}: napomena uz formu`);
+    }
+  }
+  const sitemap = read("sitemap.xml");
+  assert.match(sitemap, /<loc>https:\/\/fulfilment\.rs\/politika-privatnosti<\/loc>/);
+  assert.match(sitemap, /<loc>https:\/\/fulfilment\.rs\/en\/privacy-policy<\/loc>/);
+  assert.match(read("llms.txt"), /\(https:\/\/fulfilment\.rs\/politika-privatnosti\)/);
+  // strana za telefon: tabela u omotaču koji se pomera vodoravno
+  for (const file of ["politika-privatnosti.html", "en/privacy-policy.html"]) {
+    const html = read(file);
+    assert.equal((html.match(/<table>/g) || []).length, (html.match(/<div class="tabela-wrap">\s*<table>/g) || []).length, `${file}: tabela u omotaču`);
+    assert.match(html, /<div class="pravni-tekst">/, file);
+  }
+  assert.match(read("tema.css"), /\.pravni-tekst ul \{[^}]*list-style: disc/);
 });

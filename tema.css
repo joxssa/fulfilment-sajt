@@ -1594,3 +1594,24 @@ body:has(form:focus-within) .mobile-contact-bar { visibility: hidden; pointer-ev
 #rok-slanja, #dispatch-cutoff { padding-top: 40px; }
 .screen-points { max-width: none; }
 .kicker, .contact-copy .kicker { color: var(--signal-deep); }
+
+/* 24.09.2026 — politika privatnosti (/politika-privatnosti, /en/privacy-policy): dug pravni tekst u užem stubcu,
+   manji naslovi odeljaka, liste sa tačkama (globalni reset briše padding), dugi linkovi se lome na telefonu. */
+.pravni-tekst { max-width: 820px; margin: 0 auto; }
+.pravni-tekst > * + * { margin-top: 16px; }
+.pravni-tekst h2 { font-size: clamp(22px, 2.6vw, 28px); line-height: 1.25; margin-top: 48px; }
+.pravni-tekst h2 + * { margin-top: 12px; }
+.pravni-tekst p, .pravni-tekst li { font-size: 17px; line-height: 1.75; color: var(--body); }
+.pravni-tekst ul { list-style: disc; padding-left: 1.3rem; }
+.pravni-tekst li + li { margin-top: 8px; }
+.pravni-tekst li::marker { color: var(--signal); }
+.pravni-tekst strong { color: var(--ink); }
+.pravni-tekst a { overflow-wrap: anywhere; }
+@media (max-width: 640px) { .pravni-tekst .tabela-wrap table { min-width: 0; } }
+.pravni-tekst .tabela-wrap { margin-top: 20px; margin-bottom: 4px; }
+.pravni-tekst .tabela-wrap td { font-size: 15px; line-height: 1.6; }
+@media (max-width: 640px) {
+  .pravni-tekst p, .pravni-tekst li { font-size: 16px; line-height: 1.7; }
+  .pravni-tekst h2 { margin-top: 36px; }
+  .pravni-tekst .tabela-wrap td { font-size: 14px; }
+}

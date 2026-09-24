@@ -1,6 +1,6 @@
 # PAKUM
 
-> PAKUM je fulfilment (fulfillment) centar u Srbiji za online prodavnice: prijem robe (verifikacija, barkodiranje), skladištenje, pakovanje (pick and pack sa kontrolom artikla skeniranjem, brendirana ili klijentova ambalaža, flajeri, zahvalnice), slanje kroz sve kurire uz jedan ugovor i jedan obračun, slanje pouzećem sa naplatom otkupnine, fiskalni račun uz svaku pošiljku, isplata otkupnine, obrada povrata i reklamacija. Uz uslugu dolazi softver TopOMS. Sajt: https://fulfilment.rs. Kontakt: info@pakum.rs. Pravno lice: PAKUM DOO NIŠ, PIB 115952498, matični broj 22332040. Potpis: PAKUM DOO NIŠ. Moto: "Pakujemo kao za sebe." Slogan: "Vi prodajete. Mi pakujemo i šaljemo."
+> PAKUM je fulfilment (fulfillment) centar u Srbiji za online prodavnice: prijem robe (verifikacija, barkodiranje), skladištenje, pakovanje (pick and pack sa kontrolom artikla skeniranjem, brendirana ili klijentova ambalaža, flajeri, zahvalnice; u cenu je uključena samo kurirska kesa, a kutija, streč, bubble folija i punjenje dogovaraju se u ponudi), slanje kroz sve kurire uz jedan ugovor i jedan obračun, slanje pouzećem sa naplatom otkupnine, fiskalni račun uz svaku pošiljku, isplata otkupnine, obrada povrata i reklamacija. Uz uslugu dolazi softver TopOMS. Sajt: https://fulfilment.rs. Kontakt: info@pakum.rs. Pravno lice: PAKUM DOO NIŠ, PIB 115952498, matični broj 22332040. Potpis: PAKUM DOO NIŠ. Moto: "Pakujemo kao za sebe." Slogan: "Vi prodajete. Mi pakujemo i šaljemo."
 
 PAKUM je nastao iz sopstvene e-commerce prodaje: isti tim, magacin i softver koriste se za sopstvene brendove (TVTop, Maleni, ShopeX, NaKlik, HIR, Plantigo, Rabito, ReGen pro, Solea, Kupina) i za klijente. Područje rada: Srbija (adresa magacina nije javno objavljena). Cena zavisi od broja paketa, asortimana, prostora i usluga; nema javnog cenovnika; ponuda navodi svaku stavku, jedinicu obračuna, PDV, rok važenja i uslove plaćanja. Početak saradnje: dogovor usluga, povezivanje prodavnice, prijem robe, slanje.
 
@@ -9,7 +9,7 @@ Softver TopOMS (uključen u fulfilment za klijente): živo stanje zaliha po proi
 ## Usluge
 
 - [Skladištenje robe za online prodavnice](https://fulfilment.rs/skladistenje-robe): prijem sa verifikacijom, barkodiranje, živo stanje zaliha, obračun po zauzetom prostoru
-- [Pakovanje i slanje paketa](https://fulfilment.rs/pakovanje-paketa): pick and pack, kontrola artikla skeniranjem, brendirana ili klijentova ambalaža, flajeri i zahvalnice, svi kuriri kroz jedan ugovor
+- [Pakovanje i slanje paketa](https://fulfilment.rs/pakovanje-paketa): pick and pack, kontrola artikla skeniranjem, kurirska kesa uključena u cenu (kutija i zaštita po ponudi), brendirana ili klijentova ambalaža, flajeri i zahvalnice, svi kuriri kroz jedan ugovor
 - [Slanje pouzećem](https://fulfilment.rs/slanje-pouzecem): naplata otkupnine, fiskalni račun uz svaku pošiljku, isplata otkupnine po obračunu, označavanje kupaca koji odbijaju pakete
 - [Povrati i reklamacije](https://fulfilment.rs/povrati-i-reklamacije): prijem vraćenog paketa, pregled, evidencija po razlogu, vraćanje na stanje
 - [Cena fulfilmenta](https://fulfilment.rs/cena-fulfilmenta): od čega zavisi cena, jedinice obračuna, šta sadrži ponuda, zašto nema javnog cenovnika
@@ -24,12 +24,14 @@ Softver TopOMS (uključen u fulfilment za klijente): živo stanje zaliha po proi
 
 - [Šta je fulfilment](https://fulfilment.rs/sta-je-fulfilment): definicija, kako radi fulfilment centar u 6 koraka, razlika od skladišta i 3PL, rečnik pojmova
 - [O nama](https://fulfilment.rs/o-nama): nastanak iz sopstvene prodaje, brendovi, pravno lice, kontakt
+- [Politika privatnosti](https://fulfilment.rs/politika-privatnosti): koje podatke sajt prikuplja (forme, izvor posete, Google tag i remarketing), kome ih dostavlja, koliko ih čuva i koja prava imate; rukovalac PAKUM DOO NIŠ, zahtevi na info@pakum.rs
 
 ## English version
 
 - [Fulfilment centre in Serbia (English)](https://fulfilment.rs/en/): English pages for brands from the region and abroad that want to sell to Serbian customers with local stock, cash on delivery and fiscal receipts; services, pricing, software, Shopify and WooCommerce, dropshipping, about
 - [Fulfilment in Serbia: guide for European brands](https://fulfilment.rs/en/fulfilment-serbia-guide): customs and VAT when moving stock to Serbia, fiscal receipts, consumer withdrawal right, domestic couriers, cash on delivery, localisation
 - [Selling in Serbia from abroad](https://fulfilment.rs/en/fulfilment-serbia-for-foreign-brands): market-entry fulfilment (3PL) for foreign brands
+- [Privacy policy (English)](https://fulfilment.rs/en/privacy-policy): what data the website collects, who receives it, how long it is kept and your rights
 
 ## Optional
 
