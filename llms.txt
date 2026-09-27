@@ -10,6 +10,7 @@ Softver TopOMS (uključen u fulfilment za klijente): živo stanje zaliha po proi
 
 - [Skladištenje robe za online prodavnice](https://fulfilment.rs/skladistenje-robe): prijem sa verifikacijom, barkodiranje, živo stanje zaliha, obračun po zauzetom prostoru
 - [Pakovanje i slanje paketa](https://fulfilment.rs/pakovanje-paketa): pick and pack, kontrola artikla skeniranjem, kurirska kesa uključena u cenu (kutija i zaštita po ponudi), brendirana ili klijentova ambalaža, flajeri i zahvalnice, svi kuriri kroz jedan ugovor
+- [Slanje paketa za online prodavnice i firme](https://fulfilment.rs/slanje-paketa): predaja kurirskim službama kroz jedan ugovor i jedan obračun po pošiljci, red za slanje (potvrđeno do 17 h ulazi u red za slanje tog dana, pakovanje u dve smene do 17:30), praćenje statusa u softveru, pouzeće (otkupninu naplaćuje kurir) i obrada povrata
 - [Slanje pouzećem](https://fulfilment.rs/slanje-pouzecem): naplata otkupnine, fiskalni račun uz svaku pošiljku, isplata otkupnine po obračunu, označavanje kupaca koji odbijaju pakete
 - [Povrati i reklamacije](https://fulfilment.rs/povrati-i-reklamacije): prijem vraćenog paketa, pregled, evidencija po razlogu, vraćanje na stanje
 - [Cena fulfilmenta](https://fulfilment.rs/cena-fulfilmenta): od čega zavisi cena, jedinice obračuna, šta sadrži ponuda, zašto nema javnog cenovnika

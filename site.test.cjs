@@ -1717,3 +1717,41 @@ test("politika privatnosti: link u futeru svake strane, napomena uz svaku formu,
   }
   assert.match(read("tema.css"), /\.pravni-tekst ul \{[^}]*list-style: disc/);
 });
+
+// ---- 2026-09: strana /slanje-paketa (B2B „slanje paketa za online prodavnice i firme“) ----
+
+test("strana /slanje-paketa je povezana iz footera, naslovne, sitemapa i llms.txt i drži pravila o roku, pouzeću, ambalaži i kuririma", () => {
+  assert.equal(fs.existsSync(path.join(__dirname, "slanje-paketa.html")), true);
+  assert.match(read("sitemap.xml"), /<loc>https:\/\/fulfilment\.rs\/slanje-paketa<\/loc>/);
+  assert.match(read("llms.txt"), /\(https:\/\/fulfilment\.rs\/slanje-paketa\)/);
+  assert.match(read("index.html"), /<a href="\/slanje-paketa">/);
+  for (const file of pages) {
+    const html = read(file);
+    if (!html.includes("<footer")) continue;
+    assert.match(html, /<li><a href="\/slanje-paketa">Slanje paketa za online prodavnice<\/a><\/li>/, file);
+  }
+  const page = read("slanje-paketa.html");
+  for (const id of ["za-firme", "kako-radi", "red-za-slanje", "kurirski-ugovor", "pokrivenost", "pracenje", "pouzece", "povrati", "obim", "cena", "pitanja"])
+    assert.match(page, new RegExp(`id="${id}"`), `sidro #${id}`);
+  // rok: red za slanje, ne obećanje (pravilo 3)
+  assert.match(page, /Radimo po redu, ne po obećanju\./);
+  assert.match(page, /ulazi u red za slanje tog dana/);
+  // pouzeće: otkupninu naplaćuje kurir (pravilo 6)
+  assert.match(page, /predaje je kuriru koji naplaćuje otkupninu/);
+  assert.match(page, /Otkupninu naplaćuje kurir\./);
+  // ambalaža: uključena samo kurirska kesa (pravilo 4)
+  assert.match(page, /U cenu je uključena samo kurirska kesa/);
+  // CTA vodi na formu na naslovnoj (pravilo 10)
+  for (const m of page.matchAll(/<a class="btn btn-primary[^"]*" href="([^"]+)"/g)) assert.equal(m[1].startsWith("/#"), true, m[1]);
+  assert.doesNotMatch(
+    page,
+    /istog dana|istog popodneva|ide danas|naplaćujemo otkupninu|PAKUM naplaćuje|sve uključeno|jedna cena|bez naplate po stavkama|javni? cenovnik je|lokalni partner|velikog pošiljaoca|slanjepaketa|Slanje Paketa DOO|bizonline/i,
+  );
+  assert.doesNotMatch(page, /\b(BEX|AKS|Post Express|D Express|City Express|DHL|GLS|Pošta Srbije)\b/, "imena kurira se ne navode");
+});
+
+test("nijedna indeksirana srpska strana ne obećava slanje istog dana (Lazar 18.09: red za slanje, ne garancija)", () => {
+  for (const file of pages.filter((f) => !/noindex/.test(read(f)))) {
+    assert.doesNotMatch(read(file), /Stiglo do 17:30|šaljemo istog dana|predaje kuriru istog dana|poslato istog dana|ide danas/i, file);
+  }
+});
