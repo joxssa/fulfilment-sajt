@@ -1366,7 +1366,7 @@ test("ime vlasnika, autor i datum ažuriranja se ne pojavljuju nigde na sajtu", 
 test("snimci softvera stoje na naslovnoj i na /softver (sr i en), integracije imaju logoe, a segmenti softvera imaju skice", () => {
   for (const file of ["index.html", "softver.html", "en/index.html", "en/software.html"]) {
     const html = read(file);
-    for (const image of ["topoms-lista-porudzbina-fulfilment", "topoms-mobilna-aplikacija-fulfilment", "topoms-povrati-reklamacije-fulfilment"])
+    for (const image of ["topoms-narudzbine-pregled-fulfilment", "topoms-lager-stanje-fulfilment", "topoms-mobilna-aplikacija-fulfilment"])
       assert.match(html, new RegExp(`/images/${image}-1400\.webp`), `${file}: ${image}`);
     assert.match(html, /<div class="screens">/, `${file}: .screens`);
   }
