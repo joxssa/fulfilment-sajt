@@ -1,0 +1,367 @@
+/* PAKUM — animacije (2026-10-11)
+   1) ulazak naslovne i otkrivanje sekcija pri skrolu
+   2) „pakovanje zahteva": kad se forma pošalje, uneti podaci se spakuju u kutiju,
+      kutija se zalepi, dobije nalepnicu i otputuje — pa tek onda ide stranica hvala.
+   Sve poštuje prefers-reduced-motion i radi od 320px naviše. */
+
+/* ─────────────────────────────  1. ULAZAK I OTKRIVANJE  ───────────────────────────── */
+
+.an-ulaz {
+  opacity: 0;
+  transform: translate3d(0, 14px, 0);
+  will-change: opacity, transform;
+}
+.an-ulaz.an-vidi {
+  opacity: 1;
+  transform: none;
+  transition:
+    opacity 0.62s var(--ease, cubic-bezier(0.2, 0.7, 0.2, 1)),
+    transform 0.62s var(--ease, cubic-bezier(0.2, 0.7, 0.2, 1));
+}
+
+/* hero: stepenasto, odmah po učitavanju */
+.hero .an-ulaz.an-vidi {
+  transition-duration: 0.72s;
+}
+
+/* traka poverenja i kartice ulaze malo kasnije od naslova */
+.an-ulaz[data-an-kasni="1"].an-vidi { transition-delay: 0.08s; }
+.an-ulaz[data-an-kasni="2"].an-vidi { transition-delay: 0.16s; }
+.an-ulaz[data-an-kasni="3"].an-vidi { transition-delay: 0.24s; }
+.an-ulaz[data-an-kasni="4"].an-vidi { transition-delay: 0.32s; }
+.an-ulaz[data-an-kasni="5"].an-vidi { transition-delay: 0.4s; }
+
+/* ─────────────────────────────  2. PAKOVANJE ZAHTEVA  ───────────────────────────── */
+
+.pakovanje {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  display: grid;
+  place-items: center;
+  padding: 24px 16px;
+  background: rgba(14, 15, 17, 0.9);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+}
+@supports (backdrop-filter: blur(6px)) {
+  .pakovanje { backdrop-filter: blur(6px); }
+}
+.pakovanje[data-otvoreno="1"] {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.pakovanje-scena {
+  position: relative;
+  width: min(320px, 82vw);
+  height: min(320px, 82vw);
+  perspective: 900px;
+  transform: translate3d(0, 10px, 0) scale(0.96);
+  opacity: 0;
+  transition:
+    transform 0.45s var(--ease, cubic-bezier(0.2, 0.7, 0.2, 1)),
+    opacity 0.45s ease;
+}
+.pakovanje[data-otvoreno="1"] .pakovanje-scena {
+  transform: none;
+  opacity: 1;
+}
+
+/* papirići sa unetim podacima */
+.pakovanje-papir {
+  position: absolute;
+  left: calc(50% + var(--pom, 0px));
+  top: 38%;
+  min-width: 112px;
+  max-width: 74%;
+  padding: 7px 11px;
+  border-radius: 7px;
+  background: #fffdf8;
+  color: #2a2f36;
+  font-size: 12px;
+  line-height: 1.25;
+  font-weight: 650;
+  text-align: left;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  box-shadow: 0 10px 22px rgba(0, 0, 0, 0.3);
+  transform: translate3d(-50%, -112px, 0) rotate(var(--rot, -5deg));
+  opacity: 0;
+}
+.pakovanje-papir b {
+  display: block;
+  font-size: 9px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #9aa3ad;
+  font-weight: 700;
+}
+.pakovanje[data-faza="pakuje"] .pakovanje-papir,
+.pakovanje[data-faza="lepi"] .pakovanje-papir,
+.pakovanje[data-faza="nalepnica"] .pakovanje-papir,
+.pakovanje[data-faza="salje"] .pakovanje-papir {
+  animation: papir-u-kutiju 0.62s cubic-bezier(0.45, 0.05, 0.6, 1) both;
+  animation-delay: var(--kasni, 0s);
+}
+@keyframes papir-u-kutiju {
+  0% { transform: translate3d(-50%, -112px, 0) rotate(var(--rot, -5deg)) scale(1); opacity: 0; }
+  18% { opacity: 1; }
+  72% { transform: translate3d(-50%, -14px, 0) rotate(calc(var(--rot, -5deg) * 0.35)) scale(0.92); opacity: 1; }
+  100% { transform: translate3d(-50%, 16px, 0) rotate(0deg) scale(0.58); opacity: 0; }
+}
+
+/* kutija */
+.pakovanje-kutija {
+  position: absolute;
+  left: 50%;
+  bottom: 14%;
+  width: 62%;
+  height: 46%;
+  transform: translateX(-50%);
+  transform-style: preserve-3d;
+}
+.pakovanje-telo {
+  position: absolute;
+  inset: 0;
+  border-radius: 6px;
+  background: linear-gradient(170deg, #d4a06a 0%, #c2874c 42%, #ab6f38 100%);
+  box-shadow:
+    inset 0 2px 0 rgba(255, 255, 255, 0.28),
+    inset 0 -10px 22px rgba(0, 0, 0, 0.16),
+    0 24px 44px rgba(0, 0, 0, 0.42);
+}
+/* tamni otvor kutije — vidi se dok su preklopci otvoreni, papiri upadaju u njega */
+.pakovanje-telo::before {
+  content: "";
+  position: absolute;
+  left: 3%;
+  right: 3%;
+  top: -3%;
+  height: 17%;
+  border-radius: 5px 5px 12px 12px;
+  background: linear-gradient(180deg, #3a2412 0%, #58391d 70%, #6b4625 100%);
+  box-shadow: inset 0 7px 12px rgba(0, 0, 0, 0.55);
+}
+/* senka ivice prednje strane */
+.pakovanje-telo::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 13%;
+  height: 3px;
+  background: rgba(0, 0, 0, 0.2);
+}
+
+/* dva poklopca koja se zatvaraju */
+.pakovanje-krilo {
+  position: absolute;
+  top: -1%;
+  width: 50.5%;
+  height: 20%;
+  background: linear-gradient(180deg, #e8bd8b, #cf9458 70%, #bb8047);
+  transform-origin: top center;
+  /* perspektiva ide na sam element — roditelj je ne prosleđuje unucima */
+  transform: perspective(620px) rotateX(-112deg);
+  box-shadow: 0 7px 16px rgba(0, 0, 0, 0.3);
+}
+.pakovanje-krilo.levo {
+  left: 0;
+  border-radius: 4px 0 0 2px;
+  border-right: 1px solid rgba(0, 0, 0, 0.12);
+}
+.pakovanje-krilo.desno {
+  right: 0;
+  border-radius: 0 4px 2px 0;
+}
+.pakovanje[data-faza="lepi"] .pakovanje-krilo,
+.pakovanje[data-faza="nalepnica"] .pakovanje-krilo,
+.pakovanje[data-faza="salje"] .pakovanje-krilo {
+  transform: perspective(620px) rotateX(0deg);
+  transition: transform 0.4s var(--ease, cubic-bezier(0.2, 0.7, 0.2, 1));
+}
+.pakovanje[data-faza="lepi"] .pakovanje-krilo.desno,
+.pakovanje[data-faza="nalepnica"] .pakovanje-krilo.desno,
+.pakovanje[data-faza="salje"] .pakovanje-krilo.desno {
+  transition-delay: 0.08s;
+}
+
+/* selotejp */
+.pakovanje-traka {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 22%;
+  height: 11%;
+  background: linear-gradient(180deg, rgba(255, 214, 160, 0.95), rgba(240, 188, 122, 0.95));
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.18);
+  transform: scaleX(0);
+  transform-origin: left center;
+}
+.pakovanje[data-faza="nalepnica"] .pakovanje-traka,
+.pakovanje[data-faza="salje"] .pakovanje-traka {
+  transform: scaleX(1);
+  transition: transform 0.34s cubic-bezier(0.3, 0.9, 0.3, 1);
+}
+
+/* nalepnica sa imenom brenda */
+.pakovanje-nalepnica {
+  position: absolute;
+  left: 13%;
+  top: 40%;
+  width: 74%;
+  padding: 7px 9px 8px;
+  border-radius: 4px;
+  background: #fffdf8;
+  color: #16181c;
+  text-align: left;
+  box-shadow: 0 8px 18px rgba(0, 0, 0, 0.26);
+  opacity: 0;
+  transform: scale(1.5) rotate(-8deg);
+}
+.pakovanje-nalepnica span {
+  display: block;
+  font-size: 9px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: #8b949d;
+  font-weight: 700;
+}
+.pakovanje-nalepnica strong {
+  display: block;
+  font-size: 13px;
+  line-height: 1.2;
+  font-weight: 800;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.pakovanje-barkod {
+  display: flex;
+  gap: 2px;
+  margin-top: 5px;
+  height: 14px;
+  align-items: stretch;
+}
+.pakovanje-barkod i {
+  display: block;
+  background: #16181c;
+  border-radius: 1px;
+}
+.pakovanje[data-faza="nalepnica"] .pakovanje-nalepnica,
+.pakovanje[data-faza="salje"] .pakovanje-nalepnica {
+  opacity: 1;
+  transform: scale(1) rotate(-2deg);
+  transition:
+    opacity 0.16s ease,
+    transform 0.3s cubic-bezier(0.2, 1.5, 0.4, 1);
+}
+
+/* odlazak paketa */
+.pakovanje[data-faza="salje"] .pakovanje-kutija {
+  animation: kutija-odlazi 0.72s cubic-bezier(0.5, 0, 0.75, 0) 0.22s both;
+}
+@keyframes kutija-odlazi {
+  0% { transform: translateX(-50%) translate3d(0, 0, 0) rotate(0deg); }
+  28% { transform: translateX(-50%) translate3d(-7%, -4%, 0) rotate(-3deg); }
+  100% { transform: translateX(-50%) translate3d(190%, 6%, 0) rotate(7deg); opacity: 0; }
+}
+
+/* linije brzine */
+.pakovanje-brzina {
+  position: absolute;
+  left: 4%;
+  bottom: 30%;
+  width: 92%;
+  height: 26%;
+  opacity: 0;
+}
+.pakovanje-brzina i {
+  position: absolute;
+  left: 0;
+  height: 3px;
+  border-radius: 3px;
+  background: rgba(255, 255, 255, 0.5);
+  transform: scaleX(0);
+  transform-origin: right center;
+}
+.pakovanje-brzina i:nth-child(1) { top: 16%; width: 46%; }
+.pakovanje-brzina i:nth-child(2) { top: 46%; width: 66%; }
+.pakovanje-brzina i:nth-child(3) { top: 76%; width: 36%; }
+.pakovanje[data-faza="salje"] .pakovanje-brzina { opacity: 1; }
+.pakovanje[data-faza="salje"] .pakovanje-brzina i {
+  animation: brzina 0.5s ease-out 0.3s both;
+}
+.pakovanje-brzina i:nth-child(2) { animation-delay: 0.36s !important; }
+.pakovanje-brzina i:nth-child(3) { animation-delay: 0.42s !important; }
+@keyframes brzina {
+  0% { transform: scaleX(0); opacity: 0; }
+  40% { transform: scaleX(1); opacity: 1; }
+  100% { transform: scaleX(0); opacity: 0; transform-origin: left center; }
+}
+
+/* traka ispod kutije */
+.pakovanje-podloga {
+  position: absolute;
+  left: 8%;
+  right: 8%;
+  bottom: 11%;
+  height: 10px;
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.1);
+  box-shadow: 0 10px 26px rgba(0, 0, 0, 0.35);
+}
+
+/* status ispod scene */
+.pakovanje-tekst {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -14%;
+  text-align: center;
+  color: #fff;
+  font-size: 15px;
+  font-weight: 700;
+  letter-spacing: 0.01em;
+  text-wrap: balance;
+}
+.pakovanje-tekst small {
+  display: block;
+  margin-top: 4px;
+  font-size: 12px;
+  font-weight: 500;
+  color: rgba(255, 255, 255, 0.72);
+}
+
+/* ─────────────────────────────  3. BEZ ANIMACIJA  ───────────────────────────── */
+
+@media (prefers-reduced-motion: reduce) {
+  .an-ulaz,
+  .an-ulaz.an-vidi {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
+  }
+  .pakovanje,
+  .pakovanje * {
+    animation: none !important;
+    transition: none !important;
+  }
+}
+
+/* ─────────────  4. ŽIVA POZADINA HEROJA  ─────────────
+   Jedan spor zum pri učitavanju — daje život bez vrtenja u krug. */
+.hero .hero-bg img {
+  animation: hero-zum 16s cubic-bezier(0.15, 0.6, 0.25, 1) both;
+  transform-origin: 54% 42%;
+}
+@keyframes hero-zum {
+  from { transform: scale(1.085); }
+  to { transform: scale(1); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .hero .hero-bg img { animation: none !important; transform: none !important; }
+}

@@ -289,6 +289,18 @@
       submit.textContent = "Šaljemo zahtev…";
       status.textContent = "Slanje je u toku.";
       fallback.hidden = true;
+      // Animacija pakovanja (animacije.js). Ukras — nikad ne sme da obori slanje,
+      // pa je svaki poziv u try/catch i radi samo ako je skript učitan.
+      /** @type {{ pokreni?: (d: Record<string, string>) => void, uspeh?: () => Promise<void>, greska?: () => void } | null} */
+      const paket =
+        typeof window !== "undefined" ? /** @type {any} */ (window).PakumPaket || null : null;
+      if (paket && typeof paket.pokreni === "function") {
+        try {
+          paket.pokreni(data);
+        } catch {
+          /* bez animacije, slanje ide dalje */
+        }
+      }
       const controller = new AbortController();
       const timeout = setTimeout(() => controller.abort(), 15000);
       try {
@@ -308,9 +320,24 @@
         }
         const response = await primary;
         if (!response.ok) throw new Error("Slanje nije potvrđeno");
+        // Paket „odlazi" pa tek onda otvaramo potvrdu; bez animacije je trenutno.
+        if (paket && typeof paket.uspeh === "function") {
+          try {
+            await paket.uspeh();
+          } catch {
+            /* animacija nije uspela — potvrda svejedno ide */
+          }
+        }
         // Engleska verzija forme nosi data-thanks="/en/thank-you/".
         window.location.assign((form.dataset && form.dataset.thanks) || "/hvala/");
       } catch {
+        if (paket && typeof paket.greska === "function") {
+          try {
+            paket.greska();
+          } catch {
+            /* sloj će nestati sa stranicom */
+          }
+        }
         status.textContent =
           "Nismo dobili potvrdu da je zahtev primljen. Podaci su sačuvani u formi. Pokušajte ponovo ili ih pošaljite emailom.";
         fallback.href = `mailto:info@pakum.rs?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(lines.join("\n"))}`;
