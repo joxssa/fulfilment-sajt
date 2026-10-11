@@ -365,3 +365,88 @@
 @media (prefers-reduced-motion: reduce) {
   .hero .hero-bg img { animation: none !important; transform: none !important; }
 }
+
+/* ─────────────  5. PUT PORUDŽBINE (animirani tok)  ─────────────
+   Prodavnica → TopOMS → Magacin → Kurir → Kupac. Paket putuje stazom i pali
+   stanicu po stanicu. Ciklus 12,5 s. Mobilni: uspravno, desktop: vodoravno. */
+
+.tok-sekcija { padding: 46px 0 50px; background: var(--paper, #f6f5f2); }
+.tok-sekcija h2 { margin-bottom: 6px; }
+.tok-sekcija .tok-uvod { color: var(--body, #4a525c); margin-bottom: 26px; max-width: 54ch; }
+
+.tok { list-style: none; margin: 0; padding: 0; position: relative; display: grid; gap: 14px; }
+.tok::before {
+  content: "";
+  position: absolute;
+  left: 21px; top: 10px; bottom: 10px; width: 2px;
+  background: linear-gradient(180deg, #e2e0db, #e2e0db);
+  border-radius: 2px;
+}
+.tok-paket {
+  position: absolute;
+  left: 13px; top: 0;
+  width: 18px; height: 18px;
+  border-radius: 5px;
+  background: linear-gradient(165deg, #e0a96c, #c4854a);
+  box-shadow: 0 4px 10px rgba(184, 74, 0, 0.35), inset 0 1px 0 rgba(255, 255, 255, 0.4);
+  z-index: 2;
+}
+.tok-paket::after {
+  content: "";
+  position: absolute; left: 0; right: 0; top: 7px; height: 3px;
+  background: rgba(255, 236, 214, 0.9);
+}
+
+.tok-korak {
+  position: relative;
+  display: grid;
+  grid-template-columns: 44px 1fr;
+  gap: 12px;
+  align-items: start;
+  padding: 12px 14px 12px 0;
+  border-radius: 14px;
+  background: transparent;
+  transition: background 0.4s ease;
+}
+.tok-tacka {
+  width: 44px; height: 44px;
+  border-radius: 13px;
+  display: grid; place-items: center;
+  background: #fff;
+  border: 1px solid var(--line, #e6e8eb);
+  color: #9aa2ab;
+  position: relative; z-index: 1;
+  transition: color 0.35s ease, border-color 0.35s ease, box-shadow 0.35s ease, transform 0.35s ease;
+}
+.tok-tacka svg { width: 21px; height: 21px; }
+.tok-korak strong { display: block; font-size: 1rem; line-height: 1.3; }
+.tok-korak span { display: block; color: var(--body, #4a525c); font-size: 0.92rem; margin-top: 2px; }
+.tok-korak em {
+  font-style: normal; font-size: 0.72rem; font-weight: 800; letter-spacing: 0.1em;
+  text-transform: uppercase; color: #a7aeb6; display: block; margin-bottom: 1px;
+  transition: color 0.35s ease;
+}
+
+/* stanica je upaljena dok paket prolazi */
+.tok-korak.je-tu .tok-tacka {
+  color: #fff;
+  background: var(--signal, #fd6904);
+  border-color: var(--signal, #fd6904);
+  box-shadow: 0 8px 20px rgba(253, 105, 4, 0.3);
+  transform: translateY(-2px) scale(1.04);
+}
+.tok-korak.je-tu em { color: var(--signal-dark, #e35a00); }
+.tok-korak.je-tu { background: #fff; box-shadow: 0 10px 28px rgba(15, 17, 20, 0.06); }
+
+@media (min-width: 860px) {
+  .tok { grid-template-columns: repeat(5, 1fr); gap: 10px; }
+  .tok::before { left: 10%; right: 10%; top: 36px; bottom: auto; width: auto; height: 2px; }
+  .tok-korak { grid-template-columns: 1fr; justify-items: center; text-align: center; padding: 10px 8px 14px; }
+  .tok-korak span { font-size: 0.86rem; }
+  .tok-paket { top: 27px; left: 0; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .tok-paket { display: none; }
+  .tok-korak.je-tu .tok-tacka { transform: none; }
+}

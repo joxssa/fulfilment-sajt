@@ -1,0 +1,142 @@
+<!doctype html>
+<html lang="sr-Latn">
+<head>
+<meta charset="utf-8" />
+<title>TopOMS — Artikli (snimak za sajt)</title>
+<link rel="stylesheet" href="topoms.css" />
+<style>
+  td.ime, th.ime { max-width: 210px; overflow: hidden; text-overflow: ellipsis; }
+  td.veza, th.veza { max-width: 240px; overflow: hidden; text-overflow: ellipsis; color: #8d959d; }
+  .slicica { width: 12px; height: 12px; border-radius: 3px; background: #eceef1; display: inline-block; vertical-align: -2px; margin-right: 4px; }
+  .plus { background: #f1f3f5; color: #6b737c; border-radius: 4px; padding: 0 3px; font-size: 7.5px; font-weight: 700; }
+  .ok { color: #1c7a3e; }
+  .ne { color: #c23b2b; }
+  .ime a { color: #d2590b; text-decoration: none; }
+</style>
+</head>
+<body>
+<div class="app">
+  <aside class="bok">
+    <div class="logo">
+      <svg width="15" height="15" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 7l9-4 9 4-9 4-9-4z" fill="#fd6904"/><path d="M3 7v10l9 4V11L3 7z" fill="#11161c"/><path d="M21 7v10l-9 4V11l9-4z" fill="#3b424a"/></svg>
+      <b>TopOMS</b>
+    </div>
+    <div class="bok-st"><i class="tacka"></i>Nadzorna tabla</div>
+    <div class="bok-grupa">
+      <div class="bok-naslov">Poručivanje i isporuka</div>
+      <div class="bok-st"><i class="tacka"></i>Narudžbine</div>
+      <div class="bok-st"><i class="tacka"></i>Pakovanje i slanje</div>
+      <div class="bok-st"><i class="tacka"></i>Reklamacije</div>
+      <div class="bok-st"><i class="tacka"></i>Problemi<span class="broj">68</span></div>
+      <div class="bok-st"><i class="tacka"></i>Finansije</div>
+    </div>
+    <div class="bok-grupa">
+      <div class="bok-naslov">Magacin</div>
+      <div class="bok-st"><i class="tacka"></i>Proizvodi</div>
+      <div class="bok-st akt"><i class="tacka"></i>Lager</div>
+      <div class="bok-st"><i class="tacka"></i>Prijem</div>
+    </div>
+    <div class="bok-grupa">
+      <div class="bok-naslov">Kupci i podrška</div>
+      <div class="bok-st"><i class="tacka"></i>Poruke</div>
+      <div class="bok-st"><i class="tacka"></i>Kupci</div>
+      <div class="bok-st"><i class="tacka"></i>Uparivanje kupaca<span class="broj">940</span></div>
+      <div class="bok-st"><i class="tacka"></i>Analitika</div>
+      <div class="bok-st"><i class="tacka"></i>Pravila</div>
+    </div>
+    <div class="bok-grupa">
+      <div class="bok-naslov">Marketing</div>
+      <div class="bok-st"><i class="tacka"></i>Marketinški pregled</div>
+      <div class="bok-st"><i class="tacka"></i>Reklame</div>
+      <div class="bok-st"><i class="tacka"></i>Analitika</div>
+      <div class="bok-st"><i class="tacka"></i>Kampanje</div>
+      <div class="bok-st"><i class="tacka"></i>Tokovi</div>
+      <div class="bok-st"><i class="tacka"></i>Publika</div>
+    </div>
+    <div class="bok-grupa">
+      <div class="bok-naslov">Podešavanja</div>
+      <div class="bok-st"><i class="tacka"></i>Prodavnice</div>
+      <div class="bok-st"><i class="tacka"></i>Integracije</div>
+      <div class="bok-st"><i class="tacka"></i>Komunikacija</div>
+      <div class="bok-st"><i class="tacka"></i>Korisnici</div>
+      <div class="bok-st"><i class="tacka"></i>Moj plan</div>
+      <div class="bok-st"><i class="tacka"></i>TopOMS Finansije</div>
+      <div class="bok-st"><i class="tacka"></i>Podešavanja organizacije</div>
+    </div>
+  </aside>
+
+  <main class="glavno">
+    <div class="vrh">
+      <div class="pretraga-vrh"><div class="polje">Pretraži…</div></div>
+      <div class="shop">DEMO PRODAVNICA</div>
+      <div class="avatar">D</div>
+    </div>
+
+    <div class="telo">
+      <div class="mrvice">Lager &nbsp;›&nbsp; Artikli &nbsp;›&nbsp; <b>Lista</b></div>
+      <div class="red-naslova">
+        <h1>ARTIKLI</h1>
+        <div class="akcije"><span class="dugme narandzasto">+ Novi artikal</span></div>
+      </div>
+
+      <div class="tabovi">
+        <span class="tab">Stanje</span>
+        <span class="tab akt">Artikli</span>
+        <span class="tab">Uparivanje artikala</span>
+        <span class="tab">Audit mapiranja</span>
+        <span class="tab">Popisi</span>
+        <span class="tab">Kretanja robe</span>
+        <span class="tab">Zauzeće polica</span>
+        <span class="tab">Provera skenerom</span>
+      </div>
+
+      <div class="filteri">
+        <span class="filter siroko sivo">Pretraži</span>
+        <span class="filter">▼</span>
+        <span class="filter">▥</span>
+      </div>
+
+      <table>
+        <thead>
+          <tr>
+            <th style="width:22px"></th>
+            <th class="ime">Ime ⌄</th>
+            <th>Interna šifra ⌄</th>
+            <th class="veza">Povezano sa</th>
+            <th>Konflikt</th>
+            <th class="desno">Na stanju ⌄</th>
+            <th class="desno">Rezervisano ⌄</th>
+            <th class="desno">Čeka ⌄</th>
+            <th class="desno">Obećano ⌄</th>
+            <th class="desno">Dostupno ⌄</th>
+            <th class="desno">Nedostupno ⌄</th>
+            <th class="desno">Stiže ⌄</th>
+            <th class="desno">Nabavna cena ⌄</th>
+            <th>Praćeno</th>
+            <th style="width:34px"></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td><i class="kvadrat"></i></td><td class="ime"><a>Termo podloga za sedište – Default</a></td><td>200145</td><td class="veza"><i class="slicica"></i>Termo podloga za sedište · Default</td><td>✓</td><td class="desno">4.862</td><td class="desno">15</td><td class="desno upozorenje">● 0</td><td class="desno">15</td><td class="desno zelena">4.647</td><td class="desno">0</td><td class="desno">0</td><td class="desno mala">–</td><td class="ok">✓</td><td class="mala">✎ Uredi</td></tr>
+          <tr><td><i class="kvadrat"></i></td><td class="ime"><a>Zaštitno pakovanje</a></td><td>PAK-0045</td><td class="veza"><i class="slicica"></i>Zaštitno pakovanje · PAK-0045</td><td>✓</td><td class="desno">1.893</td><td class="desno">17</td><td class="desno upozorenje">● 13</td><td class="desno">30</td><td class="desno zelena">1.863</td><td class="desno">0</td><td class="desno">0</td><td class="desno mala">–</td><td class="ne">⊘</td><td class="mala">✎ Uredi</td></tr>
+          <tr><td><i class="kvadrat"></i></td><td class="ime"><a>Set kuhinjskih organizatora 5/1</a></td><td>200312</td><td class="veza"><i class="slicica"></i>Set kuhinjskih organizatora 5/1 <span class="plus">+2</span></td><td>✓</td><td class="desno">1.146</td><td class="desno">0</td><td class="desno upozorenje">● 0</td><td class="desno">0</td><td class="desno zelena">1.146</td><td class="desno">0</td><td class="desno">0</td><td class="desno mala">–</td><td class="ok">✓</td><td class="mala">✎ Uredi</td></tr>
+          <tr><td><i class="kvadrat"></i></td><td class="ime"><a>Produžena garancija 12 meseci</a></td><td>GAR-12M</td><td class="veza"><i class="slicica"></i>Produžena garancija 12 meseci · GAR-12M</td><td>✓</td><td class="desno">967</td><td class="desno">4</td><td class="desno upozorenje">● 10</td><td class="desno">14</td><td class="desno zelena">953</td><td class="desno">0</td><td class="desno">0</td><td class="desno mala">–</td><td class="ne">⊘</td><td class="mala">✎ Uredi</td></tr>
+          <tr><td><i class="kvadrat"></i></td><td class="ime"><a>LED traka za ormar 3 m</a></td><td>200233</td><td class="veza"><i class="slicica"></i>LED traka za ormar 3 m · 200233</td><td>✓</td><td class="desno">957</td><td class="desno">0</td><td class="desno upozorenje">● 0</td><td class="desno">0</td><td class="desno zelena">957</td><td class="desno">0</td><td class="desno">0</td><td class="desno mala">–</td><td class="ne">⊘</td><td class="mala">✎ Uredi</td></tr>
+          <tr><td><i class="kvadrat"></i></td><td class="ime"><a>Paket zaštite pošiljke</a></td><td>ZAS-PKT-01</td><td class="veza"><i class="slicica"></i>Paket zaštite pošiljke · ZAS-PKT-01</td><td>✓</td><td class="desno">936</td><td class="desno">7</td><td class="desno upozorenje">● 26</td><td class="desno">33</td><td class="desno zelena">903</td><td class="desno">0</td><td class="desno">0</td><td class="desno mala">–</td><td class="ne">⊘</td><td class="mala">✎ Uredi</td></tr>
+          <tr><td><i class="kvadrat"></i></td><td class="ime"><a>Sklopiva korpa za veš</a></td><td>200276</td><td class="veza"><i class="slicica"></i>Sklopiva korpa za veš <span class="plus">+1</span></td><td>✓</td><td class="desno">798</td><td class="desno">51</td><td class="desno upozorenje">● 2</td><td class="desno">53</td><td class="desno zelena">745</td><td class="desno">0</td><td class="desno">0</td><td class="desno mala">–</td><td class="ok">✓</td><td class="mala">✎ Uredi</td></tr>
+          <tr><td><i class="kvadrat"></i></td><td class="ime"><a>Masažer za vrat i ramena</a></td><td>200318B</td><td class="veza"><i class="slicica"></i>Masažer za vrat i ramena <span class="plus">+1</span></td><td>✓</td><td class="desno">493</td><td class="desno">0</td><td class="desno upozorenje">● 0</td><td class="desno">0</td><td class="desno zelena">493</td><td class="desno">0</td><td class="desno">0</td><td class="desno mala">–</td><td class="ok">✓</td><td class="mala">✎ Uredi</td></tr>
+          <tr><td><i class="kvadrat"></i></td><td class="ime"><a>Silikonske podloge za šerpe 4/1</a></td><td>200355</td><td class="veza"><i class="slicica"></i>Silikonske podloge za šerpe 4/1 <span class="plus">+1</span></td><td>✓</td><td class="desno">487</td><td class="desno">3</td><td class="desno upozorenje">● 0</td><td class="desno">3</td><td class="desno zelena">484</td><td class="desno">0</td><td class="desno">0</td><td class="desno mala">–</td><td class="ok">✓</td><td class="mala">✎ Uredi</td></tr>
+          <tr><td><i class="kvadrat"></i></td><td class="ime"><a>Vodootporna navlaka za ranac</a></td><td>200402</td><td class="veza"><i class="slicica"></i>Vodootporna navlaka za ranac <span class="plus">+2</span></td><td>✓</td><td class="desno">475</td><td class="desno">0</td><td class="desno upozorenje">● 0</td><td class="desno">0</td><td class="desno zelena">475</td><td class="desno">0</td><td class="desno">0</td><td class="desno mala">–</td><td class="ok">✓</td><td class="mala">✎ Uredi</td></tr>
+        </tbody>
+      </table>
+
+      <div class="podnozje">
+        <span>Prikazano je 1 do 10 od ukupno 5.976 rezultata</span>
+        <span class="po-strani">Po stranici &nbsp;10 ⌄</span>
+        <span class="strane"><span class="akt">1</span><span>2</span><span>3</span><span>4</span><span>…</span><span>597</span><span>598</span><span>›</span></span>
+      </div>
+    </div>
+  </main>
+</div>
+</body>
+</html>

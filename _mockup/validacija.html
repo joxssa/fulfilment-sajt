@@ -1,0 +1,127 @@
+<!doctype html>
+<html lang="sr-Latn">
+<head>
+<meta charset="utf-8" />
+<title>TopOMS — Validacija adresa (snimak za sajt)</title>
+<link rel="stylesheet" href="topoms.css" />
+<style>
+  .val { display: flex; width: 1400px; }
+  .ikonice { width: 30px; flex: 0 0 30px; border-right: 1px solid #ededf0; padding-top: 8px; }
+  .ikonice i { display: block; width: 13px; height: 13px; border-radius: 4px; background: #eceef1; margin: 0 auto 11px; }
+  .spisak { width: 232px; flex: 0 0 232px; border-right: 1px solid #ededf0; }
+  .spisak-vrh { padding: 8px 10px; border-bottom: 1px solid #ededf0; }
+  .spisak-vrh .naslov { font-size: 10px; font-weight: 700; color: #d2590b; display: flex; align-items: center; gap: 6px; }
+  .spisak-vrh .mala { color: #98a0a9; font-weight: 500; }
+  .filter-dug { margin-top: 7px; display: inline-flex; align-items: center; gap: 5px; border: 1px solid #e7e9ec; border-radius: 6px; padding: 2px 8px; font-size: 9px; color: #5a626b; }
+  .karte { display: flex; gap: 4px; padding: 7px 10px; border-bottom: 1px solid #ededf0; }
+  .karte span { font-size: 8.5px; color: #6b737c; border-radius: 5px; padding: 2px 7px; }
+  .karte span.akt { background: #15191e; color: #fff; font-weight: 700; }
+  .karte span i { font-style: normal; opacity: 0.6; margin-left: 3px; }
+  .stavka { padding: 6px 10px; border-bottom: 1px solid #f3f4f6; position: relative; }
+  .stavka .gore { display: flex; align-items: center; gap: 5px; font-size: 7.5px; color: #98a0a9; }
+  .stavka .gore b { color: #4d555e; font-weight: 700; }
+  .stavka .adresa { font-size: 9.5px; font-weight: 700; color: #1f2429; margin-top: 1px; }
+  .stavka .adresa span { font-weight: 500; color: #8d959d; }
+  .stavka .upoz { font-size: 7.5px; color: #e0580a; margin-top: 2px; }
+  .stavka .desno-ime { position: absolute; right: 10px; bottom: 6px; font-size: 8px; color: #98a0a9; }
+  .stavka .vreme { position: absolute; right: 10px; top: 6px; font-size: 7.5px; color: #b3bac1; }
+
+  .sredina { width: 215px; flex: 0 0 215px; border-right: 1px solid #ededf0; padding: 9px 10px; }
+  .sredina .zaglavlje { display: flex; justify-content: space-between; font-size: 8px; color: #98a0a9; }
+  .znacka { display: inline-block; font-size: 8px; font-weight: 700; color: #d2590b; background: #fff3ea; border-radius: 5px; padding: 1px 6px; margin: 6px 0 4px; }
+  .sredina .nalov { font-size: 7.5px; letter-spacing: 0.08em; text-transform: uppercase; color: #98a0a9; margin-top: 7px; }
+  .sredina h2 { font-size: 17px; font-weight: 800; color: #11161c; letter-spacing: -0.3px; }
+  .sredina .mesto { font-size: 10px; color: #3b424a; margin-top: 3px; }
+  .sredina .kontakt { font-size: 9px; color: #3b424a; margin-top: 8px; display: flex; gap: 8px; align-items: center; border-top: 1px solid #f3f4f6; padding-top: 7px; }
+  .poruka { margin-top: 8px; font-size: 7px; line-height: 1.5; color: #98a0a9; word-break: break-all; }
+  .razlog { margin-top: 7px; background: #fffaf2; border: 1px solid #ffe2c2; border-radius: 6px; padding: 5px 6px; font-size: 7.5px; color: #a35a12; }
+
+  .desni { flex: 1; min-width: 0; padding: 9px 12px; }
+  .desni .nalov { font-size: 7.5px; letter-spacing: 0.08em; text-transform: uppercase; color: #98a0a9; }
+  .desni .opis { font-size: 8px; color: #b3bac1; margin-bottom: 9px; }
+  .polje-nalov { font-size: 9px; color: #4d555e; margin: 9px 0 3px; }
+  .unos { height: 22px; border: 1px solid #e7e9ec; border-radius: 7px; display: flex; align-items: center; padding: 0 9px; font-size: 9px; color: #b3bac1; }
+  .unos.akt { border-color: #fd6904; box-shadow: 0 0 0 2px rgba(253,105,4,0.1); }
+  .kurirska { display: flex; align-items: center; gap: 7px; border: 1px solid #e7e9ec; border-radius: 8px; padding: 6px 9px; font-size: 9px; color: #3b424a; }
+  .kurirska .tacka-z { width: 6px; height: 6px; border-radius: 50%; background: #2bb15d; }
+  .kurirska .cena { margin-left: auto; font-size: 8.5px; color: #8d959d; }
+  .trojka { display: flex; gap: 7px; margin-top: 7px; }
+  .trojka .unos { flex: 1; }
+  .dole { display: flex; gap: 8px; align-items: center; margin-top: 14px; }
+  .nema { font-size: 8.5px; color: #98a0a9; margin-top: 5px; }
+</style>
+</head>
+<body>
+<div class="val">
+  <div class="ikonice"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+
+  <div class="spisak">
+    <div class="spisak-vrh">
+      <div class="naslov">Validacija adresa <span class="mala">— od 99</span></div>
+      <div class="naslov" style="margin-top:3px"><span class="mala">⏱ Čeka razjašnjenje: 11</span></div>
+      <span class="filter-dug">▼ Filteri</span>
+    </div>
+    <div class="karte"><span class="akt">Sve <i>118</i></span><span>Za red <i>89</i></span><span>Preskočeno <i>11</i></span></div>
+
+    <div class="stavka"><div class="vreme">09.10.</div><div class="gore"><b>248201</b> BEX Express</div><div class="adresa">Lipova 25/6 <span>Kragujevac</span></div><div class="upoz">◆ Nije uparena sa šifarnikom za BEX Express</div><div class="desno-ime">Milan S.</div></div>
+    <div class="stavka"><div class="vreme">09.10.</div><div class="gore"><b>248214</b> BEX Express</div><div class="adresa">Gornji kraj 11 <span>Valjevo</span></div><div class="upoz">◆ Nije uparena sa šifarnikom za BEX Express</div><div class="desno-ime">Petar Đ.</div></div>
+    <div class="stavka"><div class="vreme">09.10.</div><div class="gore"><b>248230</b> BEX Express</div><div class="adresa">Cara Lazara bb <span>Niš</span></div><div class="upoz">◆ Nije uparena sa šifarnikom za BEX Express</div><div class="desno-ime">Milena R.</div></div>
+    <div class="stavka"><div class="vreme">09.10.</div><div class="gore"><b>248247</b> BEX Express</div><div class="adresa">Zmajeva 30 <span>Beograd</span></div><div class="upoz">◆ Nije uparena sa šifarnikom za BEX Express</div><div class="desno-ime">Nada S.</div></div>
+    <div class="stavka"><div class="vreme">09.10.</div><div class="gore"><b>248255</b> BEX Express</div><div class="adresa">Vidovdanska 14 <span>Užice</span></div><div class="upoz">◆ Nije uparena sa šifarnikom za BEX Express</div><div class="desno-ime">Ivana J.</div></div>
+    <div class="stavka"><div class="vreme">09.10.</div><div class="gore"><b>248268</b> BEX Express</div><div class="adresa">Peta ulica 21 <span>Obrenovac</span></div><div class="upoz">◆ Nije uparena sa šifarnikom za BEX Express</div><div class="desno-ime">Branko K.</div></div>
+    <div class="stavka"><div class="vreme">09.10.</div><div class="gore"><b>248274</b> BEX Express</div><div class="adresa">Lipov lad 112 <span>Kraljevo</span></div><div class="upoz">◆ Nije uparena sa šifarnikom za BEX Express</div><div class="desno-ime">Anđela G.</div></div>
+    <div class="stavka"><div class="vreme">09.10.</div><div class="gore"><b>248289</b> BEX Express</div><div class="adresa">Vrbasova 8A <span>Beograd</span></div><div class="upoz">◆ Nije uparena sa šifarnikom za BEX Express</div><div class="desno-ime">Danica V.</div></div>
+    <div class="stavka"><div class="vreme">09.10.</div><div class="gore"><b>248296</b> BEX Express</div><div class="adresa">Dunavska 26 <span>Kraljevo</span></div><div class="upoz">◆ Nije uparena sa šifarnikom za BEX Express</div><div class="desno-ime">Slavica R.</div></div>
+    <div class="stavka"><div class="vreme">09.10.</div><div class="gore"><b>248310</b> BEX Express</div><div class="adresa">Javorska 99/55 <span>Beograd</span></div><div class="upoz">◆ Nije uparena sa šifarnikom za BEX Express</div><div class="desno-ime">Milena P.</div></div>
+    <div class="stavka"><div class="vreme">09.10.</div><div class="gore"><b>248325</b> BEX Express</div><div class="adresa">Kneza Uroša 96 <span>Beograd</span></div><div class="upoz">◆ Nije uparena sa šifarnikom za BEX Express</div><div class="desno-ime">Snežana M.</div></div>
+    <div class="stavka"><div class="vreme">09.10.</div><div class="gore"><b>248338</b> BEX Express</div><div class="adresa">Savska 1 <span>Beograd — Zemun</span></div><div class="upoz">◆ Nije uparena sa šifarnikom za BEX Express</div><div class="desno-ime">Jelena R.</div></div>
+    <div class="stavka"><div class="vreme">09.10.</div><div class="gore"><b>248344</b> BEX Express</div><div class="adresa">Bulevar oslobođenja 13b/22 <span>Novi Sad</span></div><div class="upoz">◆ Nije uparena sa šifarnikom za BEX Express</div><div class="desno-ime">Dragoljub I.</div></div>
+    <div class="stavka"><div class="vreme">09.10.</div><div class="gore"><b>248357</b> BEX Express</div><div class="adresa">Nema broja <span>Ivanjica</span></div><div class="upoz">◆ Nije uparena sa šifarnikom za BEX Express</div><div class="desno-ime">Miroslav M.</div></div>
+    <div class="stavka"><div class="vreme">09.10.</div><div class="gore"><b>248362</b> BEX Express</div><div class="adresa">Ratarska 40/9 <span>Beograd</span></div><div class="upoz">◆ Nije uparena sa šifarnikom za BEX Express</div><div class="desno-ime">Katica M.</div></div>
+    <div class="stavka"><div class="vreme">09.10.</div><div class="gore"><b>248371</b> BEX Express</div><div class="adresa">Prvomajska 5 <span>Beograd</span></div><div class="upoz">◆ Nije uparena sa šifarnikom za BEX Express</div><div class="desno-ime">Marija B.</div></div>
+    <div class="stavka"><div class="vreme">09.10.</div><div class="gore"><b>248388</b> BEX Express</div><div class="adresa">Jasenova 29 <span>Beograd</span></div><div class="upoz">◆ Nije uparena sa šifarnikom za BEX Express</div><div class="desno-ime">Bojan J.</div></div>
+    <div class="stavka"><div class="vreme">09.10.</div><div class="gore"><b>248395</b> BEX Express</div><div class="adresa">Brezova 25a <span>Beograd</span></div><div class="upoz">◆ Nije uparena sa šifarnikom za BEX Express</div><div class="desno-ime">Olivera I.</div></div>
+  </div>
+
+  <div class="sredina">
+    <div class="zaglavlje"><span>ŠTA JE KUPAC UNEO</span><span>11.10.2026. 15:40 &nbsp; 22337 ↗</span></div>
+    <span class="znacka">● Preskočeno</span>
+    <div class="nalov">Adresa</div>
+    <h2>Borova 1</h2>
+    <div class="nalov">Mesto</div>
+    <div class="mesto">Užice &nbsp;<b>31000</b> &nbsp; 🇷🇸 Srbija</div>
+    <div class="kontakt">👤 Nenad Pavlović &nbsp; ✆ +381651234733</div>
+    <div class="nalov" style="margin-top:9px">Poruka kupca</div>
+    <div class="poruka">Quantity: 1 | Broj telefona: +381651234733 Vaše ime: Nenad Vaše prezime: Pavlović Ulica i broj: Borova 1 Grad/Selo: Užice Poštanski broj: 31000 country: RS utm_source: demo utm_medium: paid utm_id: 000000000000000000</div>
+    <div class="razlog">☹ Razlog preskakanja: nepotpuna adresa — pozvati kupca<br />Preskočio: operater · 11.10.2026. 09:25</div>
+  </div>
+
+  <div class="desni">
+    <div class="nalov">Za kurira</div>
+    <div class="opis">Upisati mesto i ulicu iz šifarnika kurira — na adresnici se štampa baš ovo.</div>
+
+    <div class="polje-nalov">Kurirska služba <span style="float:right;color:#d2590b;font-weight:600">Kupac izabrao</span></div>
+    <div class="kurirska"><i class="tacka-z"></i><b>BEX Express</b> <span style="color:#d2590b">Preko FF centra</span> <span class="cena">≈ 192,40 RSD već iznosi ✕ ⌄</span></div>
+
+    <div class="polje-nalov">Mesto</div>
+    <div class="unos">Pretraži mesto…</div>
+
+    <div class="polje-nalov">Ulica</div>
+    <div class="unos akt">Pretraži ulicu… (ulica, mesto)</div>
+    <div class="nema">Nema rezultata.</div>
+
+    <div class="trojka"><div class="unos"></div><div class="unos"></div><div class="unos"></div></div>
+
+    <div class="polje-nalov">Napomena za kurira</div>
+    <div class="unos" style="height:44px;align-items:flex-start;padding-top:6px">Samo ti isporuci — štampa se na adresnici.</div>
+    <div class="nema">0 / 255 &nbsp; <span style="color:#d2590b">Prepiši iz poruke kupca</span></div>
+
+    <div class="dole">
+      <span class="dugme narandzasto" style="height:25px">Sačuvaj adresu &nbsp;Enter</span>
+      <span class="dugme">Preskoči &nbsp;Ctrl S</span>
+      <span class="dugme">Vrati u red</span>
+    </div>
+  </div>
+</div>
+</body>
+</html>

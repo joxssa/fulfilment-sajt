@@ -1,0 +1,172 @@
+<!doctype html>
+<html lang="sr-Latn">
+<head>
+<meta charset="utf-8" />
+<title>TopOMS — Detalji porudžbine (snimak za sajt)</title>
+<link rel="stylesheet" href="topoms.css" />
+<style>
+  .traka { display: flex; align-items: center; gap: 9px; padding: 7px 12px; border-bottom: 1px solid #ededf0; font-size: 9.5px; color: #3b424a; }
+  .traka .broj { font-weight: 800; color: #11161c; }
+  .traka .upoz { color: #c23b2b; }
+  .traka .desno { margin-left: auto; display: flex; gap: 5px; }
+  .podtraka { display: flex; align-items: center; gap: 12px; padding: 5px 12px; border-bottom: 1px solid #ededf0; font-size: 8.5px; color: #8d959d; }
+  .kolone { display: flex; gap: 10px; padding: 10px 12px; align-items: flex-start; }
+  .kartica { border: 1px solid #ededf0; border-radius: 9px; padding: 9px 10px; }
+  .k1 { flex: 0 0 370px; }
+  .k2 { flex: 0 0 420px; }
+  .k3 { flex: 1; min-width: 0; }
+  .kart-tabovi { display: flex; gap: 10px; font-size: 9px; color: #8d959d; border-bottom: 1px solid #f1f3f5; padding-bottom: 6px; margin-bottom: 9px; }
+  .kart-tabovi b { color: #d2590b; border-bottom: 2px solid #fd6904; padding-bottom: 6px; margin-bottom: -7px; }
+  .oznaka { font-size: 8px; color: #8d959d; margin: 7px 0 3px; }
+  .unos { height: 21px; border: 1px solid #e7e9ec; border-radius: 6px; display: flex; align-items: center; padding: 0 8px; font-size: 9px; color: #2a3038; }
+  .par { display: flex; gap: 7px; }
+  .par > div { flex: 1; min-width: 0; }
+  .nasl-kart { font-size: 9.5px; font-weight: 700; color: #11161c; display: flex; align-items: center; gap: 6px; margin-bottom: 7px; }
+  .nasl-kart .zeleno { margin-left: auto; font-size: 8px; color: #1c7a3e; background: #e9f7ee; border-radius: 5px; padding: 1px 6px; font-weight: 700; }
+  .stavke { margin: 0 12px; border: 1px solid #ededf0; border-radius: 9px; overflow: hidden; }
+  .stavke-vrh { display: flex; gap: 12px; padding: 7px 10px; border-bottom: 1px solid #f1f3f5; font-size: 9px; color: #8d959d; }
+  .stavke-vrh b { color: #d2590b; }
+  .stavke table td { padding: 8px 10px; }
+  .proizvod { display: flex; align-items: center; gap: 8px; }
+  .proizvod .kvadratic { width: 24px; height: 24px; border-radius: 5px; background: #f1f3f5; }
+  .proizvod b { font-size: 9.5px; font-weight: 650; display: block; }
+  .proizvod span { font-size: 8px; color: #98a0a9; }
+  .zbir { padding: 8px 12px; display: flex; flex-direction: column; align-items: flex-end; gap: 3px; font-size: 9px; color: #5a626b; }
+  .zbir .uk { font-size: 12px; font-weight: 800; color: #11161c; }
+  .obracun { margin: 10px 12px 0; border: 1px solid #ededf0; border-radius: 9px; padding: 10px; display: flex; gap: 24px; }
+  .obracun .levo { flex: 0 0 300px; }
+  .obracun .veliki { font-size: 21px; font-weight: 800; color: #11161c; letter-spacing: -0.5px; }
+</style>
+</head>
+<body>
+<div class="app">
+  <aside class="bok">
+    <div class="logo">
+      <svg width="15" height="15" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 7l9-4 9 4-9 4-9-4z" fill="#fd6904"/><path d="M3 7v10l9 4V11L3 7z" fill="#11161c"/><path d="M21 7v10l-9 4V11l9-4z" fill="#3b424a"/></svg>
+      <b>TopOMS</b>
+    </div>
+    <div class="bok-st"><i class="tacka"></i>Nadzorna tabla</div>
+    <div class="bok-grupa">
+      <div class="bok-naslov">Poručivanje i isporuka</div>
+      <div class="bok-st akt"><i class="tacka"></i>Narudžbine</div>
+      <div class="bok-st"><i class="tacka"></i>Pakovanje i slanje</div>
+      <div class="bok-st"><i class="tacka"></i>Reklamacije</div>
+      <div class="bok-st"><i class="tacka"></i>Problemi<span class="broj">68</span></div>
+      <div class="bok-st"><i class="tacka"></i>Finansije</div>
+    </div>
+    <div class="bok-grupa">
+      <div class="bok-naslov">Magacin</div>
+      <div class="bok-st"><i class="tacka"></i>Proizvodi</div>
+      <div class="bok-st"><i class="tacka"></i>Lager</div>
+      <div class="bok-st"><i class="tacka"></i>Prijem</div>
+    </div>
+    <div class="bok-grupa">
+      <div class="bok-naslov">Kupci i podrška</div>
+      <div class="bok-st"><i class="tacka"></i>Poruke</div>
+      <div class="bok-st"><i class="tacka"></i>Kupci</div>
+      <div class="bok-st"><i class="tacka"></i>Uparivanje kupaca<span class="broj">940</span></div>
+      <div class="bok-st"><i class="tacka"></i>Analitika</div>
+      <div class="bok-st"><i class="tacka"></i>Pravila</div>
+    </div>
+    <div class="bok-grupa">
+      <div class="bok-naslov">Marketing</div>
+      <div class="bok-st"><i class="tacka"></i>Marketinški pregled</div>
+      <div class="bok-st"><i class="tacka"></i>Reklame</div>
+      <div class="bok-st"><i class="tacka"></i>Analitika</div>
+      <div class="bok-st"><i class="tacka"></i>Kampanje</div>
+      <div class="bok-st"><i class="tacka"></i>Tokovi</div>
+    </div>
+  </aside>
+
+  <main class="glavno">
+    <div class="traka">
+      <span>🔒</span><span class="broj">#412904</span>
+      <span class="upoz">· Dodeli za otpremu da bi se roba rezervisala.</span>
+      <span class="desno"><span class="pill novo">● Novo</span><span class="pill belo">Na čekanju</span><span class="pill belo">Nesupurigrano</span></span>
+    </div>
+    <div class="podtraka">
+      <span>🏪 Demo prodavnica</span><span>⏱ pre 57 minuta</span><span># 258410</span><span>💳 RSD</span><span>Otkupnina</span><span>Ostalo</span>
+    </div>
+
+    <div class="kolone">
+      <div class="kartica k1">
+        <div class="kart-tabovi"><span>Podaci</span><b>Isporuka</b><span>Fakturisanje</span></div>
+        <div class="oznaka">Povezani kupac</div>
+        <div class="unos">Milan Petrović (+381651234512 / milan.petrovic@primer.rs)</div>
+        <div class="par"><div><div class="oznaka">Ime</div><div class="unos">Milan</div></div><div><div class="oznaka">Prezime</div><div class="unos">Petrović</div></div></div>
+        <div class="par"><div><div class="oznaka">Telefon</div><div class="unos">+381651234512</div></div><div><div class="oznaka">Email</div><div class="unos">milan.petrovic@primer.rs</div></div></div>
+        <div class="oznaka">Adresa, red 1</div>
+        <div class="unos">Borova 118, 12</div>
+        <div class="par"><div><div class="oznaka">Grad</div><div class="unos">Beograd</div></div><div><div class="oznaka">Poštanski broj</div><div class="unos">11000</div></div><div><div class="oznaka">Država</div><div class="unos">Srbija</div></div></div>
+      </div>
+
+      <div class="kartica k2">
+        <div class="nasl-kart">◎ Adresa za dostavu <span class="zeleno">● Validirana</span></div>
+        <div class="oznaka">🔒 Automatski razrešeno</div>
+        <div class="oznaka">Kurirska služba <span style="float:right;color:#d2590b">Kupac izabrao</span></div>
+        <div class="unos"><b style="font-weight:700">BEX Express</b> &nbsp;<span style="color:#d2590b">Preko FF centra</span> <span style="margin-left:auto;color:#98a0a9;font-size:8px">≈ 192,40 RSD već iznosi</span></div>
+        <div class="oznaka">Mesto</div>
+        <div class="unos">BEOGRAD · 11000</div>
+        <div class="oznaka">Ulica</div>
+        <div class="unos">BOROVA | BEOGRAD · 11000</div>
+        <div class="par"><div><div class="oznaka">Kućni broj</div><div class="unos">118</div></div><div><div class="oznaka">Podbroj</div><div class="unos"></div></div><div><div class="oznaka">Poštanski broj</div><div class="unos">11000</div></div></div>
+        <div style="margin-top:9px"><span class="dugme tamno">✓ Sačuvaj adresu</span></div>
+      </div>
+
+      <div class="kartica k3">
+        <div class="kart-tabovi"><b>Za kurira</b><span>Poruka kupca</span><span>Interna</span></div>
+        <div class="unos" style="height:40px;align-items:flex-start;padding-top:6px;color:#b3bac1">Samo ti isporuci — štampa se na adresnici.</div>
+        <div class="oznaka">0 / 255 &nbsp; <span style="color:#d2590b">Prepiši iz poruke kupca</span></div>
+        <div class="kart-tabovi" style="margin-top:12px"><b>Oznake i poreklo</b><span>Detalji</span></div>
+        <div class="oznaka">Oznake</div>
+        <div class="unos">Nova oznaka</div>
+        <div style="margin-top:5px"><span class="pill sivo">demo_cod_form ✕</span></div>
+        <div class="oznaka" style="margin-top:9px">Marketinški kanal</div>
+        <div class="oznaka">Poreklo porudžbine</div>
+        <div style="font-size:9px;color:#3b424a">▢ Ostalo</div>
+      </div>
+    </div>
+
+    <div class="stavke">
+      <div class="stavke-vrh"><b>🛒 Stavke narudžbine</b><span>Magacin i isporuka</span></div>
+      <table>
+        <thead><tr><th style="padding-left:10px">Proizvod</th><th class="desno">Kol.</th><th class="desno">Jedinična cena</th><th class="desno">Popust</th><th class="desno">PDV</th><th class="desno" style="padding-right:10px">Ukupno</th></tr></thead>
+        <tbody>
+          <tr>
+            <td><div class="proizvod"><i class="kvadratic"></i><span><b>Termo podloga za sedište</b><span>200145</span></span></div></td>
+            <td class="desno mala">Slobodno: 0 ✕ ⌄ &nbsp; 1</td>
+            <td class="desno">1750</td>
+            <td class="desno">0</td>
+            <td class="desno">20%</td>
+            <td class="desno" style="padding-right:10px">1750,00</td>
+          </tr>
+          <tr><td colspan="6" class="mala" style="text-align:center;color:#98a0a9">+ Dodaj stavku narudžbine</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="zbir">
+      <span>Stavke (1 artikal) &nbsp;&nbsp; <b>1.750,00</b></span>
+      <span>Dostava (porez uključen) &nbsp;&nbsp; <b>390</b></span>
+      <span class="uk">Ukupno &nbsp;&nbsp; 2.140,00 <span style="font-size:8px;color:#98a0a9">RSD</span></span>
+      <span class="mala">od toga PDV 356,67</span>
+    </div>
+
+    <div class="obracun">
+      <div class="levo">
+        <div class="oznaka">Kupac duguje</div>
+        <div class="veliki">2.140,00 <span style="font-size:9px;color:#98a0a9">RSD</span></div>
+        <div class="mala" style="margin-top:5px">Fakturisano 0,00 &nbsp; Primljeno 0,00 &nbsp; Vraćeno 0,00</div>
+        <div class="upozorenje" style="margin-top:5px">● Čeka se isporuka — kurir naplaćuje na vratima.</div>
+      </div>
+      <div>
+        <div class="oznaka">Novac: koliko, kako i gde</div>
+        <div style="font-size:10px;font-weight:700;color:#11161c">Otkupnina <span style="float:right">2.140,00</span></div>
+        <div class="mala">BEX Express naplaćuje pri isporuci</div>
+        <div class="mala" style="margin-top:7px">Kupac plaća kuriru pri uručenju.</div>
+      </div>
+    </div>
+  </main>
+</div>
+</body>
+</html>

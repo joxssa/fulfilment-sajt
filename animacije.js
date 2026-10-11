@@ -246,3 +246,65 @@
     start();
   }
 })();
+
+/* ──────────────────────────  PUT PORUDŽBINE  ──────────────────────────
+   Paket putuje od stanice do stanice; radi samo dok je sekcija u vidnom polju. */
+(() => {
+  "use strict";
+  const manjePokreta = () =>
+    typeof window.matchMedia === "function" &&
+    window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  function tok() {
+    const lista = document.querySelector(".tok");
+    if (!lista) return;
+    const koraci = Array.from(lista.querySelectorAll(".tok-korak"));
+    const paket = lista.querySelector(".tok-paket");
+    if (!koraci.length) return;
+
+    let i = 0;
+    let tajmer = 0;
+
+    const postavi = () => {
+      koraci.forEach((k, j) => k.classList.toggle("je-tu", j === i));
+      const tacka = koraci[i].querySelector(".tok-tacka");
+      if (!paket || !tacka) return;
+      const a = lista.getBoundingClientRect();
+      const b = tacka.getBoundingClientRect();
+      const vodoravno = window.innerWidth >= 860;
+      paket.style.transition = "transform .7s cubic-bezier(.4,.1,.2,1)";
+      // paket staje TIK PRED stanicu (ne preko ikonice) — čita se kao „stigao je"
+      paket.style.transform = vodoravno
+        ? "translateX(" + (b.left - a.left - 24) + "px)"
+        : "translateY(" + (b.top - a.top - 22) + "px)";
+    };
+
+    const sledeci = () => {
+      i = (i + 1) % koraci.length;
+      postavi();
+    };
+    postavi();
+
+    const pokreni = () => {
+      if (tajmer || manjePokreta()) return;
+      tajmer = window.setInterval(sledeci, 2500);
+    };
+    const stani = () => {
+      window.clearInterval(tajmer);
+      tajmer = 0;
+    };
+
+    if (typeof IntersectionObserver === "function") {
+      new IntersectionObserver(
+        (unosi) => unosi.forEach((u) => (u.isIntersecting ? pokreni() : stani())),
+        { threshold: 0.25 },
+      ).observe(lista);
+    } else {
+      pokreni();
+    }
+    window.addEventListener("resize", postavi);
+  }
+
+  if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", tok, { once: true });
+  else tok();
+})();

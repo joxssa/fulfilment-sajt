@@ -1,0 +1,153 @@
+<!doctype html>
+<html lang="sr-Latn">
+<head>
+<meta charset="utf-8" />
+<title>TopOMS — Narudžbine (snimak za sajt)</title>
+<link rel="stylesheet" href="topoms.css" />
+<style>
+  /* kolone ovog ekrana */
+  td.sadrzaj, th.sadrzaj { max-width: 230px; overflow: hidden; text-overflow: ellipsis; }
+  td.razlog, th.razlog { max-width: 330px; overflow: hidden; text-overflow: ellipsis; }
+</style>
+</head>
+<body>
+<div class="app">
+  <aside class="bok">
+    <div class="logo">
+      <svg width="15" height="15" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 7l9-4 9 4-9 4-9-4z" fill="#fd6904"/><path d="M3 7v10l9 4V11L3 7z" fill="#11161c"/><path d="M21 7v10l-9 4V11l9-4z" fill="#3b424a"/></svg>
+      <b>TopOMS</b>
+    </div>
+    <div class="bok-st"><i class="tacka"></i>Nadzorna tabla</div>
+    <div class="bok-grupa">
+      <div class="bok-naslov">Poručivanje i isporuka</div>
+      <div class="bok-st akt"><i class="tacka"></i>Narudžbine</div>
+      <div class="bok-st"><i class="tacka"></i>Pakovanje i slanje</div>
+      <div class="bok-st"><i class="tacka"></i>Reklamacije</div>
+      <div class="bok-st"><i class="tacka"></i>Problemi<span class="broj">68</span></div>
+      <div class="bok-st"><i class="tacka"></i>Finansije</div>
+    </div>
+    <div class="bok-grupa">
+      <div class="bok-naslov">Magacin</div>
+      <div class="bok-st"><i class="tacka"></i>Proizvodi</div>
+      <div class="bok-st"><i class="tacka"></i>Lager</div>
+      <div class="bok-st"><i class="tacka"></i>Prijem</div>
+    </div>
+    <div class="bok-grupa">
+      <div class="bok-naslov">Kupci i podrška</div>
+      <div class="bok-st"><i class="tacka"></i>Poruke</div>
+      <div class="bok-st"><i class="tacka"></i>Kupci</div>
+      <div class="bok-st"><i class="tacka"></i>Uparivanje kupaca<span class="broj">940</span></div>
+      <div class="bok-st"><i class="tacka"></i>Analitika</div>
+      <div class="bok-st"><i class="tacka"></i>Pravila</div>
+    </div>
+    <div class="bok-grupa">
+      <div class="bok-naslov">Marketing</div>
+      <div class="bok-st"><i class="tacka"></i>Marketinški pregled</div>
+      <div class="bok-st"><i class="tacka"></i>Reklame</div>
+      <div class="bok-st"><i class="tacka"></i>Analitika</div>
+      <div class="bok-st"><i class="tacka"></i>Kampanje</div>
+      <div class="bok-st"><i class="tacka"></i>Tokovi</div>
+      <div class="bok-st"><i class="tacka"></i>Publika</div>
+    </div>
+    <div class="bok-grupa">
+      <div class="bok-naslov">Podešavanja</div>
+      <div class="bok-st"><i class="tacka"></i>Prodavnice</div>
+      <div class="bok-st"><i class="tacka"></i>Integracije</div>
+      <div class="bok-st"><i class="tacka"></i>Komunikacija</div>
+      <div class="bok-st"><i class="tacka"></i>Korisnici</div>
+      <div class="bok-st"><i class="tacka"></i>Moj plan</div>
+      <div class="bok-st"><i class="tacka"></i>TopOMS Finansije</div>
+      <div class="bok-st"><i class="tacka"></i>Podešavanja organizacije</div>
+    </div>
+  </aside>
+
+  <main class="glavno">
+    <div class="vrh">
+      <div class="pretraga-vrh">
+        <div class="polje">Pretraži…</div>
+      </div>
+      <div class="shop">DEMO PRODAVNICA</div>
+      <div class="avatar">D</div>
+    </div>
+
+    <div class="telo">
+      <div class="mrvice">Narudžbine &nbsp;›&nbsp; <b>Lista</b></div>
+      <div class="red-naslova">
+        <h1>NARUDŽBINE</h1>
+        <div class="akcije">
+          <span class="dugme tamno">Otvori stranicu za proveru</span>
+          <span class="dugme">Izvezi</span>
+          <span class="dugme">Pronađi uz AI</span>
+          <span class="dugme narandzasto">+ Nova ručna narudžbina</span>
+        </div>
+      </div>
+
+      <div class="filteri">
+        <span class="filter siroko sivo">Broj, ext. broj, ime primaoca ili telefon</span>
+        <span class="filter">Prodavnica: Sve ⌄</span>
+        <span class="filter">Status: Sve ⌄</span>
+        <span class="filter aktivno">Prikaži: Bez otkazanih ✕ ⌄</span>
+        <span class="filter">Plaćanje: Sve ⌄</span>
+        <span class="filter">Kurir: Sve ⌄</span>
+        <span class="filter">Država: Sve ⌄</span>
+        <span class="filter">Period: Sve ⌄</span>
+        <span class="filter">Napredno</span>
+      </div>
+
+      <div class="tabovi">
+        <span class="tab akt">Narudžbine</span>
+        <span class="tab">Magacin</span>
+        <span class="tab">Sve</span>
+        <span class="tab">Za proveru <i class="cifra">38</i></span>
+        <span class="tab">Čeka magacin <i class="cifra sivo">17</i></span>
+        <span class="tab">Čeka robu <i class="cifra sivo">512</i></span>
+        <span class="tab">Novo</span>
+        <span class="tab">Slanje danas</span>
+        <span class="tab">U obradi</span>
+        <span class="tab">Finansijske greške</span>
+        <span class="tab">Nacrt</span>
+      </div>
+      <div class="alatke">⇅ &nbsp; ☰ &nbsp; ▤ &nbsp; ▥</div>
+
+      <table>
+        <thead>
+          <tr>
+            <th style="width:22px"></th>
+            <th>Narudžbina # ⌄</th>
+            <th>Status ⌄</th>
+            <th>Poručeno ⌄</th>
+            <th>Kupac ⌄</th>
+            <th>Kontakt</th>
+            <th>Kurir ⌄</th>
+            <th class="sadrzaj">Sadržaj ⌄</th>
+            <th class="desno">Ukupno ⌄</th>
+            <th>Plaćanje ⌄</th>
+            <th>Faktura</th>
+            <th class="razlog">Razlog za proveru</th>
+            <th style="width:14px"></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td><i class="kvadrat"></i></td><td>412904</td><td><span class="pill novo">● Novo</span></td><td>11. okt. u 17:16</td><td>Milan Petrović <i class="siva-tacka"></i></td><td>⚠ +381651234512</td><td><span class="pill kurir">⚡ BEX Express</span></td><td class="sadrzaj">1× Termo podloga za sedište</td><td class="desno">2.140 RSD</td><td><span class="pill sivo">Otkupnina</span></td><td class="mala">Nije kreirana</td><td class="razlog"><span class="upozorenje">◆ Zadržana za ručnu potvrdu: još jedna otvorena porudžbina</span></td><td class="mala">⋮</td></tr>
+          <tr><td><i class="kvadrat"></i></td><td>412898</td><td><span class="pill novo">● Novo</span></td><td>11. okt. u 17:14</td><td>Jovana Ilić <i class="siva-tacka"></i></td><td>⚠ +381651234508</td><td><span class="pill kurir">⚡ BEX Express</span></td><td class="sadrzaj">1× Set kuhinjskih organizatora</td><td class="desno">1.880 RSD</td><td><span class="pill sivo">Otkupnina</span></td><td class="mala">Nije kreirana</td><td class="razlog"><span class="upozorenje">◆ Zadržana za ručnu potvrdu: moguć duplikat porudžbine 412880</span></td><td class="mala">⋮</td></tr>
+          <tr><td><i class="kvadrat"></i></td><td>412871</td><td><span class="pill novo">● Novo</span></td><td>11. okt. u 15:50</td><td>Nenad Simić <i class="siva-tacka"></i></td><td>⚠ +381651234533</td><td><span class="pill kurir">⚡ BEX Express</span></td><td class="sadrzaj">2× Univerzalni držač za telefon</td><td class="desno">1.640 RSD</td><td><span class="pill sivo">Otkupnina</span></td><td class="mala">Nije kreirana</td><td class="razlog"><span class="upozorenje">◆ Zadržana za ručnu potvrdu: još jedna otvorena porudžbina</span></td><td class="mala">⋮</td></tr>
+          <tr><td><i class="kvadrat"></i></td><td>412860</td><td><span class="pill novo">● Novo</span></td><td>11. okt. u 15:32</td><td>Tijana Kostić <i class="siva-tacka"></i></td><td>⚠ +381651234547</td><td><span class="pill kurir">⚡ BEX Express</span></td><td class="sadrzaj">1× LED traka za ormar 3 m</td><td class="desno">2.340 RSD</td><td><span class="pill sivo">Otkupnina</span></td><td class="mala">Nije kreirana</td><td class="razlog"><span class="upozorenje">◆ Zadržana za ručnu potvrdu: još jedna otvorena porudžbina</span></td><td class="mala">⋮</td></tr>
+          <tr><td><i class="kvadrat"></i></td><td>412845</td><td><span class="pill novo">● Novo</span></td><td>11. okt. u 15:14</td><td class="mala">—</td><td class="mala">👤 —</td><td class="mala">—</td><td class="sadrzaj mala">—</td><td class="desno">0 RSD</td><td class="mala">Nije mapirano</td><td class="mala">Nije kreirana</td><td class="razlog"><span class="upozorenje">◆ Nepotvrđen nacrt</span></td><td class="mala">⋮</td></tr>
+          <tr><td><i class="kvadrat"></i></td><td>412830</td><td><span class="pill novo">● Novo</span></td><td>11. okt. u 15:01</td><td>Vuk Marinković <i class="siva-tacka"></i></td><td>⚠ +381651234561</td><td><span class="pill kurir">⚡ BEX Express</span></td><td class="sadrzaj">1× Sklopiva korpa za veš</td><td class="desno">1.880 RSD</td><td><span class="pill sivo">Otkupnina</span></td><td class="mala">Nije kreirana</td><td class="razlog"><span class="upozorenje">◆ Zadržana za ručnu potvrdu: još jedna otvorena porudžbina</span></td><td class="mala">⋮</td></tr>
+          <tr><td><i class="kvadrat"></i></td><td>412822</td><td><span class="pill novo">● Novo</span></td><td>11. okt. u 14:53</td><td>Dragana Lukić <i class="siva-tacka"></i></td><td>⚠ +381651234574</td><td><span class="pill kurir">⚡ BEX Express</span></td><td class="sadrzaj">1× Masažer za vrat i ramena</td><td class="desno">1.980 RSD</td><td><span class="pill sivo">Otkupnina</span></td><td class="mala">Nije kreirana</td><td class="razlog"><span class="upozorenje">◆ Zadržana za ručnu potvrdu: još jedna otvorena porudžbina</span></td><td class="mala">⋮</td></tr>
+          <tr><td><i class="kvadrat"></i></td><td>412814</td><td><span class="pill novo">● Novo</span></td><td>11. okt. u 14:48</td><td>Bojan Nikolić <i class="siva-tacka"></i></td><td>⚠ +381651234589</td><td><span class="pill kurir">⚡ BEX Express</span></td><td class="sadrzaj">2× Silikonske podloge za šerpe 4/1</td><td class="desno">1.880 RSD</td><td><span class="pill sivo">Otkupnina</span></td><td class="mala">Nije kreirana</td><td class="razlog"><span class="upozorenje">◆ Zadržana za ručnu potvrdu: još jedna otvorena porudžbina</span></td><td class="mala">⋮</td></tr>
+          <tr><td><i class="kvadrat"></i></td><td>412803</td><td><span class="pill novo">● Novo</span></td><td>11. okt. u 14:34</td><td>Katarina Vasić <i class="siva-tacka"></i></td><td>⚠ +381651234595</td><td><span class="pill kurir">⚡ BEX Express</span></td><td class="sadrzaj">1× Set za čišćenje tastature</td><td class="desno">2.380 RSD</td><td><span class="pill sivo">Otkupnina</span></td><td class="mala">Nije kreirana</td><td class="razlog"><span class="upozorenje">◆ Zadržana za ručnu potvrdu: još jedna otvorena porudžbina</span></td><td class="mala">⋮</td></tr>
+          <tr><td><i class="kvadrat"></i></td><td>412791</td><td><span class="pill novo">● Novo</span></td><td>11. okt. u 14:18</td><td>Nemanja Ristić <i class="siva-tacka"></i></td><td>👤 +381651234603</td><td><span class="pill kurir">⚡ BEX Express</span></td><td class="sadrzaj">2× Vodootporna navlaka za ranac</td><td class="desno">2.000 RSD</td><td><span class="pill sivo">Otkupnina</span></td><td class="mala">Nije kreirana</td><td class="razlog"><span class="upozorenje">◆ Telefon nedostaje ili nije validan</span></td><td class="mala">⋮</td></tr>
+        </tbody>
+      </table>
+
+      <div class="podnozje">
+        <span>Prikazano je 1 do 10 od ukupno 38 rezultata</span>
+        <span class="po-strani">Po stranici &nbsp;10 ⌄</span>
+        <span class="strane"><span class="akt">1</span><span>2</span><span>3</span><span>4</span><span>›</span></span>
+      </div>
+    </div>
+  </main>
+</div>
+</body>
+</html>
