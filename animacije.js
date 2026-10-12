@@ -308,3 +308,107 @@
   if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", tok, { once: true });
   else tok();
 })();
+
+/* ──────────────────────  DOLAZAK SADRŽAJA + TRAKA NAPRETKA  ──────────────────────
+   Kartice, logotipi i snimci dolaze stepenasto kad uđu u vidno polje.
+   Sadržaj se krije samo klasom koju dodaje ovaj skript, pa bez JS-a stranica ostaje cela. */
+(() => {
+  "use strict";
+  const manjePokreta = () =>
+    typeof window.matchMedia === "function" &&
+    window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  /** @param {Element[]} grupa @param {string} klasa @param {number} maks */
+  const pripremi = (grupa, klasa, maks) => {
+    grupa.forEach((el, i) => {
+      if (!(el instanceof HTMLElement) || el.classList.contains(klasa)) return;
+      el.classList.add(klasa);
+      if (i > 0) el.dataset.anK = String(Math.min(i, maks));
+    });
+  };
+
+  function dolazak() {
+    if (manjePokreta()) return;
+
+    /** @type {Element[]} */
+    const sve = [];
+
+    // kartice i ćelije usluga — stepenasto unutar svoje sekcije
+    document.querySelectorAll("main section, main .service-band").forEach((sec) => {
+      const stavke = Array.from(sec.querySelectorAll(".card, .service-cell, .band-card > li"));
+      if (!stavke.length) return;
+      pripremi(stavke, "an-stavka", 9);
+      sve.push(...stavke);
+    });
+
+    // logotipi brendova
+    const logotipi = Array.from(document.querySelectorAll(".brand-logo"));
+    if (logotipi.length) {
+      pripremi(logotipi, "an-logo", 9);
+      sve.push(...logotipi);
+    }
+
+    // snimci softvera
+    const snimci = Array.from(document.querySelectorAll(".screen-zoom"));
+    snimci.forEach((el) => el.classList.add("an-zum"));
+    sve.push(...snimci);
+
+    if (!sve.length) return;
+    if (typeof IntersectionObserver !== "function") {
+      sve.forEach((el) => el.classList.add("an-vidi"));
+      return;
+    }
+    const posmatrac = new IntersectionObserver(
+      (unosi) => {
+        unosi.forEach((u) => {
+          if (!u.isIntersecting) return;
+          u.target.classList.add("an-vidi");
+          posmatrac.unobserve(u.target);
+        });
+      },
+      { rootMargin: "0px 0px -6% 0px", threshold: 0.08 },
+    );
+    sve.forEach((el) => posmatrac.observe(el));
+
+    // sigurnosna mreža: ako nešto ostane skriveno (npr. element van toka), pokaži ga
+    window.setTimeout(() => {
+      sve.forEach((el) => {
+        const r = el.getBoundingClientRect();
+        if (r.top < window.innerHeight && r.bottom > 0) el.classList.add("an-vidi");
+      });
+    }, 1200);
+  }
+
+  function trakaNapretka() {
+    if (manjePokreta()) return;
+    const traka = document.createElement("div");
+    traka.className = "an-traka";
+    traka.setAttribute("aria-hidden", "true");
+    document.body.appendChild(traka);
+    let ceka = false;
+    const osvezi = () => {
+      ceka = false;
+      const d = document.documentElement;
+      const ukupno = d.scrollHeight - d.clientHeight;
+      const deo = ukupno > 0 ? Math.min(1, Math.max(0, d.scrollTop / ukupno)) : 0;
+      traka.style.transform = "scaleX(" + deo + ")";
+    };
+    window.addEventListener(
+      "scroll",
+      () => {
+        if (ceka) return;
+        ceka = true;
+        window.requestAnimationFrame(osvezi);
+      },
+      { passive: true },
+    );
+    osvezi();
+  }
+
+  const start = () => {
+    dolazak();
+    trakaNapretka();
+  };
+  if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", start, { once: true });
+  else start();
+})();

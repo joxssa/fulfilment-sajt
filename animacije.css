@@ -450,3 +450,54 @@
   .tok-paket { display: none; }
   .tok-korak.je-tu .tok-tacka { transform: none; }
 }
+
+/* ─────────────  6. DOLAZAK SADRŽAJA (kartice, logotipi, snimci)  ─────────────
+   Sadržaj ne „bane" nego dođe — stepenasto, u pravcu čitanja. */
+
+.an-stavka { opacity: 0; transform: translate3d(0, 18px, 0); will-change: opacity, transform; }
+.an-stavka.an-vidi {
+  opacity: 1; transform: none;
+  transition: opacity 0.58s var(--ease, cubic-bezier(0.2, 0.7, 0.2, 1)),
+              transform 0.58s var(--ease, cubic-bezier(0.2, 0.7, 0.2, 1));
+}
+.an-stavka[data-an-k="1"].an-vidi { transition-delay: 0.07s; }
+.an-stavka[data-an-k="2"].an-vidi { transition-delay: 0.14s; }
+.an-stavka[data-an-k="3"].an-vidi { transition-delay: 0.21s; }
+.an-stavka[data-an-k="4"].an-vidi { transition-delay: 0.28s; }
+.an-stavka[data-an-k="5"].an-vidi { transition-delay: 0.35s; }
+.an-stavka[data-an-k="6"].an-vidi { transition-delay: 0.42s; }
+.an-stavka[data-an-k="7"].an-vidi { transition-delay: 0.47s; }
+.an-stavka[data-an-k="8"].an-vidi { transition-delay: 0.52s; }
+.an-stavka[data-an-k="9"].an-vidi { transition-delay: 0.56s; }
+
+/* logotipi brendova dolaze brže i sitnije */
+.an-logo { opacity: 0; transform: translate3d(0, 10px, 0) scale(0.96); }
+.an-logo.an-vidi {
+  opacity: 1; transform: none;
+  transition: opacity 0.42s ease, transform 0.42s var(--ease, cubic-bezier(0.2, 0.7, 0.2, 1));
+}
+
+/* snimci softvera: dignu se i blago se „primaknu" */
+.an-zum { opacity: 0; transform: translate3d(0, 26px, 0) scale(0.985); }
+.an-zum.an-vidi {
+  opacity: 1; transform: none;
+  transition: opacity 0.72s ease, transform 0.72s var(--ease, cubic-bezier(0.2, 0.7, 0.2, 1));
+}
+
+/* tanka traka napretka čitanja */
+.an-traka {
+  position: fixed; inset: 0 auto auto 0;
+  height: 2px; width: 100%;
+  transform: scaleX(0); transform-origin: 0 50%;
+  background: linear-gradient(90deg, #fd6904, #ffa061);
+  z-index: 9998; pointer-events: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .an-stavka, .an-stavka.an-vidi,
+  .an-logo, .an-logo.an-vidi,
+  .an-zum, .an-zum.an-vidi {
+    opacity: 1 !important; transform: none !important; transition: none !important;
+  }
+  .an-traka { display: none; }
+}
