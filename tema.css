@@ -1615,3 +1615,23 @@ body:has(form:focus-within) .mobile-contact-bar { visibility: hidden; pointer-ev
   .pravni-tekst h2 { margin-top: 36px; }
   .pravni-tekst .tabela-wrap td { font-size: 14px; }
 }
+
+/* ===== Video procesa na naslovnoj (12.10.2026) =====
+   Jedan snimak iz magacina ispod naslova „Kako radimo". `preload="none"` je
+   namerno: fajl je 12 MB i skida se tek kad posetilac klikne na play, pa ne
+   usporava prvo učitavanje strane. Visina je rezervisana odnosom 16/9 da
+   sadržaj ispod ne poskoči kad se poster učita. */
+.video-proces { margin: 2.2rem auto 0; max-width: 940px; }
+.video-proces video {
+  display: block; width: 100%; height: auto; aspect-ratio: 16 / 9;
+  background: #000; border: 1px solid var(--line); border-radius: var(--radius);
+  box-shadow: var(--shadow);
+}
+.video-proces figcaption {
+  margin-top: .85rem; text-align: center; font-size: .92rem;
+  line-height: 1.55; color: var(--muted);
+}
+@media (max-width: 640px) {
+  .video-proces { margin-top: 1.6rem; }
+  .video-proces figcaption { font-size: .88rem; }
+}

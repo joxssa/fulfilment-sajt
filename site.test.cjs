@@ -1755,3 +1755,18 @@ test("nijedna indeksirana srpska strana ne obećava slanje istog dana (Lazar 18.
     assert.doesNotMatch(read(file), /Stiglo do 17:30|šaljemo istog dana|predaje kuriru istog dana|poslato istog dana|ide danas/i, file);
   }
 });
+
+test("naslovna ima video procesa iz magacina (12.10.2026)", () => {
+  // Lazar: „ubaci taj video na sajt". Video je 12 MB — `preload="none"` mora da
+  // ostane da se ne skida pri svakom otvaranju strane, a poster i dimenzije
+  // drže visinu rezervisanu dok se ne pusti.
+  const html = read("index.html");
+  assert.match(html, /<section id="kako-radimo">/);
+  assert.match(html, /<source src="\/video\/pakum-fulfilment-proces\.mp4" type="video\/mp4"/);
+  assert.match(html, /poster="\/video\/pakum-fulfilment-proces-poster\.jpg"/);
+  assert.match(html, /<video controls playsinline preload="none"/);
+  assert.match(html, /width="1920" height="1080"/);
+  for (const f of ["video/pakum-fulfilment-proces.mp4", "video/pakum-fulfilment-proces-poster.jpg"])
+    assert.ok(fs.existsSync(path.join(__dirname, f)), `nedostaje ${f}`);
+  assert.match(read("tema.css"), /\.video-proces video \{/);
+});
