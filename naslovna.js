@@ -119,6 +119,25 @@ if(!document.body.classList.contains("naslovna-nova"))return;
     let godina = godisnjeDoSada(sada, danas);
     if (elPlan) elPlan.textContent = formatiraj(plan);
 
+    // Pre pocetka smene nema smisla pokazivati veliku nulu: stoji jucerasnji ucinak.
+    const oznakaDanas = elDanas && elDanas.nextElementSibling;
+    const oznakaPlan = elDanas && elDanas.parentElement.querySelector("em");
+    let preSmene = sada.getHours() + sada.getMinutes() / 60 < POCETAK_SATI;
+    function postaviOznake(pre) {
+      if (oznakaDanas) oznakaDanas.textContent = pre ? "paketa juče" : "paketa danas";
+      if (oznakaPlan) {
+        if (pre) oznakaPlan.textContent = "nova smena kreće u 7 h";
+        else {
+          oznakaPlan.textContent = "uzivo — plan ";
+          if (elPlan) { oznakaPlan.appendChild(elPlan); elPlan.textContent = formatiraj(plan); }
+        }
+      }
+    }
+    if (preSmene) {
+      danas = dnevniPlan(new Date(sada.getTime() - 864e5));
+      postaviOznake(true);
+    }
+
     const manjePokreta = typeof window.matchMedia === "function" &&
       window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
@@ -135,6 +154,14 @@ if(!document.body.classList.contains("naslovna-nova"))return;
     // pa tiho rastu dok je radno vreme
     window.setInterval(() => {
       const s = new Date();
+      const sati = s.getHours() + s.getMinutes() / 60;
+      if (preSmene) {
+        if (sati < POCETAK_SATI) return;      // brojka stoji na jucerasnjoj
+        preSmene = false;
+        postaviOznake(false);
+        danas = 0;
+        godina = godisnjeDoSada(s, 0);
+      }
       const noviDanas = danasDoSada(s, dnevniPlan(s));
       if (noviDanas === danas) return;
       const razlika = noviDanas - danas;
