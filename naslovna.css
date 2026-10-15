@@ -140,7 +140,8 @@ body.naslovna-nova{font-family:"Plus Jakarta Sans",-apple-system,"Segoe UI",sans
 .naslovna-nova .usluge-panel .mali{color:var(--slabo);font-size:.95rem;margin-top:8px;max-width:34ch}
 .naslovna-nova .usluge-panel .crtez{display:block;width:84px;height:84px;color:rgba(253,105,4,.55);margin:0 auto 16px}
 .naslovna-nova .dan-linija{position:relative;border:1px solid var(--linija);border-radius:18px;background:var(--ink-2);padding:26px 20px 44px;margin-top:8px}
-.naslovna-nova .dan-linija .sine{position:relative;height:8px;border-radius:999px;background:#1d2127;overflow:hidden}
+.naslovna-nova .dan-linija .sine{position:relative;height:8px;border-radius:999px;background:#1d2127}
+.naslovna-nova .dan-linija .sine i{border-radius:999px}
 .naslovna-nova .dan-linija .sine i{position:absolute;left:0;top:0;bottom:0;background:linear-gradient(90deg,var(--signal),var(--signal-2));width:0;transition:width 1.4s var(--ease)}
 .naslovna-nova .dan-linija .granica{position:absolute;top:-10px;bottom:-26px;width:2px;background:rgba(255,255,255,.3);left:75%}
 .naslovna-nova .dan-linija .granica b{position:absolute;top:-26px;left:50%;transform:translateX(-50%);font-size:11px;font-weight:800;letter-spacing:.08em;white-space:nowrap;color:#fff}
@@ -401,7 +402,7 @@ body.naslovna-nova .nav-drop-menu{background:var(--ink-2);border:1px solid var(-
 body.naslovna-nova .nav-drop-menu a{color:var(--tekst)}
 body.naslovna-nova .nav-drop-menu a:hover{background:rgba(255,255,255,.06);color:var(--signal-2)}
 body.naslovna-nova .burger span{background:var(--tekst)}
-body.naslovna-nova nav .logo img{filter:brightness(0) invert(1)}
+body.naslovna-nova nav .logo img{filter:none}
 @media(max-width:1024px){body.naslovna-nova .nav-links{background:var(--ink-2);border:1px solid var(--linija)}}
 
 /* dugmad i linkovi u tekstu */
@@ -438,11 +439,11 @@ body.naslovna-nova .service-number{color:var(--signal-2)}
 body.naslovna-nova .services-additional{border-top:1px solid var(--linija);margin-top:22px;padding-top:18px}
 
 /* brendovi */
-body.naslovna-nova .brands-section{border-top:1px solid var(--linija);border-bottom:1px solid var(--linija);padding:26px 0}
-body.naslovna-nova .brands-heading{color:var(--slabo);font-size:12px;letter-spacing:.12em;text-transform:uppercase;font-weight:800;text-align:center;margin-bottom:16px}
+body.naslovna-nova .brands-section{background:#f3f4f6;border:0;padding:30px 0}
+body.naslovna-nova .brands-heading{color:#5b6672;font-size:12px;letter-spacing:.12em;text-transform:uppercase;font-weight:800;text-align:center;margin-bottom:16px}
 body.naslovna-nova .brand-grid{display:flex;flex-wrap:wrap;justify-content:center;align-items:center;gap:30px 44px;list-style:none;padding:0}
-body.naslovna-nova .brand-logo img{height:24px;width:auto;opacity:.6;filter:grayscale(1) brightness(1.9)}
-body.naslovna-nova .brand-logo span{color:var(--slabo);font-weight:800;letter-spacing:-.02em}
+body.naslovna-nova .brand-logo img{height:26px;width:auto;opacity:1;filter:none}
+body.naslovna-nova .brand-logo span{color:#2a3139;font-weight:800;letter-spacing:-.02em}
 
 /* traka usluga ispod hero-a */
 body.naslovna-nova .service-band{border-bottom:1px solid var(--linija)}
@@ -496,7 +497,7 @@ body.naslovna-nova footer h4{color:var(--tekst)}
 body.naslovna-nova footer a{color:var(--slabo)}
 body.naslovna-nova footer a:hover{color:var(--signal-2)}
 body.naslovna-nova footer .copy{border-top:1px solid var(--linija);color:var(--slabo)}
-body.naslovna-nova footer .logo img{filter:brightness(0) invert(1);opacity:.9}
+body.naslovna-nova footer .logo img{filter:none}
 body.naslovna-nova .mobile-contact-bar{background:rgba(10,11,13,.9);border-top:1px solid var(--linija);backdrop-filter:blur(10px)}
 body.naslovna-nova #rok-slanja{border-top:1px solid var(--linija)}
 
@@ -514,3 +515,158 @@ body.naslovna-nova .contact-email span{color:var(--slabo)}
 body.naslovna-nova .hero h1{color:var(--tekst)}
 body.naslovna-nova .burger{background:rgba(255,255,255,.08);border:1px solid var(--linija);border-radius:12px}
 body.naslovna-nova .burger span{background:var(--tekst)}
+
+/* dugmad: bez razlivene senke na tamnom */
+body.naslovna-nova .btn,body.naslovna-nova .btn-primary,body.naslovna-nova .btn-lg{box-shadow:none;text-shadow:none}
+body.naslovna-nova .btn-primary{background:var(--signal);border:1px solid var(--signal);color:#fff;transition:background .25s,transform .18s}
+body.naslovna-nova .btn-primary:hover{background:#ff7d1f;transform:translateY(-1px)}
+body.naslovna-nova .dug-1{box-shadow:none}
+body.naslovna-nova .mobile-contact-bar .btn{border-radius:999px}
+
+/* preuzeti blokovi vracaju svoje razmake (reset nove naslovne ih je spljostio) */
+body.naslovna-nova .preuzeto p{margin:0 0 1rem}
+body.naslovna-nova .preuzeto p:last-child{margin-bottom:0}
+body.naslovna-nova .preuzeto h2{margin:0 0 .6rem}
+body.naslovna-nova .preuzeto h3{margin:0 0 .5rem}
+body.naslovna-nova .preuzeto h4{margin:0 0 .8rem}
+body.naslovna-nova .preuzeto .container{padding:0 20px}
+@media(min-width:900px){body.naslovna-nova .preuzeto .container{padding:0 44px}}
+body.naslovna-nova .preuzeto section{padding:66px 0}
+body.naslovna-nova .preuzeto .compact-heading{margin-bottom:22px}
+body.naslovna-nova .preuzeto .kicker{display:inline-flex;align-items:center;gap:9px;margin-bottom:10px}
+body.naslovna-nova .preuzeto .card,body.naslovna-nova .preuzeto .service-cell{padding:20px}
+body.naslovna-nova .preuzeto .grid-3,body.naslovna-nova .preuzeto .services-grid{display:grid;gap:14px;grid-template-columns:1fr}
+@media(min-width:720px){body.naslovna-nova .preuzeto .grid-3,body.naslovna-nova .preuzeto .services-grid{grid-template-columns:1fr 1fr}}
+@media(min-width:1040px){body.naslovna-nova .preuzeto .grid-3,body.naslovna-nova .preuzeto .services-grid{grid-template-columns:repeat(3,1fr)}}
+body.naslovna-nova .preuzeto .screens{display:grid;gap:14px;grid-template-columns:1fr;margin-top:24px}
+@media(min-width:880px){body.naslovna-nova .preuzeto .screens{grid-template-columns:repeat(3,1fr)}}
+body.naslovna-nova .preuzeto .screens figcaption{padding:12px 14px;display:grid;gap:3px;font-size:.84rem}
+body.naslovna-nova .preuzeto .photo-services-grid{display:grid;gap:16px;grid-template-columns:1fr;margin-top:26px}
+@media(min-width:900px){body.naslovna-nova .preuzeto .photo-services-grid{grid-template-columns:repeat(3,1fr)}}
+body.naslovna-nova .preuzeto .photo-service-copy{padding:18px;display:grid;gap:7px}
+body.naslovna-nova .preuzeto .service-number{display:inline-block;font-weight:800;font-size:.8rem;letter-spacing:.1em}
+body.naslovna-nova .preuzeto .video-proces{margin-top:24px}
+body.naslovna-nova .preuzeto .start-steps{margin-top:24px}
+body.naslovna-nova .preuzeto .brand-grid{padding:0;margin:0}
+body.naslovna-nova .preuzeto .band-card li{padding:15px 16px}
+body.naslovna-nova .preuzeto .faq{display:grid;gap:0}
+body.naslovna-nova .preuzeto .operating-reasons > div{padding:18px}
+body.naslovna-nova .preuzeto .service-cell .service-top{margin-bottom:8px}
+body.naslovna-nova .preuzeto .contact-grid{display:grid;gap:26px;grid-template-columns:1fr;padding:0 20px}
+@media(min-width:1000px){body.naslovna-nova .preuzeto .contact-grid{grid-template-columns:.9fr 1.1fr;gap:40px;padding:0 44px}}
+body.naslovna-nova .preuzeto .formwrap{padding:24px}
+body.naslovna-nova .preuzeto .formgrid{display:grid;gap:14px;grid-template-columns:1fr;margin-top:18px}
+@media(min-width:620px){body.naslovna-nova .preuzeto .formgrid{grid-template-columns:1fr 1fr}}
+body.naslovna-nova .preuzeto .formgrid .full{grid-column:1/-1}
+body.naslovna-nova .preuzeto .field{display:grid;gap:6px}
+body.naslovna-nova .preuzeto .formwrap input,body.naslovna-nova .preuzeto .formwrap select,body.naslovna-nova .preuzeto .formwrap textarea{padding:12px 14px;width:100%}
+body.naslovna-nova .preuzeto .formwrap textarea{min-height:104px}
+body.naslovna-nova .preuzeto .form-foot{display:grid;gap:10px;margin-top:18px}
+body.naslovna-nova .preuzeto .contact-copy{display:grid;gap:12px;align-content:start}
+body.naslovna-nova .preuzeto .honeypot{position:absolute;left:-9999px}
+/* skip-link ostaje sakriven */
+body.naslovna-nova .skip-link{position:absolute;left:-9999px;top:auto;width:1px;height:1px;overflow:hidden}
+body.naslovna-nova .skip-link:focus{left:12px;top:12px;width:auto;height:auto;padding:10px 14px;background:var(--signal);color:#fff;border-radius:10px;z-index:99}
+
+/* preuzete sekcije koje su na starom sajtu imale svetlu podlogu */
+body.naslovna-nova #sve-usluge{background:transparent;padding:66px 0}
+body.naslovna-nova .preuzeto section{padding:66px 0}
+/* tekst preuzetih uvoda ide levo, kao i naslovi */
+body.naslovna-nova .preuzeto .compact-heading + p,body.naslovna-nova .preuzeto section > .container > p{text-align:left!important;margin-left:0!important;margin-right:0!important;max-width:72ch}
+body.naslovna-nova .preuzeto .video-proces + p,body.naslovna-nova .preuzeto .grid-3 + p{text-align:left!important}
+
+/* fulfilment centar: stubovi idu punom sirinom ispod naslova (bili su stisnuti u usku kolonu) */
+@media(min-width:900px){
+ body.naslovna-nova .panel{grid-template-columns:1fr;gap:24px;align-items:start}
+ body.naslovna-nova .panel .zaglavlje{max-width:70ch}
+}
+
+/* nijedna preuzeta sekcija ne sme da zadrzi svetlu podlogu (osim trake brendova) */
+body.naslovna-nova .preuzeto section:not(.brands-section){background:transparent}
+body.naslovna-nova .preuzeto section:not(.brands-section) h2,
+body.naslovna-nova .preuzeto section:not(.brands-section) h3{color:var(--tekst)}
+/* brojke: tri polja, tri kolone (cetvrto je ostajalo prazno) */
+@media(min-width:760px){body.naslovna-nova .brojke{grid-template-columns:repeat(3,1fr)}}
+
+/* razlozi: na telefonu jedna kolona (bile su tri uske, rec po rec) */
+body.naslovna-nova .razlozi .operating-reasons{grid-template-columns:1fr}
+@media(min-width:760px){body.naslovna-nova .razlozi .operating-reasons{grid-template-columns:1fr 1fr}}
+/* brojke: na telefonu jedna kolona, bez praznog polja */
+body.naslovna-nova .brojke{grid-template-columns:1fr}
+@media(min-width:560px){body.naslovna-nova .brojke{grid-template-columns:repeat(3,1fr)}}
+
+/* preuzeti okvir ispod usluga je ostajao beo (tekst se nije video) */
+body.naslovna-nova .services-additional{background:var(--ink-2);border:1px solid var(--linija);border-radius:16px;padding:18px;display:grid;gap:10px}
+body.naslovna-nova .services-additional p{color:var(--slabo)}
+/* tezina na paketu na traci — bila je skoro necitka */
+body.naslovna-nova .paket .tezina{color:rgba(40,24,8,.92);font-weight:800}
+
+/* ════════ TELEFON: mirniji vrh i doterani detalji ════════ */
+@media(max-width:899px){
+ /* nema tackica ni paketa preko sadrzaja — samo tanka traka napretka uz ivicu ekrana */
+ body.naslovna-nova .sina{top:0;height:3px;background:rgba(255,255,255,.06)}
+ body.naslovna-nova .sina .stanica{display:none}
+ body.naslovna-nova .vozac{display:none}
+ body.naslovna-nova .sina .ispuna{box-shadow:0 0 12px rgba(253,105,4,.5)}
+
+ /* plutajuce dugme: pilula sa razmakom od ivica, dolazi tek posle hero-a */
+ body.naslovna-nova .mobile-contact-bar{background:transparent;border:0;backdrop-filter:none;box-shadow:none;
+  padding:0 14px calc(14px + env(safe-area-inset-bottom));opacity:0;transform:translateY(130%);
+  transition:opacity .4s var(--ease),transform .4s var(--ease);pointer-events:none}
+ body.naslovna-nova .mobile-contact-bar.vidi-se{opacity:1;transform:none;pointer-events:auto}
+ body.naslovna-nova .mobile-contact-bar .btn{border-radius:999px;padding:14px 22px;width:100%;justify-content:center;
+  box-shadow:0 14px 34px rgba(0,0,0,.55),0 0 0 1px rgba(255,255,255,.08) inset}
+
+ /* hero: nize, da se vidi i pocetak sledece sekcije */
+ body.naslovna-nova .hero{min-height:calc(100svh - 120px)}
+ body.naslovna-nova .hero .film video{animation:nx-disi 22s ease-in-out infinite alternate}
+
+ /* mirniji ritam sekcija */
+ body.naslovna-nova section,body.naslovna-nova .preuzeto section{padding:54px 0}
+ body.naslovna-nova .zaglavlje{margin-bottom:22px}
+ body.naslovna-nova h2{font-size:clamp(1.65rem,7vw,2.1rem)}
+
+ /* otkrivanje je malo izrazenije na telefonu, ali i dalje kratko */
+ body.naslovna-nova .u{transform:translate3d(0,26px,0)}
+}
+@keyframes nx-disi{from{transform:scale(1)}to{transform:scale(1.07)}}
+@media(prefers-reduced-motion:reduce){
+ body.naslovna-nova .hero .film video{animation:none}
+ body.naslovna-nova .mobile-contact-bar{opacity:1;transform:none;pointer-events:auto}
+}
+
+/* telefon: brendovi klize u traci umesto da stoje u bloku */
+@media(max-width:899px){
+ body.naslovna-nova .brands-section{overflow:hidden}
+ body.naslovna-nova .brand-grid.tece{flex-wrap:nowrap;width:max-content;gap:26px;animation:nx-brendovi 26s linear infinite}
+ body.naslovna-nova .brand-grid.tece li{flex:0 0 auto}
+ /* odziv na dodir */
+ body.naslovna-nova .btn:active,body.naslovna-nova .dug:active{transform:scale(.97)}
+ body.naslovna-nova .card:active,body.naslovna-nova .service-cell:active,body.naslovna-nova .stavka:active{transform:scale(.995)}
+ body.naslovna-nova .card,body.naslovna-nova .service-cell,body.naslovna-nova .stavka{transition:transform .18s var(--ease)}
+}
+@keyframes nx-brendovi{to{transform:translateX(-50%)}}
+@media(prefers-reduced-motion:reduce){body.naslovna-nova .brand-grid.tece{animation:none}}
+@media(max-width:899px){body.naslovna-nova .brojac em{white-space:nowrap;font-size:10.5px}}
+
+/* ════════ zavrsno doterivanje ════════ */
+/* brendovi: ujednacene plocice i jedan red na sirokom ekranu */
+body.naslovna-nova .brand-logo{display:grid;place-items:center;min-width:92px;height:54px;padding:8px 14px;border-radius:14px;background:#fff}
+body.naslovna-nova .brand-logo img{height:22px}
+@media(min-width:900px){
+ body.naslovna-nova .brand-grid{max-width:860px;margin:0 auto;gap:16px}
+}
+/* kartice se blago podignu na prelaz misa (samo na racunaru) */
+@media(hover:hover) and (min-width:900px){
+ body.naslovna-nova .card,body.naslovna-nova .service-cell,body.naslovna-nova .preuzeto .operating-reasons > div,
+ body.naslovna-nova .start-steps li,body.naslovna-nova .scena-okvir{transition:transform .28s var(--ease),border-color .28s}
+ body.naslovna-nova .card:hover,body.naslovna-nova .service-cell:hover,body.naslovna-nova .preuzeto .operating-reasons > div:hover,
+ body.naslovna-nova .start-steps li:hover{transform:translateY(-3px);border-color:rgba(253,105,4,.42)}
+}
+/* podnozje: malo vazduha izmedju kolona i donje linije */
+body.naslovna-nova footer .foot-grid{gap:28px}
+body.naslovna-nova footer ul{display:grid;gap:8px;list-style:none;padding:0;margin:0}
+body.naslovna-nova footer .copy{margin-top:26px;padding-top:18px}
+body.naslovna-nova footer .foot-tag{margin-top:12px;line-height:1.6}
+/* HIR i Plantigo su beli logotipi na providnoj podlozi — njima ide tamna plocica */
+body.naslovna-nova .brand-hir,body.naslovna-nova .brand-plantigo{background:#151a23;border:1px solid rgba(255,255,255,.14)}

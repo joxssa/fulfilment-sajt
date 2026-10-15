@@ -235,6 +235,36 @@ for(let i=0;i<7;i++){const [ime,mesto]=PRIMAOCI[i%PRIMAOCI.length];const d=docum
  else kreni();
 })();
 
+/* TELEFON: logotipi brendova klize u traci (na racunaru ostaje mirna mreza) */
+(function(){
+ const lista=document.querySelector("#brendovi .brand-grid");
+ if(!lista||!window.matchMedia)return;
+ const telefon=window.matchMedia("(max-width:899px)");
+ let udvojeno=false;
+ function primeni(){
+  if(telefon.matches&&!udvojeno){
+   lista.querySelectorAll("li").forEach(li=>{const k=li.cloneNode(true);k.setAttribute("aria-hidden","true");lista.appendChild(k);});
+   lista.classList.add("tece");udvojeno=true;
+  }else if(!telefon.matches&&udvojeno){
+   lista.querySelectorAll('li[aria-hidden="true"]').forEach(li=>li.remove());
+   lista.classList.remove("tece");udvojeno=false;
+  }
+ }
+ primeni();
+ (telefon.addEventListener?telefon.addEventListener("change",primeni):telefon.addListener(primeni));
+})();
+
+/* TELEFON: plutajuce dugme se pojavljuje tek posle hero-a, a sklanja se nad formom */
+(function(){
+ const traka=document.querySelector(".mobile-contact-bar"),hero=document.querySelector(".hero"),
+  forma=document.getElementById("kontakt");
+ if(!traka||!hero||!window.IntersectionObserver)return;
+ let prosaoHero=false,kodForme=false;
+ const osvezi=()=>traka.classList.toggle("vidi-se",prosaoHero&&!kodForme);
+ new IntersectionObserver(u=>u.forEach(x=>{prosaoHero=!x.isIntersecting;osvezi();}),{threshold:.12}).observe(hero);
+ new IntersectionObserver(u=>u.forEach(x=>{kodForme=x.isIntersecting;osvezi();}),{threshold:.08}).observe(forma);
+})();
+
 /* naslovi se dele na reči da ulaze jedna po jedna */
 (function(){
  const deli=el=>{Array.from(el.childNodes).forEach(c=>{
