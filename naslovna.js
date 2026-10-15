@@ -235,6 +235,43 @@ for(let i=0;i<7;i++){const [ime,mesto]=PRIMAOCI[i%PRIMAOCI.length];const d=docum
  else kreni();
 })();
 
+/* REDNI BROJ SEKCIJE uz nadnaslov — strana dobija red */
+(function(){
+ const sekcije=document.querySelectorAll("#sadrzaj > section, #sadrzaj > header, #sadrzaj > .preuzeto > section");
+ let n=0;
+ sekcije.forEach(s=>{
+  const o=s.querySelector(".nadnaslov, .kicker");
+  if(!o||o.querySelector(".br"))return;
+  n++;
+  const b=document.createElement("b");
+  b.className="br"; b.textContent=String(n).padStart(2,"0");
+  o.insertBefore(b,o.firstChild);
+ });
+})();
+
+/* PARALAKSA: fotografije se pomeraju sporije od strane (samo racunar) */
+(function(){
+ if(window.matchMedia&&window.matchMedia("(prefers-reduced-motion: reduce)").matches)return;
+ if(!window.matchMedia||!window.matchMedia("(min-width:900px)").matches)return;
+ const slike=Array.from(document.querySelectorAll(".slika-sekcije img, .preuzeto .photo-services-grid img, .preuzeto .operating-grid img"));
+ if(!slike.length)return;
+ slike.forEach(s=>{s.style.willChange="transform";s.style.transform="scale(1.08)";});
+ let ceka=false;
+ const pomeri=()=>{
+  ceka=false;
+  const h=innerHeight;
+  slike.forEach(s=>{
+   const r=s.getBoundingClientRect();
+   if(r.bottom<-120||r.top>h+120)return;
+   const deo=(r.top+r.height/2-h/2)/h;      // -1 .. 1
+   s.style.transform="scale(1.08) translate3d(0,"+(deo*-16).toFixed(1)+"px,0)";
+  });
+ };
+ addEventListener("scroll",()=>{if(!ceka){ceka=true;requestAnimationFrame(pomeri);}},{passive:true});
+ addEventListener("resize",pomeri,{passive:true});
+ pomeri();
+})();
+
 /* TELEFON: logotipi brendova klize u traci (na racunaru ostaje mirna mreza) */
 (function(){
  const lista=document.querySelector("#brendovi .brand-grid");
@@ -302,7 +339,7 @@ if(typeof IntersectionObserver==="function"){
  const kraj=document.getElementById("kontakt");
  const tacke=stanice.map(s=>{const t=document.createElement("i");t.className="stanica";t.title=s.dataset.stanica;sina.appendChild(t);return {el:s,tacka:t};});
  const vodoravno=()=>innerWidth<900;
- let ceka=false;
+ let ceka=false,prethodni=0,zadnjaStanica=-1;
  function razmesti(){
   const r=sina.getBoundingClientRect(),h=document.documentElement.scrollHeight;
   tacke.forEach(t=>{const vrh=t.el.getBoundingClientRect().top+scrollY;const d=Math.max(0,Math.min(1,vrh/h));
@@ -324,6 +361,16 @@ if(typeof IntersectionObserver==="function"){
    tacke.forEach(t=>t.tacka.classList.toggle("proslo",deo*r.height>=parseFloat(t.tacka.style.top||"0")-4));
   }
   vozac.classList.toggle("stigao",kraj.getBoundingClientRect().top<innerHeight*.55);
+  if(!vodoravno()){
+   const nagib=Math.max(-9,Math.min(9,(scrollY-prethodni)*0.5));
+   prethodni=scrollY;
+   vozac.style.rotate=(nagib*-1).toFixed(1)+"deg";
+   const proslo=tacke.filter(t=>t.tacka.classList.contains("proslo")).length;
+   if(proslo!==zadnjaStanica){
+    zadnjaStanica=proslo;
+    vozac.classList.remove("kuc");void vozac.offsetWidth;vozac.classList.add("kuc");
+   }
+  }
  }
  addEventListener("scroll",()=>{if(!ceka){ceka=true;requestAnimationFrame(osvezi);}},{passive:true});
  addEventListener("resize",()=>{razmesti();osvezi();});
