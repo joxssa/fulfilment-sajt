@@ -403,7 +403,8 @@ body.naslovna-nova .nav-drop-menu{background:var(--ink-2);border:1px solid var(-
 body.naslovna-nova .nav-drop-menu a{color:var(--tekst)}
 body.naslovna-nova .nav-drop-menu a:hover{background:rgba(255,255,255,.06);color:var(--signal-2)}
 body.naslovna-nova .burger span{background:var(--tekst)}
-body.naslovna-nova nav .logo img{filter:none}
+/* logo je BEO crtez na providnoj podlozi, a premium.css mu daje mix-blend-mode:multiply (trik za belu podlogu) — na tamnoj navigaciji multiply utopi bela slova u crno, pa mora normal */
+body.naslovna-nova nav .logo img{filter:none;mix-blend-mode:normal}
 @media(max-width:1024px){body.naslovna-nova .nav-links{background:var(--ink-2);border:1px solid var(--linija)}}
 
 /* dugmad i linkovi u tekstu */
