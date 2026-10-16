@@ -3,7 +3,8 @@ body.naslovna-nova{--signal:#fd6904;--signal-2:#ff8a3d;--ink:#0a0b0d;--ink-2:#11
  --tekst:#f2f3f4;--slabo:rgba(242,243,244,.64);--ease:cubic-bezier(.2,.75,.2,1)}
 .naslovna-nova *{box-sizing:border-box;margin:0;padding:0}
 body.naslovna-nova{scroll-behavior:smooth}
-body.naslovna-nova{font-family:"Plus Jakarta Sans",-apple-system,"Segoe UI",sans-serif;background:var(--ink);color:var(--tekst);-webkit-font-smoothing:antialiased;overflow-x:hidden}
+/* overflow-x mora CLIP, ne hidden: hidden pravi od body-ja scroll container (uz html{overflow-x:clip} iz stil.css), pa Chrome na telefonu guta dodir i strana ne skroluje */
+body.naslovna-nova{font-family:"Plus Jakarta Sans",-apple-system,"Segoe UI",sans-serif;background:var(--ink);color:var(--tekst);-webkit-font-smoothing:antialiased;overflow-x:clip}
 .naslovna-nova img,.naslovna-nova video{display:block;max-width:100%}
 .naslovna-nova a{color:inherit}
 .naslovna-nova .okvir{width:100%;max-width:1220px;margin:0 auto;padding:0 20px}
